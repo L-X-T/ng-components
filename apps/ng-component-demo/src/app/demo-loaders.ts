@@ -7,4 +7,6 @@ import type { DemoLoaderMap } from '@angular-software/ng-component-demos/manifes
  */
 export const DEMO_LOADERS: DemoLoaderMap = {
   button: () => import('@angular-software/ng-component-demos').then((m) => m.ButtonDemo),
+  badge: () => import('@angular-software/ng-component-demos').then((m) => m.BadgeDemo),
+  card: () => import('@angular-software/ng-component-demos').then((m) => m.CardDemo),
 };

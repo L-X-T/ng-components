@@ -15,4 +15,22 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Displays a button or a component that looks like a button.',
     examples: ['button-playground', 'button-variants', 'button-sizes', 'button-states'],
   },
+  {
+    id: 'badge',
+    name: 'Badge',
+    category: 'feedback',
+    route: '/components/badge',
+    status: 'stable',
+    summary: 'Displays a badge or a component that looks like a badge.',
+    examples: ['badge-variants'],
+  },
+  {
+    id: 'card',
+    name: 'Card',
+    category: 'layout',
+    route: '/components/card',
+    status: 'stable',
+    summary: 'Container with header, content, and footer.',
+    examples: ['card-basic'],
+  },
 ];

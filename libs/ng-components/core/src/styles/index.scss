@@ -11,4 +11,5 @@
 
 // Global styles for directive-only components (spec 001 §3) – one file per
 // component under components/, added as each wave lands:
+@use 'components/badge';
 @use 'components/button';

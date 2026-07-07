@@ -1,0 +1,47 @@
+// ngc-badge (directive on span/a – styles live here in core, spec 001 §3).
+// Variants at shadcn parity; every value from tokens.
+
+@layer ngc {
+  .ngc-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    width: fit-content;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid transparent;
+    border-radius: calc(var(--radius) * 2);
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-decoration: none;
+
+    :where(svg) {
+      width: 0.75rem;
+      height: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    &--default {
+      background: var(--primary);
+      color: var(--primary-foreground);
+    }
+
+    &--secondary {
+      background: var(--secondary);
+      color: var(--secondary-foreground);
+    }
+
+    &--destructive {
+      background: var(--destructive);
+      color: var(--destructive-foreground);
+    }
+
+    &--outline {
+      border-color: var(--border);
+      background: transparent;
+      color: var(--foreground);
+    }
+  }
+}
