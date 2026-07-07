@@ -56,5 +56,19 @@
     :where(pre) {
       margin: 0;
     }
+
+    // Shiki emits both light and dark colours as CSS variables
+    // (defaultColor: false); pick the light set by default.
+    :where(.shiki, .shiki span) {
+      color: var(--shiki-light);
+      background: transparent;
+    }
+  }
+}
+
+// …and the dark set under the dark themes.
+:where([data-theme='dark'], [data-theme='angular-dark']) .ngc-demo-example {
+  &__code :where(.shiki, .shiki span) {
+    color: var(--shiki-dark);
   }
 }

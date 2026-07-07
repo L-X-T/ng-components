@@ -8,6 +8,15 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "generate-snippets": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["{projectRoot}/src/lib/**/examples/*.example.ts", "{projectRoot}/src/lib/**/examples/*.example.html"],
+      "outputs": ["{projectRoot}/src/lib/**/*.snippet.ts"],
+      "options": {
+        "command": "node libs/ng-component-demos/tools/generate-snippets.mjs"
+      }
     }
   }
 }
