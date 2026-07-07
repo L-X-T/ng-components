@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ng-components – Angular component library</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <!-- No-flash theme restore: set data-theme before first paint. Key and
+         values must match ThemeService (NGC_THEME_STORAGE_KEY / NGC_THEMES). -->
+    <script>
+      (function () {
+        try {
+          var theme = localStorage.getItem('ngc-theme');
+          if (['light', 'dark', 'angular-light', 'angular-dark'].indexOf(theme) !== -1) {
+            document.documentElement.setAttribute('data-theme', theme);
+          }
+        } catch (e) {
+          /* storage unavailable – default theme applies */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

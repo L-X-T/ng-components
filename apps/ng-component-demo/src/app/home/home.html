@@ -1,0 +1,24 @@
+<section class="home">
+  <p class="home__eyebrow">ng-components</p>
+  <h1 class="home__title">Build with our Angular component library.</h1>
+  <p class="home__lead">
+    A shadcn-style component library for Angular – composable, theme-driven via design tokens, styled in
+    plain SCSS without Tailwind. Four built-in themes, switchable at runtime.
+  </p>
+
+  @if (quickLinks.length > 0) {
+    <h2 class="home__section-title">Components</h2>
+    <ul class="home__links">
+      @for (demo of quickLinks; track demo.id) {
+        <li>
+          <a class="home__link" [routerLink]="demo.route">
+            <span class="home__link-name">{{ demo.name }}</span>
+            <span class="home__link-summary">{{ demo.summary }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="home__empty">The first components are on their way – the sidebar fills up as they land.</p>
+  }
+</section>

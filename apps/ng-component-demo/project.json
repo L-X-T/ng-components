@@ -1,0 +1,79 @@
+{
+  "name": "ng-component-demo",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/ng-component-demo/src",
+  "tags": ["type:app"],
+  "targets": {
+    "build": {
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build", "ng-component-demos:generate-snippets"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/ng-component-demo",
+        "browser": "apps/ng-component-demo/src/main.ts",
+        "tsConfig": "apps/ng-component-demo/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/ng-component-demo/public"
+          }
+        ],
+        "styles": ["apps/ng-component-demo/src/styles.scss"],
+        "server": "apps/ng-component-demo/src/main.server.ts",
+        "outputMode": "static"
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular/build:dev-server",
+      "dependsOn": ["ng-component-demos:generate-snippets"],
+      "defaultConfiguration": "development",
+      "configurations": {
+        "production": {
+          "buildTarget": "ng-component-demo:build:production"
+        },
+        "development": {
+          "buildTarget": "ng-component-demo:build:development"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "ng-component-demo:build",
+        "staticFilePath": "dist/apps/ng-component-demo/browser",
+        "spa": true
+      }
+    }
+  }
+}
