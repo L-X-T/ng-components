@@ -21,6 +21,6 @@ export class <%= className %> {
   readonly size = input<<%= className %>Size>('default');
 
   protected readonly hostClasses = computed(
-    () => `ngc-<%= fileName %> ngc-<%= fileName %>--${this.variant()} ngc-<%= fileName %>--${this.size()}`,
+    () => `ngc-<%= fileName %> ngc-<%= fileName %>--${this.variant()} ngc-<%= fileName %>--size-${this.size()}`,
   );
 }

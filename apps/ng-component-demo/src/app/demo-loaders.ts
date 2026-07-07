@@ -5,4 +5,6 @@ import type { DemoLoaderMap } from '@angular-software/ng-component-demos/manifes
  * stamps one entry per component; the static `import()` calls give the
  * bundler one split chunk per demo page.
  */
-export const DEMO_LOADERS: DemoLoaderMap = {};
+export const DEMO_LOADERS: DemoLoaderMap = {
+  button: () => import('@angular-software/ng-component-demos').then((m) => m.ButtonDemo),
+};

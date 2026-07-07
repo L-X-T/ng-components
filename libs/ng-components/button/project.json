@@ -1,0 +1,13 @@
+{
+  "name": "button",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ng-components/button/src",
+  "prefix": "ngc",
+  "projectType": "library",
+  "tags": ["type:components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

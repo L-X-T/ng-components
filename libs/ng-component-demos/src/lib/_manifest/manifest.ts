@@ -5,4 +5,14 @@ import type { DemoManifestEntry } from './manifest-entry';
  * ngc-component generator stamps a `wip` entry; the wave flips it to
  * `stable`). Order within a category is the authored order here.
  */
-export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [];
+export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
+  {
+    id: 'button',
+    name: 'Button',
+    category: 'form',
+    route: '/components/button',
+    status: 'stable',
+    summary: 'Displays a button or a component that looks like a button.',
+    examples: ['button-playground', 'button-variants', 'button-sizes', 'button-states'],
+  },
+];

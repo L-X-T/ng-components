@@ -1,0 +1,92 @@
+<ngc-demo-page title="Button" summary="Displays a button or a component that looks like a button.">
+  <ngc-demo-section title="Playground">
+    <ngc-demo-controls>
+      <ngc-demo-knob label="Variant">
+        <select [value]="playgroundVariant()" (change)="onVariantChange($any($event.target).value)">
+          @for (variant of variants; track variant) {
+            <option [value]="variant">{{ variant }}</option>
+          }
+        </select>
+      </ngc-demo-knob>
+      <ngc-demo-knob label="Size">
+        <select [value]="playgroundSize()" (change)="onSizeChange($any($event.target).value)">
+          @for (size of sizes; track size) {
+            <option [value]="size">{{ size }}</option>
+          }
+        </select>
+      </ngc-demo-knob>
+      <ngc-demo-knob label="Disabled">
+        <input type="checkbox" [checked]="playgroundDisabled()" (change)="playgroundDisabled.set($any($event.target).checked)" />
+      </ngc-demo-knob>
+    </ngc-demo-controls>
+    <ngc-demo-example id="button-playground">
+      <button
+        ngc-button
+        [variant]="playgroundVariant()"
+        [size]="playgroundSize()"
+        [disabled]="playgroundDisabled()"
+      >
+        @if (playgroundSize() === 'icon') {
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        } @else {
+          Button
+        }
+      </button>
+    </ngc-demo-example>
+  </ngc-demo-section>
+
+  <ngc-demo-section title="Variants">
+    <ngc-demo-example id="button-variants" [snippet]="variantsSnippet">
+      <ngc-demo-button-variants-example />
+    </ngc-demo-example>
+  </ngc-demo-section>
+
+  <ngc-demo-section title="Sizes">
+    <ngc-demo-example id="button-sizes" [snippet]="sizesSnippet">
+      <ngc-demo-button-sizes-example />
+    </ngc-demo-example>
+  </ngc-demo-section>
+
+  <ngc-demo-section title="States">
+    <ngc-demo-example id="button-states" [snippet]="statesSnippet">
+      <ngc-demo-button-states-example />
+    </ngc-demo-example>
+  </ngc-demo-section>
+
+  <ngc-demo-section title="API">
+    <ngc-demo-api>
+      <ngc-demo-api-item
+        name="variant"
+        kind="input"
+        type="'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link'"
+        default="'default'"
+        description="Visual style of the button."
+      />
+      <ngc-demo-api-item
+        name="size"
+        kind="input"
+        type="'default' | 'sm' | 'lg' | 'icon'"
+        default="'default'"
+        description="Size preset; icon renders a square icon button."
+      />
+      <ngc-demo-api-item
+        name="disabled"
+        kind="input"
+        type="boolean | 'soft'"
+        default="false"
+        description="Disables the button; 'soft' keeps it focusable and announced as disabled."
+      />
+    </ngc-demo-api>
+  </ngc-demo-section>
+
+  <ngc-demo-section title="Usage">
+    <p>
+      Apply <code>ngc-button</code> to a native <code>&lt;button&gt;</code> or <code>&lt;a&gt;</code> element –
+      semantics, focus, and keyboard activation stay native. Pick <code>variant</code> by intent (one primary
+      action per view; <code>destructive</code> only for irreversible actions) and reserve <code>size="icon"</code>
+      for buttons with an <code>aria-label</code>.
+    </p>
+  </ngc-demo-section>
+</ngc-demo-page>

@@ -9,6 +9,6 @@
 @use 'theme-angular-light';
 @use 'theme-angular-dark';
 
-// Global styles for directive-only components (spec 001 §3) – sections are
-// added here as each wave lands:
-// wave 1: button, badge, label, input, textarea
+// Global styles for directive-only components (spec 001 §3) – one file per
+// component under components/, added as each wave lands:
+@use 'components/button';
