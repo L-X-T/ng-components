@@ -1,0 +1,10 @@
+@if (outline().length > 0) {
+  <p class="ngc-demo-on-this-page__title">On this page</p>
+  <ul class="ngc-demo-on-this-page__list">
+    @for (item of outline(); track item.id) {
+      <li>
+        <a class="ngc-demo-on-this-page__link" [href]="'#' + item.id">{{ item.title }}</a>
+      </li>
+    }
+  </ul>
+}

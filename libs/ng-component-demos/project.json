@@ -1,0 +1,13 @@
+{
+  "name": "ng-component-demos",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ng-component-demos/src",
+  "prefix": "ngc-demo",
+  "projectType": "library",
+  "tags": ["type:demos"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

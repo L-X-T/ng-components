@@ -1,0 +1,21 @@
+.ngc-demo-controls {
+  display: block;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--muted);
+
+  &__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  &__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}

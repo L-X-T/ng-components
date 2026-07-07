@@ -1,0 +1,15 @@
+<header class="ngc-demo-page__header">
+  <h1 class="ngc-demo-page__title">{{ title() }}</h1>
+  @if (summary(); as summaryText) {
+    <p class="ngc-demo-page__summary">{{ summaryText }}</p>
+  }
+</header>
+
+<div class="ngc-demo-page__body">
+  <main class="ngc-demo-page__main">
+    <ng-content />
+  </main>
+  <aside class="ngc-demo-page__aside">
+    <ngc-demo-on-this-page />
+  </aside>
+</div>

@@ -1,0 +1,20 @@
+@if (title(); as exampleTitle) {
+  <p class="ngc-demo-example__title">{{ exampleTitle }}</p>
+}
+
+<div class="ngc-demo-example__preview">
+  <ng-content />
+</div>
+
+@if (snippet(); as exampleSnippet) {
+  <div class="ngc-demo-example__toolbar">
+    <button type="button" class="ngc-demo-example__button" (click)="toggleCode()">
+      {{ showCode() ? 'Hide code' : 'Show code' }}
+    </button>
+    <button type="button" class="ngc-demo-example__button" (click)="copy()">Copy</button>
+  </div>
+
+  @if (showCode()) {
+    <div class="ngc-demo-example__code" [innerHTML]="highlighted()"></div>
+  }
+}

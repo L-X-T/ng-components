@@ -1,0 +1,15 @@
+.ngc-demo-knob {
+  display: inline-flex;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+  }
+
+  &__text {
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,41 @@
+.ngc-demo-api {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(6rem, 1.5fr) minmax(5rem, 1fr) minmax(10rem, 2fr);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 0.875rem;
+
+  &__cell {
+    padding: 0.65rem 1rem;
+    border-top: 1px solid var(--border);
+    color: var(--foreground);
+
+    :where(code) {
+      font-family: ui-monospace, monospace;
+      color: var(--muted-foreground);
+    }
+
+    &--head {
+      border-top: 0;
+      background: var(--muted);
+      font-weight: 600;
+      color: var(--muted-foreground);
+    }
+
+    &--name {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  &__kind {
+    padding: 0.05rem 0.4rem;
+    border-radius: var(--radius-sm);
+    background: var(--secondary);
+    color: var(--secondary-foreground);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+}

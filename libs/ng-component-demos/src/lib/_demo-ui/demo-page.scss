@@ -1,0 +1,49 @@
+.ngc-demo-page {
+  display: block;
+  color: var(--foreground);
+
+  &__header {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  &__summary {
+    margin: 0.5rem 0 0;
+    color: var(--muted-foreground);
+    font-size: 1.05rem;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 14rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    min-width: 0;
+  }
+
+  &__aside {
+    position: sticky;
+    top: 2rem;
+  }
+
+  @media (width <= 60rem) {
+    &__body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    &__aside {
+      display: none;
+    }
+  }
+}
