@@ -1,0 +1,11 @@
+// Theme-independent derived tokens. The token vocabulary itself (shadcn set,
+// oklch values) is defined per theme in the _theme-*.scss files.
+
+@layer ngc {
+  :root {
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+  }
+}

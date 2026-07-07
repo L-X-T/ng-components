@@ -1,0 +1,14 @@
+// ng-components global stylesheet. Applications import this once, e.g. in
+// styles.scss: @use 'libs/ng-components/core/src/styles' as ngc-styles;
+// All library CSS lives in the `ngc` cascade layer, so unlayered consumer
+// styles always win regardless of specificity or injection order (spec 001 §3).
+
+@use 'tokens';
+@use 'theme-light';
+@use 'theme-dark';
+@use 'theme-angular-light';
+@use 'theme-angular-dark';
+
+// Global styles for directive-only components (spec 001 §3) – sections are
+// added here as each wave lands:
+// wave 1: button, badge, label, input, textarea

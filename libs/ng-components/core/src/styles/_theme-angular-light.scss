@@ -1,0 +1,37 @@
+// Angular brand, light. Primary from the angular.dev electric-violet end of
+// the brand gradient, accent from the vivid-pink end; neutrals carry a subtle
+// violet cast. Values are a first pass – expect iteration once real
+// components are on screen (plan 001 M1.1).
+
+@layer ngc {
+  [data-theme='angular-light'] {
+    --radius: 0.625rem;
+    --background: oklch(100% 0 0deg);
+    --foreground: oklch(19% 0.02 305deg);
+    --card: oklch(100% 0 0deg);
+    --card-foreground: oklch(19% 0.02 305deg);
+    --popover: oklch(100% 0 0deg);
+    --popover-foreground: oklch(19% 0.02 305deg);
+    --primary: oklch(54% 0.265 295deg);
+    --primary-foreground: oklch(98% 0.005 300deg);
+    --secondary: oklch(96% 0.015 300deg);
+    --secondary-foreground: oklch(30% 0.06 300deg);
+    --muted: oklch(96% 0.015 300deg);
+    --muted-foreground: oklch(55% 0.025 300deg);
+    --accent: oklch(93% 0.045 330deg);
+    --accent-foreground: oklch(40% 0.18 335deg);
+    --destructive: oklch(57.7% 0.245 27.325deg);
+    --destructive-foreground: oklch(98.5% 0 0deg);
+    --border: oklch(91% 0.015 300deg);
+    --input: oklch(91% 0.015 300deg);
+    --ring: oklch(54% 0.265 295deg);
+    --sidebar: oklch(98% 0.008 300deg);
+    --sidebar-foreground: oklch(19% 0.02 305deg);
+    --sidebar-primary: oklch(54% 0.265 295deg);
+    --sidebar-primary-foreground: oklch(98% 0.005 300deg);
+    --sidebar-accent: oklch(93% 0.045 330deg);
+    --sidebar-accent-foreground: oklch(40% 0.18 335deg);
+    --sidebar-border: oklch(91% 0.015 300deg);
+    --sidebar-ring: oklch(54% 0.265 295deg);
+  }
+}
