@@ -3,11 +3,26 @@ import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 
 import { ngcComponentGenerator } from './ngc-component';
 
+/** Seeds the demo-infra files the generator stamps into (matching the real workspace). */
+function seedDemoInfra(tree: Tree): void {
+  tree.write(
+    'libs/ng-component-demos/src/lib/_manifest/manifest.ts',
+    `import type { DemoManifestEntry } from './manifest-entry';\n\nexport const DEMO_MANIFEST: readonly DemoManifestEntry[] = [];\n`,
+  );
+  tree.write('libs/ng-component-demos/src/index.ts', `export * from './lib/_manifest';\n`);
+  tree.write(
+    'apps/ng-component-demo/src/app/demo-loaders.ts',
+    `import type { DemoLoaderMap } from '@angular-software/ng-component-demos/manifest';\n\nexport const DEMO_LOADERS: DemoLoaderMap = {};\n`,
+  );
+  tree.write('apps/ng-component-demo-e2e/src/components/.gitkeep', '');
+}
+
 describe('ngc-component generator', () => {
   let tree: Tree;
 
   beforeEach(() => {
     tree = createTreeWithEmptyWorkspace();
+    seedDemoInfra(tree);
   });
 
   it('stamps a tagged component library with a path alias', async () => {
@@ -50,5 +65,57 @@ describe('ngc-component generator', () => {
     const source = tree.read('libs/ng-components/radio-group/src/lib/radio-group/radio-group.ts', 'utf-8');
     expect(source).toContain('export class RadioGroup');
     expect(source).toContain("selector: 'ngc-radio-group'");
+  });
+
+  it('stamps the demo stub: page, example, manifest entry, index export, loader', async () => {
+    await ngcComponentGenerator(tree, {
+      name: 'button',
+      archetype: 'directive',
+      category: 'form',
+      summary: 'Clickable action trigger.',
+      skipFormat: true,
+    });
+
+    const demoPage = tree.read('libs/ng-component-demos/src/lib/button/button-demo.ts', 'utf-8');
+    expect(demoPage).toContain('export class ButtonDemo');
+    expect(demoPage).toContain('id="button-basic"');
+
+    const example = tree.read('libs/ng-component-demos/src/lib/button/examples/button-basic.example.ts', 'utf-8');
+    expect(example).toContain("import { Button } from '@angular-software/ng-components/button'");
+    expect(example).toContain('<button ngc-button>');
+
+    const manifest = tree.read('libs/ng-component-demos/src/lib/_manifest/manifest.ts', 'utf-8');
+    expect(manifest).toContain("id: 'button'");
+    expect(manifest).toContain("category: 'form'");
+    expect(manifest).toContain("status: 'wip'");
+    expect(manifest).toContain("summary: 'Clickable action trigger.'");
+
+    expect(tree.read('libs/ng-component-demos/src/index.ts', 'utf-8')).toContain(
+      "export * from './lib/button/button-demo';",
+    );
+    expect(tree.read('apps/ng-component-demo/src/app/demo-loaders.ts', 'utf-8')).toContain(
+      "'button': () => import('@angular-software/ng-component-demos').then((m) => m.ButtonDemo),",
+    );
+  });
+
+  it('appends to an already-populated manifest and loader map', async () => {
+    await ngcComponentGenerator(tree, { name: 'button', archetype: 'directive', skipFormat: true });
+    await ngcComponentGenerator(tree, { name: 'card', category: 'layout', skipFormat: true });
+
+    const manifest = tree.read('libs/ng-component-demos/src/lib/_manifest/manifest.ts', 'utf-8') ?? '';
+    expect(manifest.indexOf("id: 'button'")).toBeGreaterThan(-1);
+    expect(manifest.indexOf("id: 'card'")).toBeGreaterThan(manifest.indexOf("id: 'button'"));
+
+    const loaders = tree.read('apps/ng-component-demo/src/app/demo-loaders.ts', 'utf-8') ?? '';
+    expect(loaders).toContain("'button':");
+    expect(loaders).toContain("'card':");
+  });
+
+  it('stamps the e2e spec skeleton', async () => {
+    await ngcComponentGenerator(tree, { name: 'button', archetype: 'directive', skipFormat: true });
+
+    const spec = tree.read('apps/ng-component-demo-e2e/src/components/button.spec.ts', 'utf-8');
+    expect(spec).toContain("test.describe('button'");
+    expect(spec).toContain("page.goto('/components/button')");
   });
 });

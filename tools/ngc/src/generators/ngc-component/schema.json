@@ -25,6 +25,16 @@
         ]
       }
     },
+    "category": {
+      "type": "string",
+      "description": "Manifest category for the demo entry.",
+      "enum": ["form", "layout", "overlay", "feedback", "navigation"],
+      "default": "form"
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-line summary for the demo manifest entry."
+    },
     "skipFormat": {
       "type": "boolean",
       "description": "Skip formatting files.",

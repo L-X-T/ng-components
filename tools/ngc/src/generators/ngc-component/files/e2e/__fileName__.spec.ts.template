@@ -1,0 +1,14 @@
+import { expect, test } from '@playwright/test';
+
+/**
+ * Functional/keyboard coverage for the ngc-<%= fileName %> demo page.
+ * Stamped by the ngc-component generator – extend during the component's
+ * wave (the manifest sweep already covers rendering + console errors).
+ */
+test.describe('<%= fileName %>', () => {
+  test('shows the basic example', async ({ page }) => {
+    await page.goto('/components/<%= fileName %>');
+
+    await expect(page.locator('#<%= fileName %>-basic')).toBeVisible();
+  });
+});

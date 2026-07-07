@@ -1,19 +1,24 @@
 import { libraryGenerator } from '@nx/angular/generators';
-import { formatFiles, generateFiles, type GeneratorCallback, joinPathFragments, names, type Tree } from '@nx/devkit';
+import { formatFiles, generateFiles, type GeneratorCallback, joinPathFragments, logger, names, type Tree } from '@nx/devkit';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { NgcComponentGeneratorSchema } from './schema';
 
 const NG_COMPONENTS_DIR = 'libs/ng-components';
+const DEMOS_LIB_DIR = 'libs/ng-component-demos/src';
+const MANIFEST_PATH = `${DEMOS_LIB_DIR}/lib/_manifest/manifest.ts`;
+const DEMOS_INDEX_PATH = `${DEMOS_LIB_DIR}/index.ts`;
+const DEMO_LOADERS_PATH = 'apps/ng-component-demo/src/app/demo-loaders.ts';
+const E2E_COMPONENTS_DIR = 'apps/ng-component-demo-e2e/src/components';
 
 /**
- * Stamps a new ng-components component library:
- * `libs/ng-components/<name>` (non-buildable, path alias, `type:components`
- * tag) with the ngc component/directive skeleton, its SCSS, and a Vitest spec.
- *
- * The demo stub (in ng-component-demos) and the e2e stub (in
- * ng-component-demo-e2e) are added once that infrastructure exists (plan 000
- * phase 3, plans 002/004) – this generator gains those steps then.
+ * Stamps a new ng-components component in one command (spec 001/002/004):
+ * - `libs/ng-components/<name>` lib (non-buildable, path alias,
+ *   `type:components` tag) with the component/directive skeleton, SCSS, and a
+ *   Vitest spec;
+ * - a demo stub in ng-component-demos (page + basic example) plus its
+ *   `wip` manifest entry, index export, and app loader entry;
+ * - the per-component Playwright spec skeleton in ng-component-demo-e2e.
  */
 export async function ngcComponentGenerator(
   tree: Tree,
@@ -53,8 +58,13 @@ export async function ngcComponentGenerator(
     propertyName,
     selector: archetype === 'directive' ? `[ngc-${fileName}]` : `ngc-${fileName}`,
     attr: `ngc-${fileName}`,
+    archetype,
+    summary: options.summary ?? `The ${className} component.`,
   };
   generateFiles(tree, joinPathFragments(__dirname, 'files', archetype), projectRoot, substitutions);
+
+  stampDemoStub(tree, substitutions, options.category ?? 'form');
+  stampE2eStub(tree, substitutions);
 
   if (!options.skipFormat) {
     await formatFiles(tree);
@@ -72,6 +82,78 @@ export async function ngcComponentGenerator(
       writeFileSync(eslintConfigPath, eslintConfig.replace(/style: 'camelCase'/g, "style: 'kebab-case'"));
     }
   };
+}
+
+type Substitutions = {
+  fileName: string;
+  className: string;
+  propertyName: string;
+  selector: string;
+  attr: string;
+  archetype: string;
+  summary: string;
+};
+
+/** Demo page + example, manifest entry (`wip`), index export, app loader entry. */
+function stampDemoStub(tree: Tree, substitutions: Substitutions, category: string): void {
+  const { fileName, className, summary } = substitutions;
+  if (!tree.exists(MANIFEST_PATH)) {
+    logger.warn(`ngc-component: ${MANIFEST_PATH} not found – skipping the demo stub.`);
+    return;
+  }
+
+  generateFiles(
+    tree,
+    joinPathFragments(__dirname, 'files', 'demo'),
+    joinPathFragments(DEMOS_LIB_DIR, 'lib', fileName),
+    substitutions,
+  );
+
+  const manifestEntry = [
+    '  {',
+    `    id: '${fileName}',`,
+    `    name: '${className}',`,
+    `    category: '${category}',`,
+    `    route: '/components/${fileName}',`,
+    `    status: 'wip',`,
+    `    summary: '${summary}',`,
+    `    examples: ['${fileName}-basic'],`,
+    '  },',
+  ].join('\n');
+  updateFile(tree, MANIFEST_PATH, (content) =>
+    content.includes('= [];')
+      ? content.replace('= [];', `= [\n${manifestEntry}\n];`)
+      : content.replace(/\n\];/, `\n${manifestEntry}\n];`),
+  );
+
+  updateFile(tree, DEMOS_INDEX_PATH, (content) => `${content}export * from './lib/${fileName}/${fileName}-demo';\n`);
+
+  const loaderEntry = `  '${fileName}': () => import('@angular-software/ng-component-demos').then((m) => m.${className}Demo),`;
+  if (tree.exists(DEMO_LOADERS_PATH)) {
+    updateFile(tree, DEMO_LOADERS_PATH, (content) =>
+      content.includes('= {};')
+        ? content.replace('= {};', `= {\n${loaderEntry}\n};`)
+        : content.replace(/\n\};/, `\n${loaderEntry}\n};`),
+    );
+  } else {
+    logger.warn(`ngc-component: ${DEMO_LOADERS_PATH} not found – skipping the loader entry.`);
+  }
+}
+
+/** Per-component Playwright spec skeleton (the e2e completeness gate expects it). */
+function stampE2eStub(tree: Tree, substitutions: Substitutions): void {
+  if (!tree.exists(E2E_COMPONENTS_DIR)) {
+    logger.warn(`ngc-component: ${E2E_COMPONENTS_DIR}/ not found – skipping the e2e stub.`);
+    return;
+  }
+  generateFiles(tree, joinPathFragments(__dirname, 'files', 'e2e'), E2E_COMPONENTS_DIR, substitutions);
+}
+
+function updateFile(tree: Tree, path: string, update: (content: string) => string): void {
+  const content = tree.read(path, 'utf-8');
+  if (content !== null) {
+    tree.write(path, update(content));
+  }
 }
 
 export default ngcComponentGenerator;

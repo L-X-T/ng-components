@@ -1,0 +1,27 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DemoExample, DemoPage, DemoSection } from '../_demo-ui';
+import { <%= className %>BasicExample } from './examples/<%= fileName %>-basic.example';
+import { snippet as basicSnippet } from './examples/<%= fileName %>-basic.ts.snippet';
+
+/**
+ * Docs page for ngc-<%= fileName %>. Stamped by the ngc-component generator –
+ * sections (variants, sizes, states, API table, usage guidance) are filled in
+ * during the component's wave; flip the manifest status to 'stable' then.
+ */
+@Component({
+  selector: 'ngc-demo-<%= fileName %>',
+  imports: [DemoExample, DemoPage, DemoSection, <%= className %>BasicExample],
+  template: `
+    <ngc-demo-page title="<%= className %>" summary="<%= summary %>">
+      <ngc-demo-section title="Basic">
+        <ngc-demo-example id="<%= fileName %>-basic" [snippet]="basicSnippet">
+          <ngc-demo-<%= fileName %>-basic-example />
+        </ngc-demo-example>
+      </ngc-demo-section>
+    </ngc-demo-page>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class <%= className %>Demo {
+  protected readonly basicSnippet = basicSnippet;
+}
