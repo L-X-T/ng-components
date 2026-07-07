@@ -1,0 +1,7 @@
+// <%= className %> component styles. Every visual value comes from a core
+// token (var(--…)); hard-coded colors fail stylelint (spec 001 §5).
+@layer ngc {
+  .ngc-<%= fileName %> {
+    display: block;
+  }
+}

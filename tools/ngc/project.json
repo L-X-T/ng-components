@@ -1,0 +1,41 @@
+{
+  "name": "ngc",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "tools/ngc/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/tools/ngc",
+        "main": "tools/ngc/src/index.ts",
+        "tsConfig": "tools/ngc/tsconfig.lib.json",
+        "assets": [
+          "tools/ngc/*.md",
+          {
+            "input": "./tools/ngc/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/ngc/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./tools/ngc",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./tools/ngc",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

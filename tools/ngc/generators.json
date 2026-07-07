@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "ngc-component": {
+      "factory": "./src/generators/ngc-component/ngc-component",
+      "schema": "./src/generators/ngc-component/schema.json",
+      "description": "Stamp a new ng-components component library (component or directive archetype)."
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "NgcComponent",
+  "title": "Create an ng-components component library",
+  "description": "Stamps a new libs/ng-components/<name> library with the ngc component/directive skeleton, SCSS, and a unit spec.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Component name in kebab-case, e.g. button or radio-group.",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "Component name (kebab-case)?"
+    },
+    "archetype": {
+      "type": "string",
+      "description": "directive = attribute on a native element (ngc-button on <button>); component = a structural <ngc-*> element.",
+      "enum": ["component", "directive"],
+      "default": "component",
+      "x-prompt": {
+        "message": "Which archetype?",
+        "type": "list",
+        "items": [
+          { "value": "component", "label": "component – structural <ngc-*> element with a template" },
+          { "value": "directive", "label": "directive – attribute on a native element" }
+        ]
+      }
+    },
+    "skipFormat": {
+      "type": "boolean",
+      "description": "Skip formatting files.",
+      "default": false
+    }
+  },
+  "required": ["name"]
+}
