@@ -32,7 +32,7 @@ export default [
     rules: {
       // ngc form controls on native <button> render their own indicator
       // content; their accessible name comes from an associated ngc-label.
-      '@angular-eslint/template/elements-content': ['error', { allowList: ['ngc-checkbox'] }],
+      '@angular-eslint/template/elements-content': ['error', { allowList: ['ngc-checkbox', 'ngc-radio-item'] }],
     },
   },
 ];

@@ -69,4 +69,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Control for checking or unchecking an option.',
     examples: ['checkbox-basic', 'checkbox-states', 'checkbox-form'],
   },
+  {
+    id: 'radio-group',
+    name: 'RadioGroup',
+    category: 'form',
+    route: '/components/radio-group',
+    status: 'stable',
+    summary: 'Set of mutually exclusive options.',
+    examples: ['radio-group-basic', 'radio-group-states', 'radio-group-form'],
+  },
 ];
