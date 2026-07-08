@@ -18,4 +18,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   'form-field': () => import('@angular-software/ng-component-demos').then((m) => m.FormFieldDemo),
   dialog: () => import('@angular-software/ng-component-demos').then((m) => m.DialogDemo),
   'dropdown-menu': () => import('@angular-software/ng-component-demos').then((m) => m.DropdownMenuDemo),
+  tooltip: () => import('@angular-software/ng-component-demos').then((m) => m.TooltipDemo),
 };

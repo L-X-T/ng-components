@@ -1,0 +1,16 @@
+// ngc-tooltip bubble. Co-located component styles inside @layer ngc
+// (spec 001 §3); every value from core tokens. Positioned by the trigger's
+// overlay (absolute left/top).
+@layer ngc {
+  .ngc-tooltip {
+    position: absolute;
+    z-index: var(--z-overlay);
+    box-sizing: border-box;
+    max-width: 18rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-md);
+    background: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 0.75rem;
+  }
+}

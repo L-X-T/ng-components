@@ -114,4 +114,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Menu of actions opened from a trigger.',
     examples: ['dropdown-menu-basic'],
   },
+  {
+    id: 'tooltip',
+    name: 'Tooltip',
+    category: 'overlay',
+    route: '/components/tooltip',
+    status: 'stable',
+    summary: 'Contextual hint shown on hover or focus.',
+    examples: ['tooltip-basic'],
+  },
 ];
