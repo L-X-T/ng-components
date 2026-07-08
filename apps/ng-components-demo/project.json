@@ -1,9 +1,9 @@
 {
-  "name": "ng-component-demo",
+  "name": "ng-components-demo",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/ng-component-demo/src",
+  "sourceRoot": "apps/ng-components-demo/src",
   "tags": ["type:app"],
   "targets": {
     "build": {
@@ -12,18 +12,18 @@
       "dependsOn": ["^build", "ng-component-demos:generate-snippets"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/ng-component-demo",
-        "browser": "apps/ng-component-demo/src/main.ts",
-        "tsConfig": "apps/ng-component-demo/tsconfig.app.json",
+        "outputPath": "dist/apps/ng-components-demo",
+        "browser": "apps/ng-components-demo/src/main.ts",
+        "tsConfig": "apps/ng-components-demo/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/ng-component-demo/public"
+            "input": "apps/ng-components-demo/public"
           }
         ],
-        "styles": ["apps/ng-component-demo/src/styles.scss"],
-        "server": "apps/ng-component-demo/src/main.server.ts",
+        "styles": ["apps/ng-components-demo/src/styles.scss"],
+        "server": "apps/ng-components-demo/src/main.server.ts",
         "outputMode": "static"
       },
       "configurations": {
@@ -56,10 +56,10 @@
       "defaultConfiguration": "development",
       "configurations": {
         "production": {
-          "buildTarget": "ng-component-demo:build:production"
+          "buildTarget": "ng-components-demo:build:production"
         },
         "development": {
-          "buildTarget": "ng-component-demo:build:development"
+          "buildTarget": "ng-components-demo:build:development"
         }
       }
     },
@@ -70,8 +70,8 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "ng-component-demo:build",
-        "staticFilePath": "dist/apps/ng-component-demo/browser",
+        "buildTarget": "ng-components-demo:build",
+        "staticFilePath": "dist/apps/ng-components-demo/browser",
         "spa": true
       }
     }

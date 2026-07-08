@@ -1,8 +1,0 @@
-{
-  "name": "ng-component-demo-e2e",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "sourceRoot": "apps/ng-component-demo-e2e/src",
-  "tags": ["type:e2e"],
-  "implicitDependencies": ["ng-component-demo"]
-}

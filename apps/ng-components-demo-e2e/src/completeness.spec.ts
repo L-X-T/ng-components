@@ -10,9 +10,9 @@ import { join } from 'node:path';
  * entries.
  */
 test('every manifest entry has a components/<id>.spec.ts', () => {
-  const missing = DEMO_MANIFEST.filter(
-    (demo) => !existsSync(join(__dirname, 'components', `${demo.id}.spec.ts`)),
-  ).map((demo) => demo.id);
+  const missing = DEMO_MANIFEST.filter((demo) => !existsSync(join(__dirname, 'components', `${demo.id}.spec.ts`))).map(
+    (demo) => demo.id,
+  );
 
   expect(missing, `missing per-component spec file(s): ${missing.join(', ')}`).toEqual([]);
 });

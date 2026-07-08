@@ -6,14 +6,14 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/apps/ng-component-demo',
+  cacheDir: '../../node_modules/.vite/apps/ng-components-demo',
   plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
   // Uncomment this if you are using workers.
   // worker: {
   //   plugins: () => [ nxViteTsPaths() ],
   // },
   test: {
-    name: 'ng-component-demo',
+    name: 'ng-components-demo',
     watch: false,
     globals: true,
     environment: 'jsdom',
@@ -21,7 +21,7 @@ export default defineConfig(() => ({
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     coverage: {
-      reportsDirectory: '../../coverage/apps/ng-component-demo',
+      reportsDirectory: '../../coverage/apps/ng-components-demo',
       provider: 'v8' as const,
     },
   },

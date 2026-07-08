@@ -27,8 +27,8 @@ describe('App', () => {
   it('offers all four themes in the switcher', () => {
     const compiled = render();
 
-    const options = Array.from(compiled.querySelectorAll('.shell__theme-select option')).map(
-      (option) => option.textContent?.trim(),
+    const options = Array.from(compiled.querySelectorAll('.shell__theme-select option')).map((option) =>
+      option.textContent?.trim(),
     );
     expect(options).toEqual(['light', 'dark', 'angular-light', 'angular-dark']);
   });

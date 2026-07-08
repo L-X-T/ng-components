@@ -11,10 +11,10 @@ const baseURL = `http://localhost:${port}`;
  */
 export default defineConfig({
   testDir: './src',
-  outputDir: '../../dist/.playwright/apps/ng-component-demo-e2e/test-output',
+  outputDir: '../../dist/.playwright/apps/ng-components-demo-e2e/test-output',
   reporter: [
     ['list'],
-    ['html', { outputFolder: '../../dist/.playwright/apps/ng-component-demo-e2e/report', open: 'never' }],
+    ['html', { outputFolder: '../../dist/.playwright/apps/ng-components-demo-e2e/report', open: 'never' }],
   ],
   fullyParallel: true,
   forbidOnly: !!process.env['CI'],
@@ -24,7 +24,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   webServer: {
-    command: `pnpm exec nx build ng-component-demo && pnpm exec serve --no-clipboard -l ${port} dist/apps/ng-component-demo/browser`,
+    command: `pnpm exec nx build ng-components-demo && pnpm exec serve --no-clipboard -l ${port} dist/apps/ng-components-demo/browser`,
     url: baseURL,
     reuseExistingServer: !process.env['CI'],
     timeout: 300_000,

@@ -8,8 +8,8 @@ const NG_COMPONENTS_DIR = 'libs/ng-components';
 const DEMOS_LIB_DIR = 'libs/ng-component-demos/src';
 const MANIFEST_PATH = `${DEMOS_LIB_DIR}/lib/_manifest/manifest.ts`;
 const DEMOS_INDEX_PATH = `${DEMOS_LIB_DIR}/index.ts`;
-const DEMO_LOADERS_PATH = 'apps/ng-component-demo/src/app/demo-loaders.ts';
-const E2E_COMPONENTS_DIR = 'apps/ng-component-demo-e2e/src/components';
+const DEMO_LOADERS_PATH = 'apps/ng-components-demo/src/app/demo-loaders.ts';
+const E2E_COMPONENTS_DIR = 'apps/ng-components-demo-e2e/src/components';
 
 /**
  * Stamps a new ng-components component in one command (spec 001/002/004):
@@ -18,7 +18,7 @@ const E2E_COMPONENTS_DIR = 'apps/ng-component-demo-e2e/src/components';
  *   Vitest spec;
  * - a demo stub in ng-component-demos (page + basic example) plus its
  *   `wip` manifest entry, index export, and app loader entry;
- * - the per-component Playwright spec skeleton in ng-component-demo-e2e.
+ * - the per-component Playwright spec skeleton in ng-components-demo-e2e.
  */
 export async function ngcComponentGenerator(
   tree: Tree,

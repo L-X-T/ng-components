@@ -11,10 +11,10 @@ function seedDemoInfra(tree: Tree): void {
   );
   tree.write('libs/ng-component-demos/src/index.ts', `export * from './lib/_manifest';\n`);
   tree.write(
-    'apps/ng-component-demo/src/app/demo-loaders.ts',
+    'apps/ng-components-demo/src/app/demo-loaders.ts',
     `import type { DemoLoaderMap } from '@angular-software/ng-component-demos/manifest';\n\nexport const DEMO_LOADERS: DemoLoaderMap = {};\n`,
   );
-  tree.write('apps/ng-component-demo-e2e/src/components/.gitkeep', '');
+  tree.write('apps/ng-components-demo-e2e/src/components/.gitkeep', '');
 }
 
 describe('ngc-component generator', () => {
@@ -93,7 +93,7 @@ describe('ngc-component generator', () => {
     expect(tree.read('libs/ng-component-demos/src/index.ts', 'utf-8')).toContain(
       "export * from './lib/button/button-demo';",
     );
-    expect(tree.read('apps/ng-component-demo/src/app/demo-loaders.ts', 'utf-8')).toContain(
+    expect(tree.read('apps/ng-components-demo/src/app/demo-loaders.ts', 'utf-8')).toContain(
       "'button': () => import('@angular-software/ng-component-demos').then((m) => m.ButtonDemo),",
     );
   });
@@ -106,7 +106,7 @@ describe('ngc-component generator', () => {
     expect(manifest.indexOf("id: 'button'")).toBeGreaterThan(-1);
     expect(manifest.indexOf("id: 'card'")).toBeGreaterThan(manifest.indexOf("id: 'button'"));
 
-    const loaders = tree.read('apps/ng-component-demo/src/app/demo-loaders.ts', 'utf-8') ?? '';
+    const loaders = tree.read('apps/ng-components-demo/src/app/demo-loaders.ts', 'utf-8') ?? '';
     expect(loaders).toContain("'button':");
     expect(loaders).toContain("'card':");
   });
@@ -114,7 +114,7 @@ describe('ngc-component generator', () => {
   it('stamps the e2e spec skeleton', async () => {
     await ngcComponentGenerator(tree, { name: 'button', archetype: 'directive', skipFormat: true });
 
-    const spec = tree.read('apps/ng-component-demo-e2e/src/components/button.spec.ts', 'utf-8');
+    const spec = tree.read('apps/ng-components-demo-e2e/src/components/button.spec.ts', 'utf-8');
     expect(spec).toContain("test.describe('button'");
     expect(spec).toContain("page.goto('/components/button')");
   });
