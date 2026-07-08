@@ -13,3 +13,4 @@ export * from './lib/form-field/form-field-demo';
 export * from './lib/dialog/dialog-demo';
 export * from './lib/dropdown-menu/dropdown-menu-demo';
 export * from './lib/tooltip/tooltip-demo';
+export * from './lib/toast/toast-demo';

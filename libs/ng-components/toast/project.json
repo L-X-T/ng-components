@@ -1,0 +1,13 @@
+{
+  "name": "toast",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ng-components/toast/src",
+  "prefix": "ngc",
+  "projectType": "library",
+  "tags": ["type:components"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

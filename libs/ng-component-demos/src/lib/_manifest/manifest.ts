@@ -123,4 +123,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Contextual hint shown on hover or focus.',
     examples: ['tooltip-basic'],
   },
+  {
+    id: 'toast',
+    name: 'Toast',
+    category: 'feedback',
+    route: '/components/toast',
+    status: 'stable',
+    summary: 'Brief notification shown over the page.',
+    examples: ['toast-basic', 'toast-options'],
+  },
 ];
