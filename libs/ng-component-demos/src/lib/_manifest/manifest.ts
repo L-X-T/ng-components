@@ -78,4 +78,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Set of mutually exclusive options.',
     examples: ['radio-group-basic', 'radio-group-states', 'radio-group-form'],
   },
+  {
+    id: 'select',
+    name: 'Select',
+    category: 'form',
+    route: '/components/select',
+    status: 'stable',
+    summary: 'Dropdown for picking one option from a list.',
+    examples: ['select-basic', 'select-states', 'select-form'],
+  },
 ];

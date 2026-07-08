@@ -7,5 +7,9 @@
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
     --radius-xl: calc(var(--radius) + 4px);
+
+    // Layering for overlay components (select, dialog, menu, tooltip, toast).
+    --z-overlay: 1000;
+    --z-toast: 1100;
   }
 }

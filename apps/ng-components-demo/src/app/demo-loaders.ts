@@ -14,4 +14,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   textarea: () => import('@angular-software/ng-component-demos').then((m) => m.TextareaDemo),
   checkbox: () => import('@angular-software/ng-component-demos').then((m) => m.CheckboxDemo),
   'radio-group': () => import('@angular-software/ng-component-demos').then((m) => m.RadioGroupDemo),
+  select: () => import('@angular-software/ng-component-demos').then((m) => m.SelectDemo),
 };
