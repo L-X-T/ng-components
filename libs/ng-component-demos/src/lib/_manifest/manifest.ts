@@ -132,4 +132,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Brief notification shown over the page.',
     examples: ['toast-basic', 'toast-options'],
   },
+  {
+    id: 'tabs',
+    name: 'Tabs',
+    category: 'navigation',
+    route: '/components/tabs',
+    status: 'stable',
+    summary: 'Layered sections of content shown one at a time.',
+    examples: ['tabs-basic'],
+  },
 ];

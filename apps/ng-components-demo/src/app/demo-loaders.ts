@@ -20,4 +20,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   'dropdown-menu': () => import('@angular-software/ng-component-demos').then((m) => m.DropdownMenuDemo),
   tooltip: () => import('@angular-software/ng-component-demos').then((m) => m.TooltipDemo),
   toast: () => import('@angular-software/ng-component-demos').then((m) => m.ToastDemo),
+  tabs: () => import('@angular-software/ng-component-demos').then((m) => m.TabsDemo),
 };

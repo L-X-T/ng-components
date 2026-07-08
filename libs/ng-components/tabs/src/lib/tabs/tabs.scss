@@ -1,0 +1,77 @@
+// ngc-tabs, list, tab buttons, and panels. Co-located component styles inside
+// @layer ngc (spec 001 §3); every value from core tokens. State selectors
+// target the data attributes NgpTabset and friends emit.
+@layer ngc {
+  .ngc-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &[data-orientation='vertical'] {
+      flex-direction: row;
+    }
+  }
+
+  .ngc-tabs-list {
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: 0.125rem;
+    align-items: center;
+    justify-content: flex-start;
+    width: fit-content;
+    padding: 0.1875rem;
+    border-radius: var(--radius-lg);
+    background: var(--muted);
+
+    &[data-orientation='vertical'] {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .ngc-tab {
+    display: inline-flex;
+    gap: 0.375rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    transition:
+      color 150ms ease,
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+
+    &[data-active] {
+      border-color: var(--border);
+      background: var(--background);
+      color: var(--foreground);
+      box-shadow: 0 1px 2px color-mix(in oklab, var(--foreground) 8%, transparent);
+    }
+
+    &[data-focus-visible] {
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  .ngc-tab-panel {
+    outline: none;
+
+    &:not([data-active]) {
+      display: none;
+    }
+  }
+}
