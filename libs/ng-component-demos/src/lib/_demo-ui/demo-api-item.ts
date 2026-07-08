@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
 
-export type DemoApiKind = 'input' | 'output' | 'model';
+export type DemoApiKind = 'input' | 'output' | 'model' | 'directive' | 'method';
 
 /**
  * One row of a {@link DemoApi} table. Uses `display: contents` so its cells

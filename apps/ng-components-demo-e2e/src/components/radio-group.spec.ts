@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 test.describe('radio-group', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/components/radio-group');
+    await gotoHydrated(page, '/components/radio-group');
   });
 
   test('click selects exactly one option', async ({ page }) => {

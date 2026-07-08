@@ -27,7 +27,8 @@
       box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
     }
 
-    &[aria-invalid='true'] {
+    &[aria-invalid='true'],
+    &[data-invalid][data-touched] {
       border-color: var(--destructive);
 
       &:focus-visible {

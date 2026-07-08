@@ -1,0 +1,99 @@
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Input } from '@angular-software/ng-components/input';
+import { FormField, FormFieldError, FormFieldHint, FormFieldLabel } from './form-field';
+
+@Component({
+  imports: [FormField, FormFieldError, FormFieldHint, FormFieldLabel, Input, ReactiveFormsModule],
+  template: `
+    <ngc-form-field>
+      <label ngc-field-label>Email</label>
+      <input ngc-input type="email" [formControl]="email" />
+      <p ngc-field-hint>We never share your email.</p>
+      <p ngc-field-error validator="required">Email is required.</p>
+      <p ngc-field-error validator="email">Enter a valid email address.</p>
+    </ngc-form-field>
+  `,
+})
+class Host {
+  readonly email = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] });
+}
+
+describe('FormField', () => {
+  function setup() {
+    const fixture = TestBed.createComponent(Host);
+    fixture.detectChanges();
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const label = nativeElement.querySelector('label') as HTMLLabelElement;
+    const input = nativeElement.querySelector('input') as HTMLInputElement;
+    const hint = nativeElement.querySelector('[ngc-field-hint]') as HTMLElement;
+    const errors = Array.from(nativeElement.querySelectorAll('[ngc-field-error]')) as HTMLElement[];
+    return { fixture, label, input, hint, errors };
+  }
+
+  it('associates the label with the control automatically', () => {
+    const { label, input } = setup();
+
+    expect(label.getAttribute('for')).toBe(input.id);
+    expect(input.getAttribute('aria-labelledby')).toBe(label.id);
+  });
+
+  it('feeds the hint into the control aria-describedby', () => {
+    const { input, hint } = setup();
+
+    expect(input.getAttribute('aria-describedby')).toContain(hint.id);
+  });
+
+  it('keeps errors inert until the control is touched', () => {
+    const { errors } = setup();
+
+    expect(errors[0].getAttribute('data-validator')).toBe('fail');
+    expect(errors[0].hasAttribute('data-touched')).toBe(false);
+  });
+
+  it('marks the failing validator error once touched', () => {
+    const { fixture, errors } = setup();
+
+    fixture.componentInstance.email.markAsTouched();
+    fixture.detectChanges();
+
+    expect(errors[0].getAttribute('data-validator')).toBe('fail');
+    expect(errors[0].hasAttribute('data-touched')).toBe(true);
+    // The email validator passes on the empty value – only required fails.
+    expect(errors[1].getAttribute('data-validator')).toBe('pass');
+  });
+
+  it('switches the failing validator with the value', () => {
+    const { fixture, errors, input } = setup();
+
+    fixture.componentInstance.email.setValue('not-an-email');
+    fixture.componentInstance.email.markAsTouched();
+    fixture.detectChanges();
+
+    expect(errors[0].getAttribute('data-validator')).toBe('pass');
+    expect(errors[1].getAttribute('data-validator')).toBe('fail');
+    expect(input.hasAttribute('data-invalid')).toBe(true);
+  });
+
+  it('adds failing errors to the control aria-describedby', () => {
+    const { fixture, input, errors } = setup();
+
+    fixture.componentInstance.email.markAsTouched();
+    fixture.detectChanges();
+
+    expect(input.getAttribute('aria-describedby')).toContain(errors[0].id);
+    expect(input.getAttribute('aria-describedby') ?? '').not.toContain(errors[1].id);
+  });
+
+  it('clears the invalid state on a valid value', () => {
+    const { fixture, input, errors } = setup();
+
+    fixture.componentInstance.email.setValue('ada@example.com');
+    fixture.componentInstance.email.markAsTouched();
+    fixture.detectChanges();
+
+    expect(input.hasAttribute('data-invalid')).toBe(false);
+    expect(errors.every((error) => error.getAttribute('data-validator') === 'pass')).toBe(true);
+  });
+});

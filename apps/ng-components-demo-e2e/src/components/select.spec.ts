@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 test.describe('select', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/components/select');
+    await gotoHydrated(page, '/components/select');
   });
 
   test('opens on click and selects an option', async ({ page }) => {

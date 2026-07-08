@@ -87,4 +87,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Dropdown for picking one option from a list.',
     examples: ['select-basic', 'select-states', 'select-form'],
   },
+  {
+    id: 'form-field',
+    name: 'FormField',
+    category: 'form',
+    route: '/components/form-field',
+    status: 'stable',
+    summary: 'Groups a label, control, hint, and validation errors.',
+    examples: ['form-field-basic', 'form-field-validation', 'form-field-contact'],
+  },
 ];

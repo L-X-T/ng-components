@@ -1,0 +1,42 @@
+// ngc-form-field and its parts. Co-located component styles inside @layer ngc
+// (spec 001 §3); every value from core tokens. Visibility and validation
+// styling key off the data attributes NgpFormField mirrors from the control.
+@layer ngc {
+  .ngc-form-field {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .ngc-field-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    user-select: none;
+
+    &[data-invalid][data-touched] {
+      color: var(--destructive);
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  .ngc-field-hint {
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 0.8125rem;
+  }
+
+  .ngc-field-error {
+    display: none;
+    margin: 0;
+    color: var(--destructive);
+    font-size: 0.8125rem;
+
+    &[data-validator='fail'][data-touched] {
+      display: block;
+    }
+  }
+}

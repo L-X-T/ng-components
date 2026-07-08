@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 test.describe('checkbox', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/components/checkbox');
+    await gotoHydrated(page, '/components/checkbox');
   });
 
   test('toggles on click', async ({ page }) => {
