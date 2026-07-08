@@ -15,3 +15,4 @@ export * from './lib/dropdown-menu/dropdown-menu-demo';
 export * from './lib/tooltip/tooltip-demo';
 export * from './lib/toast/toast-demo';
 export * from './lib/tabs/tabs-demo';
+export * from './lib/accordion/accordion-demo';

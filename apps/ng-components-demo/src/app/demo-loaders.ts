@@ -21,4 +21,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   tooltip: () => import('@angular-software/ng-component-demos').then((m) => m.TooltipDemo),
   toast: () => import('@angular-software/ng-component-demos').then((m) => m.ToastDemo),
   tabs: () => import('@angular-software/ng-component-demos').then((m) => m.TabsDemo),
+  accordion: () => import('@angular-software/ng-component-demos').then((m) => m.AccordionDemo),
 };

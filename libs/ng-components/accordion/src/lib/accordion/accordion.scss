@@ -1,0 +1,102 @@
+// ngc-accordion and its parts. Co-located component styles inside @layer ngc
+// (spec 001 §3); every value from core tokens. The slide animation uses the
+// --ngp-accordion-content-height variable NgpAccordionContent measures.
+@layer ngc {
+  .ngc-accordion {
+    display: block;
+    width: 100%;
+  }
+
+  .ngc-accordion-item {
+    border-bottom: 1px solid var(--border);
+
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  .ngc-accordion-trigger {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+    border: none;
+    background: transparent;
+    color: var(--foreground);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: inherit;
+    text-align: start;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &[data-focus-visible] {
+      border-radius: var(--radius-sm);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &[data-disabled] {
+      cursor: not-allowed;
+    }
+
+    &__chevron {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: var(--muted-foreground);
+      transition: transform 200ms ease;
+    }
+
+    &[data-open] &__chevron {
+      transform: rotate(180deg);
+    }
+  }
+
+  .ngc-accordion-content {
+    height: 0;
+    overflow: hidden;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    line-height: 1.5;
+
+    &[data-open] {
+      height: var(--ngp-accordion-content-height, auto);
+    }
+
+    &[data-enter] {
+      animation: ngc-accordion-slide-down 200ms ease-in-out forwards;
+    }
+
+    &[data-exit] {
+      height: var(--ngp-accordion-content-height, 0);
+      animation: ngc-accordion-slide-up 200ms ease-in-out forwards;
+    }
+  }
+
+  @keyframes ngc-accordion-slide-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--ngp-accordion-content-height, auto);
+    }
+  }
+
+  @keyframes ngc-accordion-slide-up {
+    from {
+      height: var(--ngp-accordion-content-height, auto);
+    }
+
+    to {
+      height: 0;
+    }
+  }
+}

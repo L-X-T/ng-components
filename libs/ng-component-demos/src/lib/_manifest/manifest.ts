@@ -141,4 +141,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Layered sections of content shown one at a time.',
     examples: ['tabs-basic'],
   },
+  {
+    id: 'accordion',
+    name: 'Accordion',
+    category: 'layout',
+    route: '/components/accordion',
+    status: 'stable',
+    summary: 'Vertically stacked set of expandable sections.',
+    examples: ['accordion-basic', 'accordion-multiple'],
+  },
 ];
