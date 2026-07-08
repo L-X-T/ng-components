@@ -1,0 +1,62 @@
+// ngc-checkbox (button host). Co-located component styles inside @layer ngc
+// (spec 001 §3); every value from core tokens. State selectors target the
+// data attributes NgpCheckbox emits.
+@layer ngc {
+  .ngc-checkbox {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: 1px solid var(--input);
+    border-radius: calc(var(--radius-md) - 2px);
+    background: transparent;
+    color: var(--primary-foreground);
+    outline: none;
+    transition:
+      border-color 150ms ease,
+      background-color 150ms ease,
+      box-shadow 150ms ease;
+
+    &__icon {
+      display: none;
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+
+    &[data-checked],
+    &[data-indeterminate] {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    &[data-checked]:not([data-indeterminate]) &__icon--check {
+      display: block;
+    }
+
+    &[data-indeterminate] &__icon--indeterminate {
+      display: block;
+    }
+
+    &[data-focus-visible] {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--destructive);
+
+      &[data-focus-visible] {
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 30%, transparent);
+      }
+    }
+
+    &[aria-disabled='true'],
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}

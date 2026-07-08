@@ -6,3 +6,4 @@ export * from './lib/card/card-demo';
 export * from './lib/label/label-demo';
 export * from './lib/input/input-demo';
 export * from './lib/textarea/textarea-demo';
+export * from './lib/checkbox/checkbox-demo';

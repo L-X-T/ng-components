@@ -60,4 +60,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Multi-line text input field.',
     examples: ['textarea-basic'],
   },
+  {
+    id: 'checkbox',
+    name: 'Checkbox',
+    category: 'form',
+    route: '/components/checkbox',
+    status: 'stable',
+    summary: 'Control for checking or unchecking an option.',
+    examples: ['checkbox-basic', 'checkbox-states', 'checkbox-form'],
+  },
 ];

@@ -12,4 +12,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   label: () => import('@angular-software/ng-component-demos').then((m) => m.LabelDemo),
   input: () => import('@angular-software/ng-component-demos').then((m) => m.InputDemo),
   textarea: () => import('@angular-software/ng-component-demos').then((m) => m.TextareaDemo),
+  checkbox: () => import('@angular-software/ng-component-demos').then((m) => m.CheckboxDemo),
 };
