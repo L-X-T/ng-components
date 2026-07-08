@@ -1,0 +1,43 @@
+// ngc-textarea (directive on native textarea – styles live here in core).
+
+@layer ngc {
+  .ngc-textarea {
+    display: flex;
+    width: 100%;
+    min-height: 4rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--input);
+    border-radius: var(--radius-md);
+    background: transparent;
+    color: var(--foreground);
+    font-size: 0.875rem;
+    font-family: inherit;
+    outline: none;
+    transition:
+      border-color 150ms ease,
+      box-shadow 150ms ease;
+
+    &::placeholder {
+      color: var(--muted-foreground);
+    }
+
+    &:focus-visible {
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+    }
+
+    &[aria-invalid='true'] {
+      border-color: var(--destructive);
+
+      &:focus-visible {
+        box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 30%, transparent);
+      }
+    }
+
+    &:disabled,
+    &[data-disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}

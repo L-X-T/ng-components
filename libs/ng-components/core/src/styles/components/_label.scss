@@ -1,0 +1,19 @@
+// ngc-label (directive on native label – styles live here in core).
+
+@layer ngc {
+  .ngc-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    user-select: none;
+
+    // Dim the label when its wrapped control is disabled.
+    &:has(:disabled, [data-disabled]) {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+}
