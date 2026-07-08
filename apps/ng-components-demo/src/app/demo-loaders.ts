@@ -17,4 +17,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   select: () => import('@angular-software/ng-component-demos').then((m) => m.SelectDemo),
   'form-field': () => import('@angular-software/ng-component-demos').then((m) => m.FormFieldDemo),
   dialog: () => import('@angular-software/ng-component-demos').then((m) => m.DialogDemo),
+  'dropdown-menu': () => import('@angular-software/ng-component-demos').then((m) => m.DropdownMenuDemo),
 };

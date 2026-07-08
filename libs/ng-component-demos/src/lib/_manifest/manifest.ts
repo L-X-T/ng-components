@@ -105,4 +105,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Modal window over the page content.',
     examples: ['dialog-basic', 'dialog-result'],
   },
+  {
+    id: 'dropdown-menu',
+    name: 'DropdownMenu',
+    category: 'overlay',
+    route: '/components/dropdown-menu',
+    status: 'stable',
+    summary: 'Menu of actions opened from a trigger.',
+    examples: ['dropdown-menu-basic'],
+  },
 ];

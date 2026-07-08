@@ -11,3 +11,4 @@ export * from './lib/radio-group/radio-group-demo';
 export * from './lib/select/select-demo';
 export * from './lib/form-field/form-field-demo';
 export * from './lib/dialog/dialog-demo';
+export * from './lib/dropdown-menu/dropdown-menu-demo';
