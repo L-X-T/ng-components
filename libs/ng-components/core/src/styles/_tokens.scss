@@ -11,5 +11,8 @@
     // Layering for overlay components (select, dialog, menu, tooltip, toast).
     --z-overlay: 1000;
     --z-toast: 1100;
+
+    // Backdrop tint behind modal overlays (same in light and dark).
+    --overlay: oklch(0% 0 0deg / 50%);
   }
 }

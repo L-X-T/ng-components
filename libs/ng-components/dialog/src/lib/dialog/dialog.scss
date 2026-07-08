@@ -1,0 +1,50 @@
+// ngc-dialog overlay, panel, and parts. Co-located component styles inside
+// @layer ngc (spec 001 §3); every value from core tokens. The overlay layers
+// on --z-overlay; --overlay provides the backdrop tint per theme.
+@layer ngc {
+  .ngc-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-overlay);
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: var(--overlay);
+  }
+
+  .ngc-dialog {
+    display: grid;
+    gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 32rem;
+    max-height: calc(100dvh - 2rem);
+    padding: 1.5rem;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 8px 30px color-mix(in oklab, var(--foreground) 12%, transparent);
+    outline: none;
+  }
+
+  .ngc-dialog-title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .ngc-dialog-description {
+    margin: 0;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+  }
+
+  .ngc-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+}

@@ -96,4 +96,13 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
     summary: 'Groups a label, control, hint, and validation errors.',
     examples: ['form-field-basic', 'form-field-validation', 'form-field-contact'],
   },
+  {
+    id: 'dialog',
+    name: 'Dialog',
+    category: 'overlay',
+    route: '/components/dialog',
+    status: 'stable',
+    summary: 'Modal window over the page content.',
+    examples: ['dialog-basic', 'dialog-result'],
+  },
 ];

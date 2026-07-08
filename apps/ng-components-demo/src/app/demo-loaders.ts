@@ -16,4 +16,5 @@ export const DEMO_LOADERS: DemoLoaderMap = {
   'radio-group': () => import('@angular-software/ng-component-demos').then((m) => m.RadioGroupDemo),
   select: () => import('@angular-software/ng-component-demos').then((m) => m.SelectDemo),
   'form-field': () => import('@angular-software/ng-component-demos').then((m) => m.FormFieldDemo),
+  dialog: () => import('@angular-software/ng-component-demos').then((m) => m.DialogDemo),
 };
