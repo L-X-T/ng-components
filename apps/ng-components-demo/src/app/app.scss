@@ -21,22 +21,10 @@ $sidebar-width: 15rem;
     background: var(--background);
   }
 
+  // Looks come from ngc-button (ghost/icon); only the responsive visibility
+  // lives here.
   &__menu-button {
     display: none;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: transparent;
-    color: var(--foreground);
-    cursor: pointer;
-
-    &:hover {
-      background: var(--accent);
-      color: var(--accent-foreground);
-    }
   }
 
   &__logo {
@@ -104,21 +92,6 @@ $sidebar-width: 15rem;
     cursor: pointer;
   }
 
-  &__github {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: var(--radius-sm);
-    color: var(--foreground);
-
-    &:hover {
-      background: var(--accent);
-      color: var(--accent-foreground);
-    }
-  }
-
   &__body {
     display: flex;
     flex: 1;
@@ -180,10 +153,6 @@ $sidebar-width: 15rem;
   }
 
   &__nav-status {
-    padding: 0.05rem 0.4rem;
-    border-radius: var(--radius-sm);
-    background: var(--secondary);
-    color: var(--secondary-foreground);
     font-size: 0.65rem;
     text-transform: uppercase;
   }

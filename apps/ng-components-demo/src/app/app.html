@@ -1,6 +1,9 @@
 <div class="shell" [class.shell--sidebar-open]="sidebarOpen()">
   <header class="shell__header">
     <button
+      ngc-button
+      variant="ghost"
+      size="icon"
       type="button"
       class="shell__menu-button"
       aria-label="Toggle navigation"
@@ -45,6 +48,9 @@
       </label>
 
       <a
+        ngc-button
+        variant="ghost"
+        size="icon"
         class="shell__github"
         href="https://github.com/L-X-T/angular-software"
         target="_blank"
@@ -75,7 +81,7 @@
               >
                 <span>{{ demo.name }}</span>
                 @if (demo.status !== 'stable') {
-                  <span class="shell__nav-status" [attr.data-status]="demo.status">{{ demo.status }}</span>
+                  <span ngc-badge variant="secondary" class="shell__nav-status">{{ demo.status }}</span>
                 }
               </a>
             </li>

@@ -43,6 +43,17 @@ for (const demo of DEMO_MANIFEST) {
         await expect(page.locator(`#${exampleId}`), `example "${exampleId}" is missing`).toBeVisible();
       }
 
+      // Prev/next pager follows the manifest order (plan 003 M3.2).
+      const index = DEMO_MANIFEST.indexOf(demo);
+      const previous = DEMO_MANIFEST[index - 1];
+      const next = DEMO_MANIFEST[index + 1];
+      if (previous) {
+        await expect(page.getByRole('link', { name: `← ${previous.name}` })).toBeVisible();
+      }
+      if (next) {
+        await expect(page.getByRole('link', { name: `${next.name} →` })).toBeVisible();
+      }
+
       expect(errors).toEqual([]);
     });
   });

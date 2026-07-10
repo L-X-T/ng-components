@@ -8,6 +8,19 @@
 <div class="ngc-demo-page__body">
   <main class="ngc-demo-page__main">
     <ng-content />
+
+    @if (previous || next) {
+      <nav class="ngc-demo-page__pager" aria-label="Adjacent components">
+        @if (previous; as previousEntry) {
+          <a ngc-button variant="outline" [routerLink]="previousEntry.route">← {{ previousEntry.name }}</a>
+        } @else {
+          <span aria-hidden="true"></span>
+        }
+        @if (next; as nextEntry) {
+          <a ngc-button variant="outline" [routerLink]="nextEntry.route">{{ nextEntry.name }} →</a>
+        }
+      </nav>
+    }
   </main>
   <aside class="ngc-demo-page__aside">
     <ngc-demo-on-this-page />

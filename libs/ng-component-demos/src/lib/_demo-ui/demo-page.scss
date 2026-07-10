@@ -37,6 +37,15 @@
     top: 2rem;
   }
 
+  &__pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
   @media (width <= 60rem) {
     &__body {
       grid-template-columns: minmax(0, 1fr);
