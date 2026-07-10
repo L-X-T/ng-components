@@ -29,7 +29,14 @@
     </a>
 
     <div class="shell__header-actions">
-      <button type="button" class="shell__search" disabled title="Search (coming soon)">
+      <button
+        #searchTrigger
+        type="button"
+        class="shell__search"
+        [ngc-dialog-trigger]="commandPalette"
+        (click)="paletteOpen.set(true)"
+        (closed)="paletteOpen.set(false)"
+      >
         <span>Search…</span>
         <kbd class="shell__search-kbd">⌘K</kbd>
       </button>
@@ -97,3 +104,11 @@
     </main>
   </div>
 </div>
+
+<ng-template #commandPalette let-close="close">
+  <div ngc-dialog-overlay class="shell__palette-overlay">
+    <div ngc-dialog class="shell__palette" aria-label="Search components">
+      <app-command-palette [closeDialog]="close" />
+    </div>
+  </div>
+</ng-template>

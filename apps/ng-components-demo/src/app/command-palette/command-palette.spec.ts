@@ -1,0 +1,111 @@
+import { Component, signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
+import { DEMO_MANIFEST } from '@angular-software/ng-component-demos/manifest';
+import { CommandPalette, filterDemoEntries } from './command-palette';
+
+@Component({
+  imports: [CommandPalette],
+  template: `<app-command-palette [closeDialog]="closeDialog" />`,
+})
+class Host {
+  readonly closed = signal(false);
+  readonly closeDialog = () => this.closed.set(true);
+}
+
+describe('filterDemoEntries', () => {
+  it('returns the full manifest for an empty query', () => {
+    expect(filterDemoEntries('')).toEqual(DEMO_MANIFEST);
+    expect(filterDemoEntries('   ')).toEqual(DEMO_MANIFEST);
+  });
+
+  it('matches names case-insensitively', () => {
+    const results = filterDemoEntries('CHECK');
+
+    expect(results.map((entry) => entry.id)).toContain('checkbox');
+    expect(results.map((entry) => entry.id)).not.toContain('button');
+  });
+
+  it('matches summaries too', () => {
+    const results = filterDemoEntries('mutually exclusive');
+
+    expect(results.map((entry) => entry.id)).toEqual(['radio-group']);
+  });
+});
+
+describe('CommandPalette', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Host],
+      providers: [provideRouter([])],
+    }).compileComponents();
+  });
+
+  function setup() {
+    const fixture = TestBed.createComponent(Host);
+    fixture.detectChanges();
+    const nativeElement = fixture.nativeElement as HTMLElement;
+    const input = nativeElement.querySelector('input') as HTMLInputElement;
+    return { fixture, nativeElement, input };
+  }
+
+  function optionNames(nativeElement: HTMLElement): string[] {
+    return Array.from(nativeElement.querySelectorAll('.palette-option__name')).map(
+      (name) => name.textContent?.trim() ?? '',
+    );
+  }
+
+  it('lists every manifest entry initially with combobox semantics', () => {
+    const { nativeElement, input } = setup();
+
+    expect(input.getAttribute('role')).toBe('combobox');
+    expect(optionNames(nativeElement).length).toBe(DEMO_MANIFEST.length);
+  });
+
+  it('filters as the query changes and resets the active option', () => {
+    const { fixture, nativeElement, input } = setup();
+
+    input.value = 'toast';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(optionNames(nativeElement)).toEqual(['Toast']);
+    expect(nativeElement.querySelector('.palette-option--active')?.textContent).toContain('Toast');
+  });
+
+  it('shows the empty state for no matches', () => {
+    const { fixture, nativeElement, input } = setup();
+
+    input.value = 'zzz-no-match';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+
+    expect(nativeElement.querySelector('.palette-empty')?.textContent).toContain('No components found.');
+  });
+
+  it('ArrowDown moves the active option and Enter navigates and closes', () => {
+    const { fixture, nativeElement, input } = setup();
+    const router = TestBed.inject(Router);
+    const navigateSpy = vi.spyOn(router, 'navigateByUrl');
+
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    fixture.detectChanges();
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    fixture.detectChanges();
+
+    expect(navigateSpy).toHaveBeenCalledWith(DEMO_MANIFEST[1].route);
+    expect(fixture.componentInstance.closed()).toBe(true);
+  });
+
+  it('click on an option navigates and closes', () => {
+    const { fixture, nativeElement } = setup();
+    const router = TestBed.inject(Router);
+    const navigateSpy = vi.spyOn(router, 'navigateByUrl');
+
+    (nativeElement.querySelectorAll('.palette-option')[2] as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(navigateSpy).toHaveBeenCalledWith(DEMO_MANIFEST[2].route);
+    expect(fixture.componentInstance.closed()).toBe(true);
+  });
+});

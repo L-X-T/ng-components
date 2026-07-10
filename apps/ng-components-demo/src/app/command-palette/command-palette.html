@@ -1,0 +1,35 @@
+<input
+  ngc-input
+  type="text"
+  role="combobox"
+  aria-expanded="true"
+  aria-controls="command-palette-list"
+  aria-label="Search components"
+  placeholder="Search components…"
+  [attr.aria-activedescendant]="activeOptionId()"
+  [value]="query()"
+  (input)="onQueryChange($any($event.target).value)"
+  (keydown)="onKeydown($event)"
+/>
+
+<ul id="command-palette-list" role="listbox" aria-label="Components" class="palette-list">
+  @for (entry of results(); track entry.id; let index = $index) {
+    <li>
+      <button
+        type="button"
+        role="option"
+        class="palette-option"
+        [id]="'command-palette-option-' + entry.id"
+        [attr.aria-selected]="index === activeIndex()"
+        [class.palette-option--active]="index === activeIndex()"
+        (click)="onSelect(entry)"
+        (pointerenter)="activeIndex.set(index)"
+      >
+        <span class="palette-option__name">{{ entry.name }}</span>
+        <span class="palette-option__summary">{{ entry.summary }}</span>
+      </button>
+    </li>
+  } @empty {
+    <li class="palette-empty">No components found.</li>
+  }
+</ul>
