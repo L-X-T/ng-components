@@ -84,7 +84,7 @@ describe('CommandPalette', () => {
   });
 
   it('ArrowDown moves the active option and Enter navigates and closes', () => {
-    const { fixture, nativeElement, input } = setup();
+    const { fixture, input } = setup();
     const router = TestBed.inject(Router);
     const navigateSpy = vi.spyOn(router, 'navigateByUrl');
 
