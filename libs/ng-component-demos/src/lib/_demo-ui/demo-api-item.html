@@ -1,9 +1,9 @@
-<span class="ngc-demo-api__cell ngc-demo-api__cell--name">
+<span class="ngc-demo-api__cell ngc-demo-api__cell--name" role="cell">
   <code>{{ name() }}</code>
   @if (kind(); as apiKind) {
     <span class="ngc-demo-api__kind">{{ apiKind }}</span>
   }
 </span>
-<span class="ngc-demo-api__cell"><code>{{ type() ?? '—' }}</code></span>
-<span class="ngc-demo-api__cell"><code>{{ default() ?? '—' }}</code></span>
-<span class="ngc-demo-api__cell">{{ description() ?? '' }}</span>
+<span class="ngc-demo-api__cell" role="cell"><code>{{ type() ?? '—' }}</code></span>
+<span class="ngc-demo-api__cell" role="cell"><code>{{ default() ?? '—' }}</code></span>
+<span class="ngc-demo-api__cell" role="cell">{{ description() ?? '' }}</span>

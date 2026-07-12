@@ -6,6 +6,10 @@
   overflow: hidden;
   font-size: 0.875rem;
 
+  &__row {
+    display: contents;
+  }
+
   &__cell {
     padding: 0.65rem 1rem;
     border-top: 1px solid var(--border);

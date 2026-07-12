@@ -1,5 +1,10 @@
-<span class="ngc-demo-api__cell ngc-demo-api__cell--head">Name</span>
-<span class="ngc-demo-api__cell ngc-demo-api__cell--head">Type</span>
-<span class="ngc-demo-api__cell ngc-demo-api__cell--head">Default</span>
-<span class="ngc-demo-api__cell ngc-demo-api__cell--head">Description</span>
+<!-- Complete ARIA table grammar (review 2026-07-11 E7): header cells live in
+     their own row, and every cell carries an explicit role – required because
+     the visual layout is a CSS grid, not a native table. -->
+<span class="ngc-demo-api__row" role="row">
+  <span class="ngc-demo-api__cell ngc-demo-api__cell--head" role="columnheader">Name</span>
+  <span class="ngc-demo-api__cell ngc-demo-api__cell--head" role="columnheader">Type</span>
+  <span class="ngc-demo-api__cell ngc-demo-api__cell--head" role="columnheader">Default</span>
+  <span class="ngc-demo-api__cell ngc-demo-api__cell--head" role="columnheader">Description</span>
+</span>
 <ng-content />
