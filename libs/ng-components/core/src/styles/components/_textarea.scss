@@ -1,3 +1,5 @@
+@use '../mixins';
+
 // ngc-textarea (directive on native textarea – styles live here in core).
 
 @layer ngc {
@@ -23,7 +25,8 @@
 
     &:focus-visible {
       border-color: var(--ring);
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+
+      @include mixins.ring;
     }
 
     &[aria-invalid='true'],
@@ -31,7 +34,7 @@
       border-color: var(--destructive);
 
       &:focus-visible {
-        box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 30%, transparent);
+        @include mixins.ring(var(--destructive), 30%);
       }
     }
 

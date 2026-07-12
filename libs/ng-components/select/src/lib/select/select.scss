@@ -1,3 +1,5 @@
+@use '../../../../core/src/styles/mixins';
+
 // ngc-select trigger (button host), dropdown, and options. Co-located
 // component styles inside @layer ngc (spec 001 §3); every value from core
 // tokens. The dropdown is positioned by NgpSelect's overlay (absolute
@@ -41,7 +43,8 @@
 
     &[data-focus-visible] {
       border-color: var(--ring);
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+
+      @include mixins.ring;
     }
 
     &[aria-invalid='true'],

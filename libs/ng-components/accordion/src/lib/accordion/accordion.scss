@@ -1,3 +1,5 @@
+@use '../../../../core/src/styles/mixins';
+
 // ngc-accordion and its parts. Co-located component styles inside @layer ngc
 // (spec 001 §3); every value from core tokens. The slide animation uses the
 // --ngp-accordion-content-height variable NgpAccordionContent measures.
@@ -39,7 +41,8 @@
 
     &[data-focus-visible] {
       border-radius: var(--radius-sm);
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+
+      @include mixins.ring;
     }
 
     &[data-disabled] {

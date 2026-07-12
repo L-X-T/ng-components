@@ -69,12 +69,18 @@ describe('Toast', () => {
   });
 
   it('dismisses via the close button', async () => {
-    const { element } = show('Close me');
+    vi.useFakeTimers();
+    try {
+      const { element } = show('Close me');
 
-    (element?.querySelector('.ngc-toast__close') as HTMLButtonElement).click();
-    // The exit animation completes asynchronously.
-    await new Promise((resolve) => setTimeout(resolve, 600));
+      (element?.querySelector('.ngc-toast__close') as HTMLButtonElement).click();
+      // The exit animation completes on a timer – advance it instead of
+      // sleeping real 600 ms (review 2026-07-11 D8).
+      await vi.advanceTimersByTimeAsync(600);
 
-    expect(document.body.querySelector('.ngc-toast')).toBeNull();
+      expect(document.body.querySelector('.ngc-toast')).toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

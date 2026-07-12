@@ -1,3 +1,5 @@
+@use '../../../../core/src/styles/mixins';
+
 // ngc-tabs, list, tab buttons, and panels. Co-located component styles inside
 // @layer ngc (spec 001 §3); every value from core tokens. State selectors
 // target the data attributes NgpTabset and friends emit.
@@ -58,7 +60,7 @@
     }
 
     &[data-focus-visible] {
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+      @include mixins.ring;
     }
 
     &[data-disabled] {

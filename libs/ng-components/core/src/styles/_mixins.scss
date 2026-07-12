@@ -1,0 +1,9 @@
+// Shared SCSS mixins (review 2026-07-11 D8). Component styles @use this file
+// via a relative path – no stylePreprocessorOptions needed, so every app that
+// compiles the library styles (demo + both websites + vitest) just works.
+
+/// The focus/invalid ring: a 3px soft ring mixed from a theme color.
+/// Default is the focus ring; invalid states pass var(--destructive) and 30%.
+@mixin ring($color: var(--ring), $strength: 50%) {
+  box-shadow: 0 0 0 3px color-mix(in oklab, #{$color} #{$strength}, transparent);
+}

@@ -1,3 +1,5 @@
+@use '../../../../core/src/styles/mixins';
+
 // ngc-checkbox (button host). Co-located component styles inside @layer ngc
 // (spec 001 §3); every value from core tokens. State selectors target the
 // data attributes NgpCheckbox emits.
@@ -42,14 +44,15 @@
 
     &[data-focus-visible] {
       border-color: var(--ring);
-      box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+
+      @include mixins.ring;
     }
 
     &[aria-invalid='true'] {
       border-color: var(--destructive);
 
       &[data-focus-visible] {
-        box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 30%, transparent);
+        @include mixins.ring(var(--destructive), 30%);
       }
     }
 
