@@ -92,6 +92,11 @@ export class RadioGroup<T = string> implements ControlValueAccessor {
  * `<label for>` association works natively. The template only renders the
  * dot indicator; NgpRadioItem provides role, aria-checked, focus-selection,
  * and roving-focus participation.
+ *
+ * Misuse note (spec 001 §5): outside an `ngc-radio-group`, NgpRadioItem
+ * throws `NG0201: No provider found for InjectionToken Primitive:
+ * NgpRadioGroup` before this component constructs – a clearer wrapper-level
+ * assertion is impossible, so that error IS the outside-a-group signal.
  */
 @Component({
   selector: 'button[ngc-radio-item]',

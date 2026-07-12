@@ -51,7 +51,11 @@ export class Tabs {}
 })
 export class TabsList {}
 
-/** One tab button; `value` links it to its panel. */
+/**
+ * One tab button; `value` links it to its panel. Misuse note (spec 001 §5):
+ * a missing `value` throws NgpTabButton's own clear error
+ * ("ngpTabButton: value is required") – no wrapper assertion needed.
+ */
 @Directive({
   selector: 'button[ngc-tab]',
   hostDirectives: [

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, Directive, ElementRef, inject, ViewEncapsulation } from '@angular/core';
 import {
   NgpDialog,
   NgpDialogDescription,
@@ -6,6 +6,16 @@ import {
   NgpDialogTitle,
   NgpDialogTrigger,
 } from 'ng-primitives/dialog';
+
+/**
+ * Dev-mode misuse check (spec 001 §5): true when the rendered panel carries
+ * neither a populated aria-labelledby (fed by `ngc-dialog-title`) nor an
+ * aria-label. @internal exported for its unit test only.
+ */
+export function dialogIsUnlabelled(element: HTMLElement): boolean {
+  const labelledBy = element.getAttribute('aria-labelledby')?.trim() ?? '';
+  return labelledBy === '' && !element.getAttribute('aria-label');
+}
 
 /**
  * Dialog (shadcn anatomy). The content lives in an `ng-template` the trigger
@@ -74,7 +84,20 @@ export class DialogOverlay {}
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-dialog' },
 })
-export class Dialog {}
+export class Dialog {
+  constructor() {
+    if (typeof ngDevMode !== 'undefined' && ngDevMode) {
+      const element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+      afterNextRender(() => {
+        if (dialogIsUnlabelled(element)) {
+          console.warn(
+            'ngc-dialog: the panel has neither an ngc-dialog-title nor an aria-label – screen readers announce an unnamed dialog.',
+          );
+        }
+      });
+    }
+  }
+}
 
 /** Dialog heading; feeds the dialog's aria-labelledby. */
 @Directive({
