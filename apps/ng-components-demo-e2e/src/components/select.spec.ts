@@ -45,6 +45,26 @@ test.describe('select', () => {
     await expect(trigger).toContainText('Cherry');
   });
 
+  test('Home and End jump to the first and last option', async ({ page }) => {
+    const trigger = page.getByRole('combobox', { name: 'Fruit' });
+
+    await trigger.focus();
+    await page.keyboard.press('ArrowDown');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+
+    await page.keyboard.press('End');
+    await page.keyboard.press('Enter');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(trigger).toContainText('Pineapple');
+
+    await page.keyboard.press('Enter');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await page.keyboard.press('Home');
+    await page.keyboard.press('Enter');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(trigger).toContainText('Apple');
+  });
+
   test('outside click closes the dropdown', async ({ page }) => {
     const trigger = page.getByRole('combobox', { name: 'Fruit' });
 
