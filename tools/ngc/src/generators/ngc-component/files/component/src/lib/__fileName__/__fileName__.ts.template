@@ -1,26 +1,20 @@
-import { ChangeDetectionStrategy, Component, computed, input, ViewEncapsulation } from '@angular/core';
-
-export type <%= className %>Variant = 'default';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 /**
- * <%= className %> – skeleton stamped by the ngc-component generator.
- * Implement variants per spec 001 §2: map `variant` to BEM-ish modifier
- * classes and style them in <%= fileName %>.scss using core tokens only.
+ * <%= className %> – skeleton stamped by the ngc-component generator, shaped
+ * like every shipped element component: inline `<ng-content />` template,
+ * behaviour via `hostDirectives` (spec 001 §2). Wire the ng-primitives
+ * directive with forwarded inputs/outputs, add sub-part directives next to
+ * this class as the anatomy requires, and style in <%= fileName %>.scss using
+ * core tokens only.
  */
 @Component({
   selector: '<%= selector %>',
-  templateUrl: './<%= fileName %>.html',
+  // hostDirectives: [{ directive: NgpTODO, inputs: ['id'], outputs: [] }],
+  template: `<ng-content />`,
   styleUrl: './<%= fileName %>.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  host: {
-    '[class]': 'hostClasses()',
-  },
+  host: { class: 'ngc-<%= fileName %>' },
 })
-export class <%= className %> {
-  readonly variant = input<<%= className %>Variant>('default');
-
-  protected readonly hostClasses = computed(
-    () => `ngc-<%= fileName %> ngc-<%= fileName %>--${this.variant()}`,
-  );
-}
+export class <%= className %> {}

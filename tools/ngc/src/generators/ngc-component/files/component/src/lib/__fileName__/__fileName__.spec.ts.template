@@ -9,12 +9,12 @@ import { <%= className %> } from './<%= fileName %>';
 class Host {}
 
 describe('<%= className %>', () => {
-  it('applies the base and default variant host classes', () => {
+  it('applies the host class and projects content', () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
     const element = fixture.nativeElement.querySelector('<%= selector %>') as HTMLElement;
 
     expect(element.classList).toContain('ngc-<%= fileName %>');
-    expect(element.classList).toContain('ngc-<%= fileName %>--default');
+    expect(element.textContent).toContain('content');
   });
 });

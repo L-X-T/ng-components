@@ -44,7 +44,11 @@ describe('ngc-component generator', () => {
     const source = tree.read('libs/ng-components/card/src/lib/card/card.ts', 'utf-8');
     expect(source).toContain("selector: 'ngc-card'");
     expect(source).toContain('@Component');
-    expect(tree.exists('libs/ng-components/card/src/lib/card/card.html')).toBe(true);
+    // Shipped recipe (review F4): inline ng-content template + hostDirectives
+    // skeleton – no external html file.
+    expect(source).toContain('template: `<ng-content />`');
+    expect(source).toContain('hostDirectives');
+    expect(tree.exists('libs/ng-components/card/src/lib/card/card.html')).toBe(false);
     expect(tree.exists('libs/ng-components/card/src/lib/card/card.scss')).toBe(true);
     expect(tree.exists('libs/ng-components/card/src/lib/card/card.spec.ts')).toBe(true);
     expect(tree.read('libs/ng-components/card/src/index.ts', 'utf-8')).toContain('./lib/card/card');
@@ -88,7 +92,7 @@ describe('ngc-component generator', () => {
     expect(manifest).toContain("id: 'button'");
     expect(manifest).toContain("category: 'form'");
     expect(manifest).toContain("status: 'wip'");
-    expect(manifest).toContain("summary: 'Clickable action trigger.'");
+    expect(manifest).toContain('summary: "Clickable action trigger."');
 
     expect(tree.read('libs/ng-component-demos/src/index.ts', 'utf-8')).toContain(
       "export * from './lib/button/button-demo';",
@@ -96,6 +100,17 @@ describe('ngc-component generator', () => {
     expect(tree.read('libs/ng-component-demos/src/lib/_loaders/index.ts', 'utf-8')).toContain(
       "'button': () => import('../button/button-demo').then((m) => m.ButtonDemo),",
     );
+  });
+
+  it('escapes quotes in the stamped summary (review F4)', async () => {
+    await ngcComponentGenerator(tree, {
+      name: 'tooltip',
+      summary: `Shows the user's hint with "context"`,
+      skipFormat: true,
+    });
+
+    const manifest = tree.read('libs/ng-component-demos/src/lib/_manifest/manifest.ts', 'utf-8') ?? '';
+    expect(manifest).toContain('summary: "Shows the user\'s hint with \\"context\\""');
   });
 
   it('appends to an already-populated manifest and loader map', async () => {
@@ -116,6 +131,9 @@ describe('ngc-component generator', () => {
 
     const spec = tree.read('apps/ng-components-demo-e2e/src/components/button.spec.ts', 'utf-8');
     expect(spec).toContain("test.describe('button'");
-    expect(spec).toContain("page.goto('/components/button')");
+    // gotoHydrated, not raw page.goto – the stub must not race hydration
+    // (review F4).
+    expect(spec).toContain("gotoHydrated(page, '/components/button')");
+    expect(spec).toContain("import { gotoHydrated } from '../support/hydration'");
   });
 });

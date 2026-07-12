@@ -116,7 +116,9 @@ function stampDemoStub(tree: Tree, substitutions: Substitutions, category: strin
     `    category: '${category}',`,
     `    route: '/components/${fileName}',`,
     `    status: 'wip',`,
-    `    summary: '${summary}',`,
+    // JSON.stringify escapes quotes/backslashes – a summary like "User's
+    // profile" must not break the stamped TS literal (review 2026-07-11 F4).
+    `    summary: ${JSON.stringify(summary)},`,
     `    examples: ['${fileName}-basic'],`,
     '  },',
   ].join('\n');
