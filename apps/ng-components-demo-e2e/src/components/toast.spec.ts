@@ -13,7 +13,11 @@ test.describe('toast', () => {
     await expect(toast).toBeVisible();
     await expect(toast).toContainText('Article published');
     await expect(toast).toContainText('Readers were notified.');
-    await expect(toast).toHaveAttribute('role', 'status');
+    // Single live region (review D1): the manager container announces; the
+    // toast itself must not repeat role/aria-live.
+    await expect(page.locator('[aria-live="polite"]').locator('.ngc-toast')).toBeVisible();
+    await expect(toast).not.toHaveAttribute('role');
+    await expect(toast).not.toHaveAttribute('aria-live');
 
     // Default duration is 3 s + exit animation.
     await expect(toast).toBeHidden({ timeout: 6000 });
