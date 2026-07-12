@@ -2,21 +2,21 @@
   <ngc-demo-section title="Playground">
     <ngc-demo-controls>
       <ngc-demo-knob label="Variant">
-        <select [value]="playgroundVariant()" (change)="onVariantChange($any($event.target).value)">
+        <button ngc-select [value]="playgroundVariant()" (valueChange)="onVariantChange($event)">
           @for (variant of variants; track variant) {
-            <option [value]="variant">{{ variant }}</option>
+            <ngc-select-option [value]="variant">{{ variant }}</ngc-select-option>
           }
-        </select>
+        </button>
       </ngc-demo-knob>
       <ngc-demo-knob label="Size">
-        <select [value]="playgroundSize()" (change)="onSizeChange($any($event.target).value)">
+        <button ngc-select [value]="playgroundSize()" (valueChange)="onSizeChange($event)">
           @for (size of sizes; track size) {
-            <option [value]="size">{{ size }}</option>
+            <ngc-select-option [value]="size">{{ size }}</ngc-select-option>
           }
-        </select>
+        </button>
       </ngc-demo-knob>
       <ngc-demo-knob label="Disabled">
-        <input type="checkbox" [checked]="playgroundDisabled()" (change)="playgroundDisabled.set($any($event.target).checked)" />
+        <button ngc-checkbox [checked]="playgroundDisabled()" (checkedChange)="playgroundDisabled.set($event)"></button>
       </ngc-demo-knob>
     </ngc-demo-controls>
     <ngc-demo-example id="button-playground">

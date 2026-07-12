@@ -24,12 +24,13 @@ describe('App', () => {
     expect(compiled.querySelector('.shell__sidebar')).not.toBeNull();
   });
 
-  it('offers all four themes in the switcher', () => {
+  it('renders the theme switcher as an ngc-select showing the active theme', () => {
     const compiled = render();
 
-    const options = Array.from(compiled.querySelectorAll('.shell__theme-select option')).map((option) =>
-      option.textContent?.trim(),
-    );
-    expect(options).toEqual(['light', 'dark', 'angular-light', 'angular-dark']);
+    // The four theme options render inside the dropdown portal, which needs
+    // real browser APIs to open – covered by the demo e2e suite.
+    const trigger = compiled.querySelector('.shell__theme-select');
+    expect(trigger?.getAttribute('role')).toBe('combobox');
+    expect(trigger?.textContent).toContain('light');
   });
 });

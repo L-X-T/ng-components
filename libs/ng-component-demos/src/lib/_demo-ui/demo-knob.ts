@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
 
 /**
- * A single labelled knob: the demo page projects a native control bound to
- * its own signal. Re-skinned with `ngc-select` / `ngc-checkbox` once those
- * components land.
+ * A single labelled knob: the demo page projects a control (`ngc-select`,
+ * `ngc-checkbox`, …) bound to its own signal.
  */
 @Component({
   selector: 'ngc-demo-knob',

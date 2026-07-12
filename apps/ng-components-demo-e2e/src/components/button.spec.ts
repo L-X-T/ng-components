@@ -46,7 +46,8 @@ test.describe('button', () => {
     const button = playground.getByRole('button', { name: 'Button' });
 
     await expect(button).toHaveClass(/ngc-button--default/);
-    await page.getByLabel('Variant').selectOption('destructive');
+    await page.getByRole('combobox', { name: 'Variant' }).click();
+    await page.getByRole('option', { name: 'destructive' }).click();
     await expect(button).toHaveClass(/ngc-button--destructive/);
   });
 });

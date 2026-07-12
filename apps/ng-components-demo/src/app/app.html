@@ -41,18 +41,17 @@
         <kbd class="shell__search-kbd">⌘K</kbd>
       </button>
 
-      <label class="shell__theme">
-        <span class="shell__visually-hidden">Theme</span>
-        <select
-          class="shell__theme-select"
-          [value]="themeService.theme()"
-          (change)="onThemeChange($any($event.target).value)"
-        >
-          @for (theme of themes; track theme) {
-            <option [value]="theme">{{ theme }}</option>
-          }
-        </select>
-      </label>
+      <button
+        ngc-select
+        class="shell__theme-select"
+        aria-label="Theme"
+        [value]="themeService.theme()"
+        (valueChange)="onThemeChange($event)"
+      >
+        @for (theme of themes; track theme) {
+          <ngc-select-option [value]="theme">{{ theme }}</ngc-select-option>
+        }
+      </button>
 
       <a
         ngc-button

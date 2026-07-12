@@ -5,6 +5,7 @@ import { Badge } from '@angular-software/ng-components/badge';
 import { Button } from '@angular-software/ng-components/button';
 import { NGC_THEMES, isNgcTheme, ThemeService } from '@angular-software/ng-components/core';
 import { Dialog, DialogOverlay, DialogTrigger } from '@angular-software/ng-components/dialog';
+import { Select, SelectOption } from '@angular-software/ng-components/select';
 import { CommandPalette } from './command-palette/command-palette';
 
 /**
@@ -24,6 +25,8 @@ import { CommandPalette } from './command-palette/command-palette';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
+    Select,
+    SelectOption,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

@@ -98,14 +98,10 @@ $sidebar-width: 15rem;
     font-size: 0.7rem;
   }
 
+  // ngc-select brings its own chrome; it defaults to width: 100%, so pin a
+  // header-friendly width that fits the longest theme name.
   &__theme-select {
-    padding: 0.4rem 0.5rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--background);
-    color: var(--foreground);
-    font-size: 0.85rem;
-    cursor: pointer;
+    width: 9.5rem;
   }
 
   &__body {
@@ -183,18 +179,6 @@ $sidebar-width: 15rem;
     flex: 1;
     min-width: 0;
     padding: 2rem;
-  }
-
-  &__visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
   }
 
   @media (width <= 60rem) {

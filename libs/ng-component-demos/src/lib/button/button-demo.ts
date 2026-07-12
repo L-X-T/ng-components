@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Button, type ButtonSize, type ButtonVariant } from '@angular-software/ng-components/button';
+import { Checkbox } from '@angular-software/ng-components/checkbox';
+import { Select, SelectOption } from '@angular-software/ng-components/select';
 import { DemoApi, DemoApiItem, DemoControls, DemoExample, DemoKnob, DemoPage, DemoSection } from '../_demo-ui';
 import { ButtonSizesExample } from './examples/button-sizes.example';
 import { snippet as sizesSnippet } from './examples/button-sizes.ts.snippet';
@@ -16,6 +18,7 @@ import { snippet as variantsSnippet } from './examples/button-variants.ts.snippe
     ButtonSizesExample,
     ButtonStatesExample,
     ButtonVariantsExample,
+    Checkbox,
     DemoApi,
     DemoApiItem,
     DemoControls,
@@ -23,6 +26,8 @@ import { snippet as variantsSnippet } from './examples/button-variants.ts.snippe
     DemoKnob,
     DemoPage,
     DemoSection,
+    Select,
+    SelectOption,
   ],
   templateUrl: './button-demo.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
