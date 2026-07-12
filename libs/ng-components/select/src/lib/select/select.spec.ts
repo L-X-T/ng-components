@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Select, SelectOption } from './select';
@@ -7,7 +7,7 @@ import { Select, SelectOption } from './select';
   imports: [Select, SelectOption, ReactiveFormsModule],
   template: `
     <button ngc-select aria-label="Fruit" placeholder="Pick a fruit" [formControl]="fruit">
-      <ngc-select-option value="apple">Apple</ngc-select-option>
+      <ngc-select-option value="apple" [label]="appleLabel()">Apple</ngc-select-option>
       <ngc-select-option value="banana">Banana</ngc-select-option>
       <ngc-select-option value="cherry" [disabled]="true">Cherry</ngc-select-option>
     </button>
@@ -15,6 +15,7 @@ import { Select, SelectOption } from './select';
 })
 class Host {
   readonly fruit = new FormControl<string | null>(null);
+  readonly appleLabel = signal('Apple');
 }
 
 describe('Select', () => {
@@ -51,6 +52,19 @@ describe('Select', () => {
     expect(trigger.textContent).toContain('Banana');
     expect(trigger.textContent).not.toContain('Pick a fruit');
     expect(emissions).toBe(1);
+  });
+
+  it('keeps the trigger in sync with a changing option label (review D6)', () => {
+    const { fixture, trigger } = setup();
+    fixture.componentInstance.fruit.setValue('apple');
+    fixture.detectChanges();
+    expect(trigger.textContent).toContain('Apple');
+
+    // The textContent fallback would go stale here – the label input is reactive.
+    fixture.componentInstance.appleLabel.set('Apfel');
+    fixture.detectChanges();
+
+    expect(trigger.textContent).toContain('Apfel');
   });
 
   // Open/select interaction runs through the overlay portal, which needs real

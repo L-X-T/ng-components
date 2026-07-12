@@ -106,6 +106,12 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
             description="Emits when the dropdown opens or closes."
           />
           <ngc-demo-api-item
+            name="label (option)"
+            kind="input"
+            type="string"
+            description="Reactive trigger label; without it the trigger snapshots the option's text content."
+          />
+          <ngc-demo-api-item
             name="value (option)"
             kind="input"
             type="T"

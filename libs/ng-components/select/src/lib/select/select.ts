@@ -2,8 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  DestroyRef,
+  ElementRef,
   forwardRef,
+  inject,
   input,
+  signal,
+  type Signal,
   ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -84,12 +89,37 @@ export class Select<T = string> implements ControlValueAccessor {
   /** Text shown in the trigger while no option is selected. */
   readonly placeholder = input('');
 
-  /** Label of the selected option (its text content), for the trigger. */
+  /** Explicit option labels, registered by SelectOption, keyed by host element. */
+  private readonly optionLabels = signal<ReadonlyMap<HTMLElement, Signal<string | undefined>>>(new Map());
+
+  /**
+   * Label of the selected option for the trigger: the option's `label` input
+   * when set (reactive), otherwise its text content. The text-content
+   * fallback is a snapshot – it does not update when the projected text
+   * changes later (async/i18n labels); pass `label` in that case (review
+   * 2026-07-11 D6).
+   */
   protected readonly selectedLabel = computed(() => {
     const state = this.state();
     const selected = state.sortedOptions().find((option) => state.isOptionSelected(option.value() as T));
-    return selected?.elementRef.nativeElement.textContent?.trim() ?? null;
+    if (!selected) {
+      return null;
+    }
+    const explicitLabel = this.optionLabels().get(selected.elementRef.nativeElement)?.();
+    return explicitLabel ?? selected.elementRef.nativeElement.textContent?.trim() ?? null;
   });
+
+  registerOptionLabel(element: HTMLElement, label: Signal<string | undefined>): void {
+    this.optionLabels.update((labels) => new Map(labels).set(element, label));
+  }
+
+  unregisterOptionLabel(element: HTMLElement): void {
+    this.optionLabels.update((labels) => {
+      const next = new Map(labels);
+      next.delete(element);
+      return next;
+    });
+  }
 
   private onChange: (value: T | undefined) => void = () => undefined;
   private onTouched: () => void = () => undefined;
@@ -125,6 +155,8 @@ export class Select<T = string> implements ControlValueAccessor {
  * A single option inside `ngc-select`. The template renders a check indicator
  * (visible while selected) next to the projected label; NgpSelectOption
  * provides role, aria-selected, and the active/selected data attributes.
+ * When the projected text can change after creation (async or translated
+ * labels), set `label` so the trigger stays in sync (review 2026-07-11 D6).
  */
 @Component({
   selector: 'ngc-select-option',
@@ -155,4 +187,14 @@ export class Select<T = string> implements ControlValueAccessor {
     class: 'ngc-select-option',
   },
 })
-export class SelectOption {}
+export class SelectOption {
+  /** Reactive trigger label; without it the trigger snapshots the text content. */
+  readonly label = input<string>();
+
+  constructor() {
+    const select = inject(Select);
+    const element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+    select.registerOptionLabel(element, this.label);
+    inject(DestroyRef).onDestroy(() => select.unregisterOptionLabel(element));
+  }
+}
