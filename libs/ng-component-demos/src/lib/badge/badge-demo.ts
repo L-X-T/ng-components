@@ -8,7 +8,7 @@ import { snippet as variantsSnippet } from './examples/badge-variants.ts.snippet
   selector: 'ngc-demo-badge',
   imports: [BadgeVariantsExample, DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection],
   template: `
-    <ngc-demo-page title="Badge" summary="Displays a badge or a component that looks like a badge.">
+    <ngc-demo-page>
       <ngc-demo-section title="Variants">
         <ngc-demo-example id="badge-variants" [snippet]="variantsSnippet">
           <ngc-demo-badge-variants-example />

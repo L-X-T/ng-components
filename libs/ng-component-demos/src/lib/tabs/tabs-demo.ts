@@ -8,7 +8,7 @@ import { snippet as basicSnippet } from './examples/tabs-basic.ts.snippet';
   selector: 'ngc-demo-tabs',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, TabsBasicExample],
   template: `
-    <ngc-demo-page title="Tabs" summary="Layered sections of content shown one at a time.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="tabs-basic" [snippet]="basicSnippet">
           <ngc-demo-tabs-basic-example />

@@ -8,7 +8,7 @@ import { snippet as basicSnippet } from './examples/tooltip-basic.ts.snippet';
   selector: 'ngc-demo-tooltip',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, TooltipBasicExample],
   template: `
-    <ngc-demo-page title="Tooltip" summary="Contextual hint shown on hover or focus.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="tooltip-basic" [snippet]="basicSnippet">
           <ngc-demo-tooltip-basic-example />

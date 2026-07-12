@@ -8,7 +8,7 @@ import { snippet as basicSnippet } from './examples/textarea-basic.ts.snippet';
   selector: 'ngc-demo-textarea',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, TextareaBasicExample],
   template: `
-    <ngc-demo-page title="Textarea" summary="Multi-line text input field.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="textarea-basic" [snippet]="basicSnippet">
           <ngc-demo-textarea-basic-example />

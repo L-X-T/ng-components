@@ -21,7 +21,7 @@ import { snippet as statesSnippet } from './examples/radio-group-states.ts.snipp
     RadioGroupStatesExample,
   ],
   template: `
-    <ngc-demo-page title="RadioGroup" summary="Set of mutually exclusive options.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="radio-group-basic" [snippet]="basicSnippet">
           <ngc-demo-radio-group-basic-example />

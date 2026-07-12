@@ -21,7 +21,7 @@ import { snippet as statesSnippet } from './examples/checkbox-states.ts.snippet'
     CheckboxStatesExample,
   ],
   template: `
-    <ngc-demo-page title="Checkbox" summary="Control for checking or unchecking an option.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="checkbox-basic" [snippet]="basicSnippet">
           <ngc-demo-checkbox-basic-example />

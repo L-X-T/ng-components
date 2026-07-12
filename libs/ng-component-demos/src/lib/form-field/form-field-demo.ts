@@ -21,7 +21,7 @@ import { snippet as validationSnippet } from './examples/form-field-validation.t
     FormFieldValidationExample,
   ],
   template: `
-    <ngc-demo-page title="FormField" summary="Groups a label, control, hint, and validation errors.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="form-field-basic" [snippet]="basicSnippet">
           <ngc-demo-form-field-basic-example />

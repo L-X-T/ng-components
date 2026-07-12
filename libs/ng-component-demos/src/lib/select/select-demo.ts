@@ -21,7 +21,7 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
     SelectStatesExample,
   ],
   template: `
-    <ngc-demo-page title="Select" summary="Dropdown for picking one option from a list.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="select-basic" [snippet]="basicSnippet">
           <ngc-demo-select-basic-example />
@@ -52,6 +52,12 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
 
       <ngc-demo-section title="API">
         <ngc-demo-api>
+          <ngc-demo-api-item
+            name="id"
+            kind="input"
+            type="string"
+            description="Forwarded to the trigger button, e.g. to reference it from an external label."
+          />
           <ngc-demo-api-item
             name="placeholder"
             kind="input"

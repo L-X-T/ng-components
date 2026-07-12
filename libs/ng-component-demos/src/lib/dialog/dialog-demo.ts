@@ -10,7 +10,7 @@ import { snippet as resultSnippet } from './examples/dialog-result.ts.snippet';
   selector: 'ngc-demo-dialog',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, DialogBasicExample, DialogResultExample],
   template: `
-    <ngc-demo-page title="Dialog" summary="Modal window over the page content.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="dialog-basic" [snippet]="basicSnippet">
           <ngc-demo-dialog-basic-example />
@@ -65,6 +65,28 @@ import { snippet as resultSnippet } from './examples/dialog-result.ts.snippet';
             type="boolean"
             default="true"
             description="Sets aria-modal on the ngc-dialog panel."
+          />
+          <ngc-demo-api-item
+            name="role"
+            kind="input"
+            type="'dialog' | 'alertdialog'"
+            default="'dialog'"
+            description="ARIA role of the ngc-dialog panel; use alertdialog for interruptions."
+          />
+          <ngc-demo-api-item
+            name="ngc-dialog-title"
+            kind="directive"
+            description="Labels the dialog – wires aria-labelledby on the panel."
+          />
+          <ngc-demo-api-item
+            name="ngc-dialog-description"
+            kind="directive"
+            description="Describes the dialog – wires aria-describedby on the panel."
+          />
+          <ngc-demo-api-item
+            name="ngc-dialog-footer"
+            kind="directive"
+            description="Action row at the bottom of the panel."
           />
         </ngc-demo-api>
       </ngc-demo-section>

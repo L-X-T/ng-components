@@ -8,7 +8,7 @@ import { snippet as basicSnippet } from './examples/dropdown-menu-basic.ts.snipp
   selector: 'ngc-demo-dropdown-menu',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, DropdownMenuBasicExample],
   template: `
-    <ngc-demo-page title="DropdownMenu" summary="Menu of actions opened from a trigger.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="dropdown-menu-basic" [snippet]="basicSnippet">
           <ngc-demo-dropdown-menu-basic-example />

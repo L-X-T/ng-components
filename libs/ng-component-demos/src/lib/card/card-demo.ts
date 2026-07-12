@@ -8,7 +8,7 @@ import { snippet as basicSnippet } from './examples/card-basic.ts.snippet';
   selector: 'ngc-demo-card',
   imports: [CardBasicExample, DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection],
   template: `
-    <ngc-demo-page title="Card" summary="Container with header, content, and footer.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="card-basic" [snippet]="basicSnippet">
           <ngc-demo-card-basic-example />

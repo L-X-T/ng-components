@@ -12,7 +12,8 @@ import { snippet as basicSnippet } from './examples/<%= fileName %>-basic.ts.sni
   selector: 'ngc-demo-<%= fileName %>',
   imports: [DemoExample, DemoPage, DemoSection, <%= className %>BasicExample],
   template: `
-    <ngc-demo-page title="<%= className %>" summary="<%= summary %>">
+    <!-- Title/summary come from the manifest entry (single source, review E8). -->
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="<%= fileName %>-basic" [snippet]="basicSnippet">
           <ngc-demo-<%= fileName %>-basic-example />

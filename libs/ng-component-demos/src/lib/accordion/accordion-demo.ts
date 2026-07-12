@@ -18,7 +18,7 @@ import { snippet as multipleSnippet } from './examples/accordion-multiple.ts.sni
     AccordionMultipleExample,
   ],
   template: `
-    <ngc-demo-page title="Accordion" summary="Vertically stacked set of expandable sections.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="accordion-basic" [snippet]="basicSnippet">
           <ngc-demo-accordion-basic-example />

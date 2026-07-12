@@ -10,7 +10,7 @@ import { snippet as statesSnippet } from './examples/input-states.ts.snippet';
   selector: 'ngc-demo-input',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, InputBasicExample, InputStatesExample],
   template: `
-    <ngc-demo-page title="Input" summary="Text input field.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="input-basic" [snippet]="basicSnippet">
           <ngc-demo-input-basic-example />

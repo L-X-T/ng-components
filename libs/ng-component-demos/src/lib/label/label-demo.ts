@@ -8,7 +8,7 @@ import { snippet as basicSnippet } from './examples/label-basic.ts.snippet';
   selector: 'ngc-demo-label',
   imports: [DemoExample, DemoPage, DemoSection, LabelBasicExample],
   template: `
-    <ngc-demo-page title="Label" summary="Accessible label for a form control.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="label-basic" [snippet]="basicSnippet">
           <ngc-demo-label-basic-example />

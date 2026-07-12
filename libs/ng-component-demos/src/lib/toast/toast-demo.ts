@@ -10,7 +10,7 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
   selector: 'ngc-demo-toast',
   imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, ToastBasicExample, ToastOptionsExample],
   template: `
-    <ngc-demo-page title="Toast" summary="Brief notification shown over the page.">
+    <ngc-demo-page>
       <ngc-demo-section title="Basic">
         <ngc-demo-example id="toast-basic" [snippet]="basicSnippet">
           <ngc-demo-toast-basic-example />
