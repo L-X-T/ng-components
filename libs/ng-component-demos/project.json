@@ -18,7 +18,12 @@
     "generate-snippets": {
       "executor": "nx:run-commands",
       "cache": true,
-      "inputs": ["{projectRoot}/src/lib/**/examples/*.example.ts", "{projectRoot}/src/lib/**/examples/*.example.html"],
+      "inputs": [
+        "{projectRoot}/src/lib/**/examples/*.example.ts",
+        "{projectRoot}/src/lib/**/examples/*.example.html",
+        "{projectRoot}/tools/generate-snippets.mjs",
+        { "externalDependencies": ["shiki"] }
+      ],
       "outputs": ["{projectRoot}/src/lib/**/*.snippet.ts"],
       "options": {
         "command": "node libs/ng-component-demos/tools/generate-snippets.mjs"
