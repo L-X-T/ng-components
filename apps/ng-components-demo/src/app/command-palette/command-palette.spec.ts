@@ -62,6 +62,22 @@ describe('CommandPalette', () => {
     expect(optionNames(nativeElement).length).toBe(DEMO_MANIFEST.length);
   });
 
+  it('renders options as non-focusable direct listbox children (review E6)', () => {
+    const { nativeElement } = setup();
+
+    const listbox = nativeElement.querySelector('[role="listbox"]') as HTMLElement;
+    const options = Array.from(listbox.querySelectorAll('[role="option"]'));
+    expect(options.length).toBe(DEMO_MANIFEST.length);
+    // Valid tree: every option is an li directly under the listbox, and the
+    // activedescendant pattern forbids tabbable options.
+    for (const option of options) {
+      expect(option.tagName).toBe('LI');
+      expect(option.parentElement).toBe(listbox);
+      expect((option as HTMLElement).tabIndex).toBeLessThan(0);
+    }
+    expect(listbox.querySelector('button')).toBeNull();
+  });
+
   it('filters as the query changes and resets the active option', () => {
     const { fixture, nativeElement, input } = setup();
 
@@ -102,7 +118,7 @@ describe('CommandPalette', () => {
     const router = TestBed.inject(Router);
     const navigateSpy = vi.spyOn(router, 'navigateByUrl');
 
-    (nativeElement.querySelectorAll('.palette-option')[2] as HTMLButtonElement).click();
+    (nativeElement.querySelectorAll('.palette-option')[2] as HTMLElement).click();
     fixture.detectChanges();
 
     expect(navigateSpy).toHaveBeenCalledWith(DEMO_MANIFEST[2].route);

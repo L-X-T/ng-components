@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import {
+  afterRenderEffect,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DEMO_MANIFEST, DemoManifestEntry } from '@angular-software/ng-component-demos/manifest';
 import { Input as NgcInput } from '@angular-software/ng-components/input';
@@ -29,6 +38,7 @@ export function filterDemoEntries(query: string): readonly DemoManifestEntry[] {
 })
 export class CommandPalette {
   private readonly router = inject(Router);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
 
   /** The dialog's close function (from the ng-template context). */
   readonly closeDialog = input.required<() => void>();
@@ -41,6 +51,17 @@ export class CommandPalette {
     const entry = this.results()[this.activeIndex()];
     return entry ? `command-palette-option-${entry.id}` : null;
   });
+
+  constructor() {
+    // Focus stays in the input (activedescendant pattern), so the browser
+    // never scrolls the active option into view on its own (review E6).
+    afterRenderEffect(() => {
+      const id = this.activeOptionId();
+      if (id) {
+        this.host.nativeElement.querySelector(`#${id}`)?.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  }
 
   protected onQueryChange(value: string): void {
     this.query.set(value);
