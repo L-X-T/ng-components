@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitives/radio';
 
 /**
@@ -47,43 +48,25 @@ import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitive
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'ngc-radio-group',
-    '(focusout)': 'onFocusout($event)',
+    '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
-export class RadioGroup<T = string> implements ControlValueAccessor {
-  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+export class RadioGroup<T = string> extends NgcValueAccessor<T | null> {
   private readonly state = injectRadioGroupState<T>();
 
-  private onChange: (value: T | null) => void = () => undefined;
-  private onTouched: () => void = () => undefined;
-
   constructor() {
+    super();
     this.state()
       .valueChange.pipe(takeUntilDestroyed())
-      .subscribe((value) => this.onChange(value));
+      .subscribe((value) => this.notifyChange(value));
   }
 
   writeValue(value: T | null): void {
     this.state().setValue(value, { emit: false });
   }
 
-  registerOnChange(onChange: (value: T | null) => void): void {
-    this.onChange = onChange;
-  }
-
-  registerOnTouched(onTouched: () => void): void {
-    this.onTouched = onTouched;
-  }
-
   setDisabledState(isDisabled: boolean): void {
     this.state().setDisabled(isDisabled);
-  }
-
-  protected onFocusout(event: FocusEvent): void {
-    const nextFocus = event.relatedTarget as Node | null;
-    if (!nextFocus || !this.elementRef.nativeElement.contains(nextFocus)) {
-      this.onTouched();
-    }
   }
 }
 

@@ -98,10 +98,10 @@ describe('Checkbox', () => {
     expect(control.value).toBe(false);
   });
 
-  it('marks the control touched on blur', () => {
+  it('marks the control touched when focus leaves it', () => {
     const { fixture, checkbox } = setup(FormHost);
 
-    checkbox.dispatchEvent(new Event('blur'));
+    checkbox.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
     fixture.detectChanges();
 
     expect(fixture.componentInstance.control.touched).toBe(true);

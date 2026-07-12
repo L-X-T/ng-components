@@ -12,7 +12,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSelectPortal } from 'ng-primitives/select';
 
 /**
@@ -80,10 +81,10 @@ import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSe
   host: {
     class: 'ngc-select',
     type: 'button',
-    '(blur)': 'onBlur()',
+    '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
-export class Select<T = string> implements ControlValueAccessor {
+export class Select<T = string> extends NgcValueAccessor<T | undefined> {
   private readonly state = injectSelectState<T>();
 
   /** Text shown in the trigger while no option is selected. */
@@ -121,33 +122,19 @@ export class Select<T = string> implements ControlValueAccessor {
     });
   }
 
-  private onChange: (value: T | undefined) => void = () => undefined;
-  private onTouched: () => void = () => undefined;
-
   constructor() {
+    super();
     this.state()
       .valueChange.pipe(takeUntilDestroyed())
-      .subscribe((value) => this.onChange(value));
+      .subscribe((value) => this.notifyChange(value));
   }
 
   writeValue(value: T | undefined): void {
     this.state().setValue(value ?? undefined, { emit: false });
   }
 
-  registerOnChange(onChange: (value: T | undefined) => void): void {
-    this.onChange = onChange;
-  }
-
-  registerOnTouched(onTouched: () => void): void {
-    this.onTouched = onTouched;
-  }
-
   setDisabledState(isDisabled: boolean): void {
     this.state().setDisabled(isDisabled);
-  }
-
-  protected onBlur(): void {
-    this.onTouched();
   }
 }
 

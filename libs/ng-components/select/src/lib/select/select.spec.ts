@@ -83,7 +83,7 @@ describe('Select', () => {
   it('marks the control touched on blur', () => {
     const { fixture, trigger } = setup();
 
-    trigger.dispatchEvent(new Event('blur'));
+    trigger.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
     fixture.detectChanges();
 
     expect(fixture.componentInstance.fruit.touched).toBe(true);

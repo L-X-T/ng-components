@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, forwardRef, inject, ViewEncapsulation } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import { NgpCheckbox } from 'ng-primitives/checkbox';
 
 /**
@@ -68,36 +69,22 @@ import { NgpCheckbox } from 'ng-primitives/checkbox';
   host: {
     class: 'ngc-checkbox',
     type: 'button',
-    '(blur)': 'onBlur()',
+    '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
-export class Checkbox implements ControlValueAccessor {
+export class Checkbox extends NgcValueAccessor<boolean> {
   private readonly checkbox = inject(NgpCheckbox);
 
-  private onChange: (value: boolean) => void = () => undefined;
-  private onTouched: () => void = () => undefined;
-
   constructor() {
-    this.checkbox.checkedChange.subscribe((value) => this.onChange(value));
+    super();
+    this.checkbox.checkedChange.subscribe((value) => this.notifyChange(value));
   }
 
   writeValue(value: unknown): void {
     this.checkbox.setChecked(value === true, { emit: false });
   }
 
-  registerOnChange(onChange: (value: boolean) => void): void {
-    this.onChange = onChange;
-  }
-
-  registerOnTouched(onTouched: () => void): void {
-    this.onTouched = onTouched;
-  }
-
   setDisabledState(isDisabled: boolean): void {
     this.checkbox.setDisabled(isDisabled);
-  }
-
-  protected onBlur(): void {
-    this.onTouched();
   }
 }
