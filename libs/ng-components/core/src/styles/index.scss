@@ -4,6 +4,7 @@
 // styles always win regardless of specificity or injection order (spec 001 §3).
 
 @use 'tokens';
+@use 'motion';
 @use 'theme-light';
 @use 'theme-dark';
 @use 'theme-angular-light';

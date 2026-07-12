@@ -1,0 +1,23 @@
+// Reduced-motion layer (review 2026-07-11 D4): when the user asks for reduced
+// motion, every ngc animation and transition collapses to a near-zero
+// duration. Near-zero instead of `none` on purpose – ng-primitives waits for
+// animationend/transitionend to unmount toasts and accordion panels, and
+// those events never fire for removed animations. The blanket rule also
+// flattens color/opacity fades; that bluntness buys a guarantee that covers
+// every future component by default.
+
+@layer ngc {
+  @media (prefers-reduced-motion: reduce) {
+    [class^='ngc-'],
+    [class*=' ngc-'],
+    [class^='ngc-']::before,
+    [class*=' ngc-']::before,
+    [class^='ngc-']::after,
+    [class*=' ngc-']::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+  }
+}
