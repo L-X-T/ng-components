@@ -12,7 +12,7 @@ import {
   template: `
     <ngc-accordion type="single" [collapsible]="true" style="max-width: 24rem">
       <div ngc-accordion-item value="accessible">
-        <h3 style="margin: 0">
+        <h3>
           <button ngc-accordion-trigger>Is it accessible?</button>
         </h3>
         <div ngc-accordion-content>
@@ -20,7 +20,7 @@ import {
         </div>
       </div>
       <div ngc-accordion-item value="styled">
-        <h3 style="margin: 0">
+        <h3>
           <button ngc-accordion-trigger>Is it styled?</button>
         </h3>
         <div ngc-accordion-content>
@@ -28,7 +28,7 @@ import {
         </div>
       </div>
       <div ngc-accordion-item value="animated">
-        <h3 style="margin: 0">
+        <h3>
           <button ngc-accordion-trigger>Is it animated?</button>
         </h3>
         <div ngc-accordion-content>

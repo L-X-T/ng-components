@@ -12,6 +12,13 @@
   .ngc-accordion-item {
     border-bottom: 1px solid var(--border);
 
+    // The anatomy wraps each trigger in a heading; strip its default margin
+    // here (zero specificity via :where) so consumers don't need inline
+    // styles (review 2026-07-11 D10).
+    > :where(h1, h2, h3, h4, h5, h6) {
+      margin: 0;
+    }
+
     &[data-disabled] {
       cursor: not-allowed;
       opacity: 0.5;

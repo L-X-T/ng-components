@@ -34,8 +34,10 @@ import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSe
  * core `--z-overlay` token.
  *
  * Options are projected; the dropdown template only instantiates while open,
- * but option components exist eagerly, so the trigger label and typeahead work
- * while closed. Reactive forms integrate through the ControlValueAccessor.
+ * but option components exist eagerly, so the trigger label works while
+ * closed. Typeahead exists only while the dropdown is open (ng-primitives
+ * does not implement closed-state typeahead). Reactive forms integrate
+ * through the ControlValueAccessor.
  */
 @Component({
   selector: 'button[ngc-select]',

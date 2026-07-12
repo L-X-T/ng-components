@@ -7,7 +7,7 @@ import { NgpAccordion, NgpAccordionContent, NgpAccordionItem, NgpAccordionTrigge
  * ```html
  * <ngc-accordion type="single" [collapsible]="true">
  *   <div ngc-accordion-item value="item-1">
- *     <h3 style="margin: 0">
+ *     <h3>
  *       <button ngc-accordion-trigger>Is it accessible?</button>
  *     </h3>
  *     <div ngc-accordion-content>Yes. It follows the WAI-ARIA pattern.</div>

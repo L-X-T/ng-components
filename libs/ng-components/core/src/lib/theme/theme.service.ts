@@ -10,8 +10,11 @@ export type NgcTheme = (typeof NGC_THEMES)[number];
 export const NGC_THEME_STORAGE_KEY = 'ngc-theme';
 
 /**
- * Overrides the initial theme, taking precedence over the persisted choice.
- * Meant for SSR/SSG hosts that resolve the theme on the server (e.g. from a cookie).
+ * Overrides the initial theme, taking precedence over the persisted choice
+ * AND the prefers-color-scheme fallback. Meant for SSR/SSG hosts that resolve
+ * the theme on the server (e.g. from a cookie) – such a host owns keeping its
+ * cookie in sync with the client-side localStorage persistence, otherwise the
+ * server-rendered theme beats the user's later choice on every load.
  */
 export const NGC_INITIAL_THEME = new InjectionToken<NgcTheme>('NGC_INITIAL_THEME');
 
