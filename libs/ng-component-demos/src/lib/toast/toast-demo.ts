@@ -68,6 +68,13 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
             default="false"
             description="Never auto-dismiss; requires explicit dismissal."
           />
+          <ngc-demo-api-item
+            name="dismissLabel"
+            kind="input"
+            type="string"
+            default="'Dismiss notification'"
+            description="Accessible label of the dismiss button; provideNgcToastDismissLabel sets the app-wide default."
+          />
         </ngc-demo-api>
       </ngc-demo-section>
     </ngc-demo-page>

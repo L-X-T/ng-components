@@ -1,5 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject, Injectable, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Injectable,
+  InjectionToken,
+  Provider,
+  ViewEncapsulation,
+} from '@angular/core';
 import { injectToastContext, NgpToast, NgpToastManager } from 'ng-primitives/toast';
+
+export const NGC_TOAST_DISMISS_LABEL = new InjectionToken<string>('NGC_TOAST_DISMISS_LABEL');
+
+/** App-wide accessible label for the toast dismiss button (i18n). */
+export function provideNgcToastDismissLabel(label: string): Provider {
+  return { provide: NGC_TOAST_DISMISS_LABEL, useValue: label };
+}
 
 /** Placements supported by the toast manager. */
 export type ToastPlacement = 'top-start' | 'top-end' | 'top-center' | 'bottom-start' | 'bottom-end' | 'bottom-center';
@@ -14,12 +29,17 @@ export type ToastOptions = {
   placement?: ToastPlacement;
   /** Never auto-dismiss; the user must dismiss explicitly. */
   persistent?: boolean;
+  /**
+   * Accessible label of the dismiss button for this toast. Overrides the
+   * app-wide {@link provideNgcToastDismissLabel}. @default 'Dismiss notification'
+   */
+  dismissLabel?: string;
 };
 
 /** Handle to a shown toast. */
 export type ToastRef = { dismiss(): Promise<void> };
 
-type ToastContext = { message: string; description?: string };
+type ToastContext = { message: string; description?: string; dismissLabel?: string };
 
 /**
  * Imperative toast API (spec 001, the one component whose primary API is a
@@ -41,17 +61,20 @@ export class Toast {
 
   /** Show a toast; returns a handle to dismiss it programmatically. */
   show(message: string, options: ToastOptions = {}): ToastRef {
-    const { description, ...toastOptions } = options;
+    const { description, dismissLabel, ...toastOptions } = options;
     return this.manager.show(ToastItem, {
       ...toastOptions,
-      context: { message, description } satisfies ToastContext,
+      context: { message, description, dismissLabel } satisfies ToastContext,
     });
   }
 }
 
 /**
- * The rendered toast (internal – created by {@link Toast.show}). Announced
- * politely via role=status; always carries an explicit dismiss button.
+ * The rendered toast (internal – created by {@link Toast.show}). Announcement
+ * happens through NgpToastManager's live container – the single live region;
+ * the toast itself must not repeat role=status/aria-live or screen readers
+ * announce every toast twice (review 2026-07-11 D1). Always carries an
+ * explicit dismiss button.
  */
 @Component({
   selector: 'ngc-toast',
@@ -63,7 +86,7 @@ export class Toast {
         <p class="ngc-toast__description">{{ context.description }}</p>
       }
     </div>
-    <button class="ngc-toast__close" type="button" aria-label="Dismiss notification" (click)="onDismiss()">
+    <button class="ngc-toast__close" type="button" [attr.aria-label]="dismissLabel" (click)="onDismiss()">
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -82,14 +105,14 @@ export class Toast {
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'ngc-toast',
-    role: 'status',
-    'aria-live': 'polite',
   },
 })
 export class ToastItem {
   private readonly manager = inject(NgpToastManager);
   private readonly toast = inject(NgpToast);
   protected readonly context = injectToastContext<ToastContext>();
+  protected readonly dismissLabel =
+    this.context.dismissLabel ?? inject(NGC_TOAST_DISMISS_LABEL, { optional: true }) ?? 'Dismiss notification';
 
   protected onDismiss(): void {
     void this.manager.dismiss(this.toast);

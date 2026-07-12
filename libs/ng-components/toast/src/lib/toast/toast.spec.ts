@@ -1,6 +1,6 @@
 import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Toast } from './toast';
+import { provideNgcToastDismissLabel, Toast } from './toast';
 
 describe('Toast', () => {
   afterEach(() => {
@@ -19,7 +19,39 @@ describe('Toast', () => {
 
     expect(element).toBeTruthy();
     expect(element?.textContent).toContain('Article published');
-    expect(element?.getAttribute('role')).toBe('status');
+  });
+
+  it('announces through a single live region – the manager container (review D1)', () => {
+    const { element } = show('Article published');
+
+    // The container is the live region; the toast itself must not repeat
+    // role/aria-live or screen readers announce twice.
+    expect(document.body.querySelectorAll('[aria-live]:not([aria-live="off"])')).toHaveLength(1);
+    expect(element?.closest('[aria-live="polite"]')).toBeTruthy();
+    expect(element?.getAttribute('role')).toBeNull();
+    expect(element?.getAttribute('aria-live')).toBeNull();
+  });
+
+  it('labels the dismiss button in English by default', () => {
+    const { element } = show('Default');
+
+    expect(element?.querySelector('.ngc-toast__close')?.getAttribute('aria-label')).toBe('Dismiss notification');
+  });
+
+  it('uses the per-call dismiss label', () => {
+    const { element } = show('Per call', { dismissLabel: 'Weg damit' });
+
+    expect(element?.querySelector('.ngc-toast__close')?.getAttribute('aria-label')).toBe('Weg damit');
+  });
+
+  it('uses the provided app-wide dismiss label', () => {
+    TestBed.configureTestingModule({ providers: [provideNgcToastDismissLabel('Benachrichtigung schließen')] });
+
+    show('Deutsch');
+
+    expect(document.body.querySelector('.ngc-toast__close')?.getAttribute('aria-label')).toBe(
+      'Benachrichtigung schließen',
+    );
   });
 
   it('renders the optional description', () => {
