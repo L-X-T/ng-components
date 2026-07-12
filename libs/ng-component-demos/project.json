@@ -9,6 +9,12 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     },
+    "test": {
+      "dependsOn": ["generate-snippets"]
+    },
+    "typecheck": {
+      "dependsOn": ["generate-snippets"]
+    },
     "generate-snippets": {
       "executor": "nx:run-commands",
       "cache": true,
