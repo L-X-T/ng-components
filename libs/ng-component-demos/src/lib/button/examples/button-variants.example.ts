@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Button } from '@angular-software/ng-components/button';
+import { NgcButton } from '@angular-software/ng-components/button';
 
 @Component({
   selector: 'ngc-demo-button-variants-example',
-  imports: [Button],
+  imports: [NgcButton],
   template: `
     <button ngc-button>Default</button>
     <button ngc-button variant="secondary">Secondary</button>

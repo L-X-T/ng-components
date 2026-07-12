@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Button, type ButtonSize, type ButtonVariant } from './button';
+import { NgcButton, type ButtonSize, type ButtonVariant } from './button';
 
 @Component({
-  imports: [Button],
+  imports: [NgcButton],
   template: `<button ngc-button [variant]="variant()" [size]="size()" [disabled]="disabled()">Click</button>`,
 })
 class Host {
@@ -12,7 +12,7 @@ class Host {
   readonly disabled = signal<boolean>(false);
 }
 
-describe('Button', () => {
+describe('NgcButton', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

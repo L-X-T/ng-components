@@ -14,7 +14,7 @@ export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
     '[class]': 'hostClasses()',
   },
 })
-export class Badge {
+export class NgcBadge {
   /** Visual style of the badge. */
   readonly variant = input<BadgeVariant>('default');
 

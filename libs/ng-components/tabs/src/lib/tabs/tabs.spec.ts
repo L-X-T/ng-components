@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Tab, TabPanel, Tabs, TabsList } from './tabs';
+import { NgcTab, NgcTabPanel, NgcTabs, NgcTabsList } from './tabs';
 
 @Component({
-  imports: [Tab, TabPanel, Tabs, TabsList],
+  imports: [NgcTab, NgcTabPanel, NgcTabs, NgcTabsList],
   template: `
     <ngc-tabs [value]="value()" (valueChange)="onValueChange($event)">
       <div ngc-tabs-list aria-label="Account settings">
@@ -26,7 +26,7 @@ class Host {
   }
 }
 
-describe('Tabs', () => {
+describe('NgcTabs', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

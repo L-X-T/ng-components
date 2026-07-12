@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { <%= className %> } from '@angular-software/ng-components/<%= fileName %>';
+import { Ngc<%= className %> } from '@angular-software/ng-components/<%= fileName %>';
 
 @Component({
   selector: 'ngc-demo-<%= fileName %>-basic-example',
-  imports: [<%= className %>],
+  imports: [Ngc<%= className %>],
   template: `<% if (archetype === 'directive') { %><button <%= attr %>>Click me</button><% } else { %><<%= attr %>>Content</<%= attr %>><% } %>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

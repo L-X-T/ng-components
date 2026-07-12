@@ -4,7 +4,7 @@ import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import { NgpCheckbox } from 'ng-primitives/checkbox';
 
 /**
- * Checkbox on a native `<button>` (Radix/shadcn anatomy) so `<label for>`
+ * NgcCheckbox on a native `<button>` (Radix/shadcn anatomy) so `<label for>`
  * association works natively:
  *
  * ```html
@@ -36,7 +36,7 @@ import { NgpCheckbox } from 'ng-primitives/checkbox';
       outputs: ['ngpCheckboxCheckedChange: checkedChange', 'ngpCheckboxIndeterminateChange: indeterminateChange'],
     },
   ],
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Checkbox), multi: true }],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => NgcCheckbox), multi: true }],
   template: `
     <svg
       class="ngc-checkbox__icon ngc-checkbox__icon--check"
@@ -72,7 +72,7 @@ import { NgpCheckbox } from 'ng-primitives/checkbox';
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
-export class Checkbox extends NgcValueAccessor<boolean> {
+export class NgcCheckbox extends NgcValueAccessor<boolean> {
   private readonly checkbox = inject(NgpCheckbox);
 
   constructor() {

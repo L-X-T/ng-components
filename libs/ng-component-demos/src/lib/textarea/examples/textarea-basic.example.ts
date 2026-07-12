@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Label } from '@angular-software/ng-components/label';
-import { Textarea } from '@angular-software/ng-components/textarea';
+import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcTextarea } from '@angular-software/ng-components/textarea';
 
 @Component({
   selector: 'ngc-demo-textarea-basic-example',
-  imports: [Label, Textarea],
+  imports: [NgcLabel, NgcTextarea],
   template: `
     <div style="display: grid; gap: 0.5rem; width: 100%; max-width: 20rem">
       <label ngc-label for="textarea-demo-message">Message</label>

@@ -31,7 +31,7 @@ export function isNgcTheme(value: unknown): value is NgcTheme {
  * element, and persists it across visits (browser only).
  */
 @Injectable({ providedIn: 'root' })
-export class ThemeService {
+export class NgcThemeService {
   private readonly document = inject(DOCUMENT);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly initialTheme = inject(NGC_INITIAL_THEME, { optional: true });

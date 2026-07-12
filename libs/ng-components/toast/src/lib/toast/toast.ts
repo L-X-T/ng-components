@@ -19,7 +19,7 @@ export function provideNgcToastDismissLabel(label: string): Provider {
 /** Placements supported by the toast manager. */
 export type ToastPlacement = 'top-start' | 'top-end' | 'top-center' | 'bottom-start' | 'bottom-end' | 'bottom-center';
 
-/** Options for {@link Toast.show}. */
+/** Options for {@link NgcToast.show}. */
 export type ToastOptions = {
   /** Muted second line under the message. */
   description?: string;
@@ -46,7 +46,7 @@ type ToastContext = { message: string; description?: string; dismissLabel?: stri
  * service):
  *
  * ```ts
- * private readonly toast = inject(Toast);
+ * private readonly toast = inject(NgcToast);
  * this.toast.show('Article published', { description: 'Readers were notified.' });
  * ```
  *
@@ -56,13 +56,13 @@ type ToastContext = { message: string; description?: string; dismissLabel?: stri
  * placement.
  */
 @Injectable({ providedIn: 'root' })
-export class Toast {
+export class NgcToast {
   private readonly manager = inject(NgpToastManager);
 
   /** Show a toast; returns a handle to dismiss it programmatically. */
   show(message: string, options: ToastOptions = {}): ToastRef {
     const { description, dismissLabel, ...toastOptions } = options;
-    return this.manager.show(ToastItem, {
+    return this.manager.show(NgcToastItem, {
       ...toastOptions,
       context: { message, description, dismissLabel } satisfies ToastContext,
     });
@@ -70,7 +70,7 @@ export class Toast {
 }
 
 /**
- * The rendered toast (internal – created by {@link Toast.show}). Announcement
+ * The rendered toast (internal – created by {@link NgcToast.show}). Announcement
  * happens through NgpToastManager's live container – the single live region;
  * the toast itself must not repeat role=status/aria-live or screen readers
  * announce every toast twice (review 2026-07-11 D1). Always carries an
@@ -107,7 +107,7 @@ export class Toast {
     class: 'ngc-toast',
   },
 })
-export class ToastItem {
+export class NgcToastItem {
   private readonly manager = inject(NgpToastManager);
   private readonly toast = inject(NgpToast);
   protected readonly context = injectToastContext<ToastContext>();

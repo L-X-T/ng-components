@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from
 import { NgpTooltip, NgpTooltipTrigger } from 'ng-primitives/tooltip';
 
 /**
- * Tooltip (shadcn look). The content lives in an `ng-template` the trigger
+ * NgcTooltip (shadcn look). The content lives in an `ng-template` the trigger
  * shows on hover or keyboard focus:
  *
  * ```html
@@ -32,7 +32,7 @@ import { NgpTooltip, NgpTooltipTrigger } from 'ng-primitives/tooltip';
     },
   ],
 })
-export class TooltipTrigger {}
+export class NgcTooltipTrigger {}
 
 /** The tooltip bubble itself. */
 @Component({
@@ -44,4 +44,4 @@ export class TooltipTrigger {}
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-tooltip' },
 })
-export class Tooltip {}
+export class NgcTooltip {}

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { <%= className %> } from './<%= fileName %>';
+import { Ngc<%= className %> } from './<%= fileName %>';
 
 @Component({
-  imports: [<%= className %>],
+  imports: [Ngc<%= className %>],
   template: `<<%= selector %>>content</<%= selector %>>`,
 })
 class Host {}
 
-describe('<%= className %>', () => {
+describe('Ngc<%= className %>', () => {
   it('applies the host class and projects content', () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

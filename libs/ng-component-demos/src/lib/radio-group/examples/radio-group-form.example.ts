@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Button } from '@angular-software/ng-components/button';
-import { Label } from '@angular-software/ng-components/label';
-import { RadioGroup, RadioItem } from '@angular-software/ng-components/radio-group';
+import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcRadioGroup, NgcRadioItem } from '@angular-software/ng-components/radio-group';
 
 @Component({
   selector: 'ngc-demo-radio-group-form-example',
-  imports: [Button, Label, RadioGroup, RadioItem, ReactiveFormsModule],
+  imports: [NgcButton, NgcLabel, NgcRadioGroup, NgcRadioItem, ReactiveFormsModule],
   template: `
     <div style="display: grid; gap: 0.75rem; justify-items: start">
       <ngc-radio-group aria-label="Plan" orientation="vertical" [formControl]="plan">

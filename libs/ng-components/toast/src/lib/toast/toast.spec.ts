@@ -1,14 +1,14 @@
 import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideNgcToastDismissLabel, Toast } from './toast';
+import { provideNgcToastDismissLabel, NgcToast } from './toast';
 
-describe('Toast', () => {
+describe('NgcToast', () => {
   afterEach(() => {
     document.body.innerHTML = '';
   });
 
-  function show(message: string, options?: Parameters<Toast['show']>[1]) {
-    const toast = TestBed.inject(Toast);
+  function show(message: string, options?: Parameters<NgcToast['show']>[1]) {
+    const toast = TestBed.inject(NgcToast);
     const ref = toast.show(message, options);
     TestBed.inject(ApplicationRef).tick();
     return { ref, element: document.body.querySelector('.ngc-toast') as HTMLElement | null };

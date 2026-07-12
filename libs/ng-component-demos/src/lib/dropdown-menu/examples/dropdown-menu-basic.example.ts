@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { Button } from '@angular-software/ng-components/button';
-import { Menu, MenuItem, MenuLabel, MenuSeparator, MenuTrigger } from '@angular-software/ng-components/dropdown-menu';
+import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcMenu, NgcMenuItem, NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger } from '@angular-software/ng-components/dropdown-menu';
 
 @Component({
   selector: 'ngc-demo-dropdown-menu-basic-example',
-  imports: [Button, Menu, MenuItem, MenuLabel, MenuSeparator, MenuTrigger],
+  imports: [NgcButton, NgcMenu, NgcMenuItem, NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger],
   template: `
     <div style="display: grid; gap: 0.75rem; justify-items: start">
       <button ngc-button variant="outline" [ngc-menu-trigger]="accountMenu">Options</button>

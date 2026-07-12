@@ -17,7 +17,7 @@ import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSelectPortal } from 'ng-primitives/select';
 
 /**
- * Select on a native `<button>` trigger (combobox pattern):
+ * NgcSelect on a native `<button>` trigger (combobox pattern):
  *
  * ```html
  * <button ngc-select placeholder="Pick a fruit" [formControl]="fruit">
@@ -54,7 +54,7 @@ import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSe
       outputs: ['ngpSelectValueChange: valueChange', 'ngpSelectOpenChange: openChange'],
     },
   ],
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => Select), multi: true }],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => NgcSelect), multi: true }],
   imports: [NgpSelectDropdown, NgpSelectPortal],
   template: `
     <span class="ngc-select__value" [class.ngc-select__value--placeholder]="!selectedLabel()">
@@ -86,17 +86,17 @@ import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSe
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
-export class Select<T = string> extends NgcValueAccessor<T | undefined> {
+export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
   private readonly state = injectSelectState<T>();
 
   /** Text shown in the trigger while no option is selected. */
   readonly placeholder = input('');
 
-  /** Explicit option labels, registered by SelectOption, keyed by host element. */
+  /** Explicit option labels, registered by NgcSelectOption, keyed by host element. */
   private readonly optionLabels = signal<ReadonlyMap<HTMLElement, Signal<string | undefined>>>(new Map());
 
   /**
-   * Label of the selected option for the trigger: the option's `label` input
+   * NgcLabel of the selected option for the trigger: the option's `label` input
    * when set (reactive), otherwise its text content. The text-content
    * fallback is a snapshot – it does not update when the projected text
    * changes later (async/i18n labels); pass `label` in that case (review
@@ -176,12 +176,12 @@ export class Select<T = string> extends NgcValueAccessor<T | undefined> {
     class: 'ngc-select-option',
   },
 })
-export class SelectOption {
+export class NgcSelectOption {
   /** Reactive trigger label; without it the trigger snapshots the text content. */
   readonly label = input<string>();
 
   constructor() {
-    const select = inject(Select);
+    const select = inject(NgcSelect);
     const element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
     select.registerOptionLabel(element, this.label);
     inject(DestroyRef).onDestroy(() => select.unregisterOptionLabel(element));

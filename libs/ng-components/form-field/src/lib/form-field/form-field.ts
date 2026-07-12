@@ -30,15 +30,15 @@ import { NgpDescription, NgpError, NgpFormField, NgpLabel } from 'ng-primitives/
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-form-field' },
 })
-export class FormField {}
+export class NgcFormField {}
 
-/** Label of the field; associates with the control automatically. */
+/** NgcLabel of the field; associates with the control automatically. */
 @Directive({
   selector: 'label[ngc-field-label]',
   hostDirectives: [{ directive: NgpLabel, inputs: ['id'] }],
   host: { class: 'ngc-field-label' },
 })
-export class FormFieldLabel {}
+export class NgcFormFieldLabel {}
 
 /** Always-visible hint text; feeds the control's aria-describedby. */
 @Directive({
@@ -46,7 +46,7 @@ export class FormFieldLabel {}
   hostDirectives: [{ directive: NgpDescription, inputs: ['id'] }],
   host: { class: 'ngc-field-hint' },
 })
-export class FormFieldHint {}
+export class NgcFormFieldHint {}
 
 /**
  * Error message for one validator (or any error when `validator` is omitted).
@@ -57,4 +57,4 @@ export class FormFieldHint {}
   hostDirectives: [{ directive: NgpError, inputs: ['id', 'ngpErrorValidator: validator'] }],
   host: { class: 'ngc-field-error' },
 })
-export class FormFieldError {}
+export class NgcFormFieldError {}

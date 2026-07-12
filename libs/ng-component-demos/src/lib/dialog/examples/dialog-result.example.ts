@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { Button } from '@angular-software/ng-components/button';
+import { NgcButton } from '@angular-software/ng-components/button';
 import {
-  Dialog,
-  DialogDescription,
-  DialogFooter,
-  DialogOverlay,
-  DialogTitle,
-  DialogTrigger,
+  NgcDialog,
+  NgcDialogDescription,
+  NgcDialogFooter,
+  NgcDialogOverlay,
+  NgcDialogTitle,
+  NgcDialogTrigger,
 } from '@angular-software/ng-components/dialog';
 
 @Component({
   selector: 'ngc-demo-dialog-result-example',
-  imports: [Button, Dialog, DialogDescription, DialogFooter, DialogOverlay, DialogTitle, DialogTrigger],
+  imports: [NgcButton, NgcDialog, NgcDialogDescription, NgcDialogFooter, NgcDialogOverlay, NgcDialogTitle, NgcDialogTrigger],
   template: `
     <div style="display: grid; gap: 0.75rem; justify-items: start">
       <button ngc-button variant="outline" [ngc-dialog-trigger]="deleteDialog" (closed)="onClosed($event)">

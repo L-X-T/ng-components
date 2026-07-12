@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Button } from '@angular-software/ng-components/button';
+import { NgcButton } from '@angular-software/ng-components/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+  NgcCard,
+  NgcCardContent,
+  NgcCardDescription,
+  NgcCardFooter,
+  NgcCardHeader,
+  NgcCardTitle,
 } from '@angular-software/ng-components/card';
 
 @Component({
   selector: 'ngc-demo-card-basic-example',
-  imports: [Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle],
+  imports: [NgcButton, NgcCard, NgcCardContent, NgcCardDescription, NgcCardFooter, NgcCardHeader, NgcCardTitle],
   template: `
     <ngc-card style="width: 20rem">
       <div ngc-card-header>

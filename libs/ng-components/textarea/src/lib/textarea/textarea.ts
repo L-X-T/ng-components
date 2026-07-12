@@ -15,4 +15,4 @@ import { NgpTextarea } from 'ng-primitives/textarea';
   hostDirectives: [{ directive: NgpTextarea, inputs: ['id', 'disabled'] }],
   host: { class: 'ngc-textarea' },
 })
-export class Textarea {}
+export class NgcTextarea {}

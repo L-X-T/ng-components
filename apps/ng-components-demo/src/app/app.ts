@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { DEMO_MANIFEST, demosByCategory } from '@angular-software/ng-component-demos/manifest';
-import { Badge } from '@angular-software/ng-components/badge';
-import { Button } from '@angular-software/ng-components/button';
-import { NGC_THEMES, isNgcTheme, ThemeService } from '@angular-software/ng-components/core';
-import { Dialog, DialogOverlay, DialogTrigger } from '@angular-software/ng-components/dialog';
-import { Select, SelectOption } from '@angular-software/ng-components/select';
+import { NgcBadge } from '@angular-software/ng-components/badge';
+import { NgcButton } from '@angular-software/ng-components/button';
+import { NGC_THEMES, isNgcTheme, NgcThemeService } from '@angular-software/ng-components/core';
+import { NgcDialog, NgcDialogOverlay, NgcDialogTrigger } from '@angular-software/ng-components/dialog';
+import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
 import { CommandPalette } from './command-palette/command-palette';
 
 /**
@@ -16,17 +16,17 @@ import { CommandPalette } from './command-palette/command-palette';
 @Component({
   selector: 'app-root',
   imports: [
-    Badge,
-    Button,
+    NgcBadge,
+    NgcButton,
     CommandPalette,
-    Dialog,
-    DialogOverlay,
-    DialogTrigger,
+    NgcDialog,
+    NgcDialogOverlay,
+    NgcDialogTrigger,
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    Select,
-    SelectOption,
+    NgcSelect,
+    NgcSelectOption,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
@@ -36,7 +36,7 @@ import { CommandPalette } from './command-palette/command-palette';
   },
 })
 export class App {
-  protected readonly themeService = inject(ThemeService);
+  protected readonly themeService = inject(NgcThemeService);
   protected readonly themes = NGC_THEMES;
   protected readonly categories = demosByCategory(DEMO_MANIFEST);
   protected readonly sidebarOpen = signal(false);

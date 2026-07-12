@@ -41,7 +41,7 @@ import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitive
       outputs: ['ngpRadioGroupValueChange: valueChange'],
     },
   ],
-  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => RadioGroup), multi: true }],
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => NgcRadioGroup), multi: true }],
   template: `<ng-content />`,
   styleUrl: './radio-group.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,7 +51,7 @@ import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitive
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
-export class RadioGroup<T = string> extends NgcValueAccessor<T | null> {
+export class NgcRadioGroup<T = string> extends NgcValueAccessor<T | null> {
   private readonly state = injectRadioGroupState<T>();
 
   constructor() {
@@ -101,4 +101,4 @@ export class RadioGroup<T = string> extends NgcValueAccessor<T | null> {
     type: 'button',
   },
 })
-export class RadioItem {}
+export class NgcRadioItem {}

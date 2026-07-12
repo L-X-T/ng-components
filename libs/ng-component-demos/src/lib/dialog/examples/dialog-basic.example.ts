@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Button } from '@angular-software/ng-components/button';
+import { NgcButton } from '@angular-software/ng-components/button';
 import {
-  Dialog,
-  DialogDescription,
-  DialogFooter,
-  DialogOverlay,
-  DialogTitle,
-  DialogTrigger,
+  NgcDialog,
+  NgcDialogDescription,
+  NgcDialogFooter,
+  NgcDialogOverlay,
+  NgcDialogTitle,
+  NgcDialogTrigger,
 } from '@angular-software/ng-components/dialog';
 
 @Component({
   selector: 'ngc-demo-dialog-basic-example',
-  imports: [Button, Dialog, DialogDescription, DialogFooter, DialogOverlay, DialogTitle, DialogTrigger],
+  imports: [NgcButton, NgcDialog, NgcDialogDescription, NgcDialogFooter, NgcDialogOverlay, NgcDialogTitle, NgcDialogTrigger],
   template: `
     <button ngc-button variant="outline" [ngc-dialog-trigger]="publishDialog">Publish article</button>
 

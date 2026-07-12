@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from
 import { NgpAccordion, NgpAccordionContent, NgpAccordionItem, NgpAccordionTrigger } from 'ng-primitives/accordion';
 
 /**
- * Accordion (the composed-component archetype of spec 001 §2):
+ * NgcAccordion (the composed-component archetype of spec 001 §2):
  *
  * ```html
  * <ngc-accordion type="single" [collapsible]="true">
@@ -41,7 +41,7 @@ import { NgpAccordion, NgpAccordionContent, NgpAccordionItem, NgpAccordionTrigge
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-accordion' },
 })
-export class Accordion {}
+export class NgcAccordion {}
 
 /** One expandable section; `value` identifies it in the accordion value. */
 @Directive({
@@ -54,7 +54,7 @@ export class Accordion {}
   ],
   host: { class: 'ngc-accordion-item' },
 })
-export class AccordionItem {}
+export class NgcAccordionItem {}
 
 /**
  * The trigger button of a section; renders a chevron that rotates while open.
@@ -82,7 +82,7 @@ export class AccordionItem {}
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-accordion-trigger', type: 'button' },
 })
-export class AccordionTrigger {}
+export class NgcAccordionTrigger {}
 
 /** Collapsible content of a section. */
 @Directive({
@@ -90,4 +90,4 @@ export class AccordionTrigger {}
   hostDirectives: [NgpAccordionContent],
   host: { class: 'ngc-accordion-content' },
 })
-export class AccordionContent {}
+export class NgcAccordionContent {}

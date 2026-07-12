@@ -1,13 +1,13 @@
 import { DOCUMENT, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { isNgcTheme, NGC_INITIAL_THEME, NGC_THEME_STORAGE_KEY, ThemeService } from './theme.service';
+import { isNgcTheme, NGC_INITIAL_THEME, NGC_THEME_STORAGE_KEY, NgcThemeService } from './theme.service';
 
-describe('ThemeService', () => {
+describe('NgcThemeService', () => {
   const documentElement = (): HTMLElement => TestBed.inject(DOCUMENT).documentElement;
 
-  const themeService = (): ThemeService => {
-    const service = TestBed.inject(ThemeService);
+  const themeService = (): NgcThemeService => {
+    const service = TestBed.inject(NgcThemeService);
     TestBed.tick();
     return service;
   };

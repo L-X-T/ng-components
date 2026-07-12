@@ -16,4 +16,4 @@ import { NgpInput } from 'ng-primitives/input';
   hostDirectives: [{ directive: NgpInput, inputs: ['id', 'disabled'] }],
   host: { class: 'ngc-input' },
 })
-export class Input {}
+export class NgcInput {}

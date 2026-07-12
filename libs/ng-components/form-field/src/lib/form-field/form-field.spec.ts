@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Input } from '@angular-software/ng-components/input';
-import { FormField, FormFieldError, FormFieldHint, FormFieldLabel } from './form-field';
+import { NgcInput } from '@angular-software/ng-components/input';
+import { NgcFormField, NgcFormFieldError, NgcFormFieldHint, NgcFormFieldLabel } from './form-field';
 
 @Component({
-  imports: [FormField, FormFieldError, FormFieldHint, FormFieldLabel, Input, ReactiveFormsModule],
+  imports: [NgcFormField, NgcFormFieldError, NgcFormFieldHint, NgcFormFieldLabel, NgcInput, ReactiveFormsModule],
   template: `
     <ngc-form-field>
       <label ngc-field-label>Email</label>
@@ -20,7 +20,7 @@ class Host {
   readonly email = new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] });
 }
 
-describe('FormField', () => {
+describe('NgcFormField', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

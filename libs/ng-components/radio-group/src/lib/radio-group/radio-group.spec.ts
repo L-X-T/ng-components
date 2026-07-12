@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RadioGroup, RadioItem } from './radio-group';
+import { NgcRadioGroup, NgcRadioItem } from './radio-group';
 
 @Component({
-  imports: [RadioGroup, RadioItem, ReactiveFormsModule],
+  imports: [NgcRadioGroup, NgcRadioItem, ReactiveFormsModule],
   template: `
     <ngc-radio-group aria-label="Plan" orientation="vertical" [formControl]="plan">
       <button ngc-radio-item value="starter" aria-label="Starter"></button>
@@ -17,7 +17,7 @@ class Host {
   readonly plan = new FormControl<string | null>(null);
 }
 
-describe('RadioGroup', () => {
+describe('NgcRadioGroup', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

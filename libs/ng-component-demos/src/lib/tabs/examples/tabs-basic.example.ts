@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Tab, TabPanel, Tabs, TabsList } from '@angular-software/ng-components/tabs';
+import { NgcTab, NgcTabPanel, NgcTabs, NgcTabsList } from '@angular-software/ng-components/tabs';
 
 @Component({
   selector: 'ngc-demo-tabs-basic-example',
-  imports: [Tab, TabPanel, Tabs, TabsList],
+  imports: [NgcTab, NgcTabPanel, NgcTabs, NgcTabsList],
   template: `
     <ngc-tabs value="account" style="width: 100%; max-width: 24rem">
       <div ngc-tabs-list aria-label="Account settings">

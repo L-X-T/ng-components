@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DEMO_MANIFEST, DemoManifestEntry } from '@angular-software/ng-component-demos/manifest';
-import { Input as NgcInput } from '@angular-software/ng-components/input';
+import { NgcInput } from '@angular-software/ng-components/input';
 
 /** Case-insensitive filter over manifest name and summary. */
 export function filterDemoEntries(query: string): readonly DemoManifestEntry[] {

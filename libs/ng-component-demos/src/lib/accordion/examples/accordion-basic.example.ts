@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+  NgcAccordion,
+  NgcAccordionContent,
+  NgcAccordionItem,
+  NgcAccordionTrigger,
 } from '@angular-software/ng-components/accordion';
 
 @Component({
   selector: 'ngc-demo-accordion-basic-example',
-  imports: [Accordion, AccordionContent, AccordionItem, AccordionTrigger],
+  imports: [NgcAccordion, NgcAccordionContent, NgcAccordionItem, NgcAccordionTrigger],
   template: `
     <ngc-accordion type="single" [collapsible]="true" style="max-width: 24rem">
       <div ngc-accordion-item value="accessible">

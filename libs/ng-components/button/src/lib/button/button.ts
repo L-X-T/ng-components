@@ -21,7 +21,7 @@ export type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
     '[class]': 'hostClasses()',
   },
 })
-export class Button {
+export class NgcButton {
   /** Visual style of the button. */
   readonly variant = input<ButtonVariant>('default');
   /** Size preset; `icon` renders a square icon button. */

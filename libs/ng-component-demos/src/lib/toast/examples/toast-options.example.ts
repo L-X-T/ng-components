@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Button } from '@angular-software/ng-components/button';
-import { Toast, ToastRef } from '@angular-software/ng-components/toast';
+import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcToast, ToastRef } from '@angular-software/ng-components/toast';
 
 @Component({
   selector: 'ngc-demo-toast-options-example',
-  imports: [Button],
+  imports: [NgcButton],
   template: `
     <div style="display: flex; flex-wrap: wrap; gap: 0.5rem">
       <button ngc-button variant="outline" (click)="onShowPersistent()">Persistent toast</button>
@@ -15,7 +15,7 @@ import { Toast, ToastRef } from '@angular-software/ng-components/toast';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastOptionsExample {
-  private readonly toast = inject(Toast);
+  private readonly toast = inject(NgcToast);
   private lastToast?: ToastRef;
 
   protected onShowPersistent(): void {

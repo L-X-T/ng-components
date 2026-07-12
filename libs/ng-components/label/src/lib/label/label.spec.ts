@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Label } from './label';
+import { NgcLabel } from './label';
 
 @Component({
-  imports: [Label],
+  imports: [NgcLabel],
   template: `
     <label ngc-label for="name">Name</label>
     <input id="name" />
@@ -11,7 +11,7 @@ import { Label } from './label';
 })
 class Host {}
 
-describe('Label', () => {
+describe('NgcLabel', () => {
   it('applies the label class and keeps the native association', () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

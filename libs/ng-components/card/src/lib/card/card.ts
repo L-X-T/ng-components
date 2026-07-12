@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from '@angular/core';
 
 /**
- * Card container (shadcn anatomy, spec 001 §2): the `<ngc-card>` element plus
+ * NgcCard container (shadcn anatomy, spec 001 §2): the `<ngc-card>` element plus
  * sub-part directives applied to consumer markup –
  *
  * ```html
@@ -26,39 +26,39 @@ import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-card' },
 })
-export class Card {}
+export class NgcCard {}
 
 /** Header row of a card; contains title and description. */
 @Directive({
   selector: '[ngc-card-header]',
   host: { class: 'ngc-card-header' },
 })
-export class CardHeader {}
+export class NgcCardHeader {}
 
-/** Card title; apply to a heading element of the right level. */
+/** NgcCard title; apply to a heading element of the right level. */
 @Directive({
   selector: '[ngc-card-title]',
   host: { class: 'ngc-card-title' },
 })
-export class CardTitle {}
+export class NgcCardTitle {}
 
 /** Muted description line under the title. */
 @Directive({
   selector: '[ngc-card-description]',
   host: { class: 'ngc-card-description' },
 })
-export class CardDescription {}
+export class NgcCardDescription {}
 
 /** Main content area of a card. */
 @Directive({
   selector: '[ngc-card-content]',
   host: { class: 'ngc-card-content' },
 })
-export class CardContent {}
+export class NgcCardContent {}
 
 /** Footer row, usually holding actions. */
 @Directive({
   selector: '[ngc-card-footer]',
   host: { class: 'ngc-card-footer' },
 })
-export class CardFooter {}
+export class NgcCardFooter {}

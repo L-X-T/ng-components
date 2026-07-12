@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from
 import { NgpTabButton, NgpTabList, NgpTabPanel, NgpTabset } from 'ng-primitives/tabs';
 
 /**
- * Tabs (shadcn anatomy):
+ * NgcTabs (shadcn anatomy):
  *
  * ```html
  * <ngc-tabs value="account">
@@ -41,7 +41,7 @@ import { NgpTabButton, NgpTabList, NgpTabPanel, NgpTabset } from 'ng-primitives/
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-tabs' },
 })
-export class Tabs {}
+export class NgcTabs {}
 
 /** Container for the tab buttons; give it an aria-label. */
 @Directive({
@@ -49,7 +49,7 @@ export class Tabs {}
   hostDirectives: [NgpTabList],
   host: { class: 'ngc-tabs-list' },
 })
-export class TabsList {}
+export class NgcTabsList {}
 
 /**
  * One tab button; `value` links it to its panel. Misuse note (spec 001 §5):
@@ -66,7 +66,7 @@ export class TabsList {}
   ],
   host: { class: 'ngc-tab', type: 'button' },
 })
-export class Tab {}
+export class NgcTab {}
 
 /** Content panel shown while its tab is selected. */
 @Directive({
@@ -79,4 +79,4 @@ export class Tab {}
   ],
   host: { class: 'ngc-tab-panel' },
 })
-export class TabPanel {}
+export class NgcTabPanel {}

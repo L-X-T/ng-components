@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Label } from '@angular-software/ng-components/label';
-import { RadioGroup, RadioItem } from '@angular-software/ng-components/radio-group';
+import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcRadioGroup, NgcRadioItem } from '@angular-software/ng-components/radio-group';
 
 @Component({
   selector: 'ngc-demo-radio-group-states-example',
-  imports: [Label, RadioGroup, RadioItem],
+  imports: [NgcLabel, NgcRadioGroup, NgcRadioItem],
   template: `
     <div style="display: grid; gap: 1.5rem">
       <ngc-radio-group aria-label="Shipping" orientation="vertical" defaultValue="standard">

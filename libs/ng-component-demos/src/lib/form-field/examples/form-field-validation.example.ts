@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormField, FormFieldError, FormFieldHint, FormFieldLabel } from '@angular-software/ng-components/form-field';
-import { Input } from '@angular-software/ng-components/input';
+import { NgcFormField, NgcFormFieldError, NgcFormFieldHint, NgcFormFieldLabel } from '@angular-software/ng-components/form-field';
+import { NgcInput } from '@angular-software/ng-components/input';
 
 @Component({
   selector: 'ngc-demo-form-field-validation-example',
-  imports: [FormField, FormFieldError, FormFieldHint, FormFieldLabel, Input, ReactiveFormsModule],
+  imports: [NgcFormField, NgcFormFieldError, NgcFormFieldHint, NgcFormFieldLabel, NgcInput, ReactiveFormsModule],
   template: `
     <ngc-form-field style="width: 100%; max-width: 20rem">
       <label ngc-field-label>Email</label>

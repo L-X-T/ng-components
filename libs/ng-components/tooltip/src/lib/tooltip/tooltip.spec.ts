@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { TooltipTrigger } from './tooltip';
+import { NgcTooltipTrigger } from './tooltip';
 
 // Showing the tooltip goes through the overlay portal, which needs real
 // browser APIs – the interaction contract (hover/focus show, Escape/blur
@@ -8,7 +8,7 @@ import { TooltipTrigger } from './tooltip';
 // (spec 001 §5).
 
 @Component({
-  imports: [TooltipTrigger],
+  imports: [NgcTooltipTrigger],
   template: `
     <button [ngc-tooltip-trigger]="hint">Hover me</button>
     <ng-template #hint>content</ng-template>
@@ -16,7 +16,7 @@ import { TooltipTrigger } from './tooltip';
 })
 class Host {}
 
-describe('Tooltip', () => {
+describe('NgcTooltip', () => {
   it('wires the trigger without showing anything at render time', () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

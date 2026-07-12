@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Input } from './input';
+import { NgcInput } from './input';
 
 @Component({
-  imports: [Input],
+  imports: [NgcInput],
   template: `<input ngc-input [disabled]="disabled()" />`,
 })
 class Host {
   readonly disabled = signal(false);
 }
 
-describe('Input', () => {
+describe('NgcInput', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

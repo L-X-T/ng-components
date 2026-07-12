@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Select, SelectOption } from './select';
+import { NgcSelect, NgcSelectOption } from './select';
 
 @Component({
-  imports: [Select, SelectOption, ReactiveFormsModule],
+  imports: [NgcSelect, NgcSelectOption, ReactiveFormsModule],
   template: `
     <button ngc-select aria-label="Fruit" placeholder="Pick a fruit" [formControl]="fruit">
       <ngc-select-option value="apple" [label]="appleLabel()">Apple</ngc-select-option>
@@ -18,7 +18,7 @@ class Host {
   readonly appleLabel = signal('Apple');
 }
 
-describe('Select', () => {
+describe('NgcSelect', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

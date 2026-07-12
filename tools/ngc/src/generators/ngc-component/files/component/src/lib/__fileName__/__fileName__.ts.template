@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 /**
- * <%= className %> – skeleton stamped by the ngc-component generator, shaped
+ * Ngc<%= className %> – skeleton stamped by the ngc-component generator, shaped
  * like every shipped element component: inline `<ng-content />` template,
  * behaviour via `hostDirectives` (spec 001 §2). Wire the ng-primitives
  * directive with forwarded inputs/outputs, add sub-part directives next to
@@ -17,4 +17,4 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-<%= fileName %>' },
 })
-export class <%= className %> {}
+export class Ngc<%= className %> {}

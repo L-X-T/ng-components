@@ -18,7 +18,7 @@ export function dialogIsUnlabelled(element: HTMLElement): boolean {
 }
 
 /**
- * Dialog (shadcn anatomy). The content lives in an `ng-template` the trigger
+ * NgcDialog (shadcn anatomy). The content lives in an `ng-template` the trigger
  * launches into a body-level portal:
  *
  * ```html
@@ -56,7 +56,7 @@ export function dialogIsUnlabelled(element: HTMLElement): boolean {
     },
   ],
 })
-export class DialogTrigger {}
+export class NgcDialogTrigger {}
 
 /** Backdrop covering the page; clicking it closes the dialog. */
 @Component({
@@ -68,7 +68,7 @@ export class DialogTrigger {}
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-dialog-overlay' },
 })
-export class DialogOverlay {}
+export class NgcDialogOverlay {}
 
 /** The dialog panel itself. */
 @Component({
@@ -84,7 +84,7 @@ export class DialogOverlay {}
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-dialog' },
 })
-export class Dialog {
+export class NgcDialog {
   constructor() {
     if (typeof ngDevMode !== 'undefined' && ngDevMode) {
       const element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
@@ -99,13 +99,13 @@ export class Dialog {
   }
 }
 
-/** Dialog heading; feeds the dialog's aria-labelledby. */
+/** NgcDialog heading; feeds the dialog's aria-labelledby. */
 @Directive({
   selector: '[ngc-dialog-title]',
   hostDirectives: [NgpDialogTitle],
   host: { class: 'ngc-dialog-title' },
 })
-export class DialogTitle {}
+export class NgcDialogTitle {}
 
 /** Muted description; feeds the dialog's aria-describedby. */
 @Directive({
@@ -113,11 +113,11 @@ export class DialogTitle {}
   hostDirectives: [NgpDialogDescription],
   host: { class: 'ngc-dialog-description' },
 })
-export class DialogDescription {}
+export class NgcDialogDescription {}
 
 /** Footer row holding the dialog actions. */
 @Directive({
   selector: '[ngc-dialog-footer]',
   host: { class: 'ngc-dialog-footer' },
 })
-export class DialogFooter {}
+export class NgcDialogFooter {}

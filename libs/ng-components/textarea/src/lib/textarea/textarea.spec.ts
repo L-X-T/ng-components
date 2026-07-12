@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Textarea } from './textarea';
+import { NgcTextarea } from './textarea';
 
 @Component({
-  imports: [Textarea],
+  imports: [NgcTextarea],
   template: `<textarea ngc-textarea [disabled]="disabled()"></textarea>`,
 })
 class Host {
   readonly disabled = signal(false);
 }
 
-describe('Textarea', () => {
+describe('NgcTextarea', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

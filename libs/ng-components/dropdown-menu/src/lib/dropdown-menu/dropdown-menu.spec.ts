@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { MenuLabel, MenuSeparator, MenuTrigger } from './dropdown-menu';
+import { NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger } from './dropdown-menu';
 
 // Opening the menu goes through the overlay portal, which needs real browser
 // APIs – the full interaction contract (open, arrow keys, typeahead, Escape,
 // outside click, focus restore) is covered by the demo e2e suite (spec 001 §5).
 
 @Component({
-  imports: [MenuLabel, MenuSeparator, MenuTrigger],
+  imports: [NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger],
   template: `
     <button [ngc-menu-trigger]="menu" [disabled]="disabled()">Options</button>
     <span ngc-menu-label>Group</span>

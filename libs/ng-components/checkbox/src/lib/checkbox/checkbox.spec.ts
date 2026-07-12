@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Checkbox } from './checkbox';
+import { NgcCheckbox } from './checkbox';
 
 @Component({
-  imports: [Checkbox],
+  imports: [NgcCheckbox],
   template: `<button
     ngc-checkbox
     aria-label="Standalone"
@@ -18,14 +18,14 @@ class Host {
 }
 
 @Component({
-  imports: [Checkbox, ReactiveFormsModule],
+  imports: [NgcCheckbox, ReactiveFormsModule],
   template: `<button ngc-checkbox aria-label="Accept" [formControl]="control"></button>`,
 })
 class FormHost {
   readonly control = new FormControl(false, { nonNullable: true });
 }
 
-describe('Checkbox', () => {
+describe('NgcCheckbox', () => {
   function setup<T>(host: new () => T) {
     const fixture = TestBed.createComponent(host);
     fixture.detectChanges();

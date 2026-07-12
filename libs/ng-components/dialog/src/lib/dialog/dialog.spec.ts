@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { DialogFooter, dialogIsUnlabelled, DialogTrigger } from './dialog';
+import { NgcDialogFooter, dialogIsUnlabelled, NgcDialogTrigger } from './dialog';
 
 // Opening a dialog goes through NgpDialogManager, which resolves its
 // ViewContainerRef from applicationRef.components[0] – empty under TestBed.
@@ -8,7 +8,7 @@ import { DialogFooter, dialogIsUnlabelled, DialogTrigger } from './dialog';
 // focus restore, aria wiring) is covered by the demo e2e suite (spec 001 §5).
 
 @Component({
-  imports: [DialogTrigger, DialogFooter],
+  imports: [NgcDialogTrigger, NgcDialogFooter],
   template: `
     <button [ngc-dialog-trigger]="dialog">Open</button>
     <div ngc-dialog-footer></div>
@@ -17,7 +17,7 @@ import { DialogFooter, dialogIsUnlabelled, DialogTrigger } from './dialog';
 })
 class Host {}
 
-describe('Dialog', () => {
+describe('NgcDialog', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

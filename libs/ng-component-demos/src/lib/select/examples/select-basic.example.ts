@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Select, SelectOption } from '@angular-software/ng-components/select';
+import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
 
 @Component({
   selector: 'ngc-demo-select-basic-example',
-  imports: [Select, SelectOption],
+  imports: [NgcSelect, NgcSelectOption],
   template: `
     <div style="width: 100%; max-width: 16rem">
       <button ngc-select aria-label="Fruit" placeholder="Pick a fruit">

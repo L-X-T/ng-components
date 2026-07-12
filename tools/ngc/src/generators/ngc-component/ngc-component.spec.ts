@@ -67,7 +67,7 @@ describe('ngc-component generator', () => {
     await ngcComponentGenerator(tree, { name: 'radio-group', skipFormat: true });
 
     const source = tree.read('libs/ng-components/radio-group/src/lib/radio-group/radio-group.ts', 'utf-8');
-    expect(source).toContain('export class RadioGroup');
+    expect(source).toContain('export class NgcRadioGroup');
     expect(source).toContain("selector: 'ngc-radio-group'");
   });
 
@@ -85,7 +85,7 @@ describe('ngc-component generator', () => {
     expect(demoPage).toContain('id="button-basic"');
 
     const example = tree.read('libs/ng-component-demos/src/lib/button/examples/button-basic.example.ts', 'utf-8');
-    expect(example).toContain("import { Button } from '@angular-software/ng-components/button'");
+    expect(example).toContain("import { NgcButton } from '@angular-software/ng-components/button'");
     expect(example).toContain('<button ngc-button>');
 
     const manifest = tree.read('libs/ng-component-demos/src/lib/_manifest/manifest.ts', 'utf-8');

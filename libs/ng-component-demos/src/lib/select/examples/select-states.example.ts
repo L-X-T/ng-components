@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Select, SelectOption } from '@angular-software/ng-components/select';
+import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
 
 @Component({
   selector: 'ngc-demo-select-states-example',
-  imports: [Select, SelectOption],
+  imports: [NgcSelect, NgcSelectOption],
   template: `
     <div style="display: grid; gap: 0.75rem; width: 100%; max-width: 16rem">
       <button ngc-select aria-label="Disabled select" placeholder="Disabled" [disabled]="true">

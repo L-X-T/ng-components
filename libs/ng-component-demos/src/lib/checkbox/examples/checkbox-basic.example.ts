@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Checkbox } from '@angular-software/ng-components/checkbox';
-import { Label } from '@angular-software/ng-components/label';
+import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
+import { NgcLabel } from '@angular-software/ng-components/label';
 
 @Component({
   selector: 'ngc-demo-checkbox-basic-example',
-  imports: [Checkbox, Label],
+  imports: [NgcCheckbox, NgcLabel],
   template: `
     <div style="display: flex; align-items: center; gap: 0.5rem">
       <button ngc-checkbox id="checkbox-basic-terms"></button>

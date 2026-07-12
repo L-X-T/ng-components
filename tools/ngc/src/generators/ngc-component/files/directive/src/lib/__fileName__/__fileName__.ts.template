@@ -4,7 +4,7 @@ export type <%= className %>Variant = 'default';
 export type <%= className %>Size = 'default';
 
 /**
- * <%= className %> – skeleton stamped by the ngc-component generator.
+ * Ngc<%= className %> – skeleton stamped by the ngc-component generator.
  * Attribute directive on a native element (`<button <%= attr %>>`). Add the
  * behavioural primitive via `hostDirectives` (e.g. NgpButton) and map
  * `variant`/`size` to modifier classes per spec 001 §2. Directive-only styles
@@ -16,7 +16,7 @@ export type <%= className %>Size = 'default';
     '[class]': 'hostClasses()',
   },
 })
-export class <%= className %> {
+export class Ngc<%= className %> {
   readonly variant = input<<%= className %>Variant>('default');
   readonly size = input<<%= className %>Size>('default');
 

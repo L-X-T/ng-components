@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from './accordion';
+import { NgcAccordion, NgcAccordionContent, NgcAccordionItem, NgcAccordionTrigger } from './accordion';
 
 @Component({
-  imports: [Accordion, AccordionContent, AccordionItem, AccordionTrigger],
+  imports: [NgcAccordion, NgcAccordionContent, NgcAccordionItem, NgcAccordionTrigger],
   template: `
     <ngc-accordion [type]="type()" [collapsible]="true">
       <div ngc-accordion-item value="one">
@@ -25,7 +25,7 @@ class Host {
   readonly type = signal<'single' | 'multiple'>('single');
 }
 
-describe('Accordion', () => {
+describe('NgcAccordion', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Badge, type BadgeVariant } from './badge';
+import { NgcBadge, type BadgeVariant } from './badge';
 
 @Component({
-  imports: [Badge],
+  imports: [NgcBadge],
   template: `<span ngc-badge [variant]="variant()">label</span>`,
 })
 class Host {
   readonly variant = signal<BadgeVariant>('default');
 }
 
-describe('Badge', () => {
+describe('NgcBadge', () => {
   function setup() {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();

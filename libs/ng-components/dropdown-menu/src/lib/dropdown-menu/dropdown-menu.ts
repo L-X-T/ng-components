@@ -36,7 +36,7 @@ import { NgpMenu, NgpMenuItem, NgpMenuTrigger } from 'ng-primitives/menu';
     },
   ],
 })
-export class MenuTrigger {}
+export class NgcMenuTrigger {}
 
 /** The menu panel; items, labels, and separators are projected. */
 @Component({
@@ -48,7 +48,7 @@ export class MenuTrigger {}
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-menu' },
 })
-export class Menu {}
+export class NgcMenu {}
 
 /** One action in the menu; apply to a native `<button>`. */
 @Directive({
@@ -61,18 +61,18 @@ export class Menu {}
   ],
   host: { class: 'ngc-menu-item', type: 'button' },
 })
-export class MenuItem {}
+export class NgcMenuItem {}
 
 /** Non-interactive heading for a group of items. */
 @Directive({
   selector: '[ngc-menu-label]',
   host: { class: 'ngc-menu-label' },
 })
-export class MenuLabel {}
+export class NgcMenuLabel {}
 
 /** Visual divider between item groups. */
 @Directive({
   selector: '[ngc-menu-separator]',
   host: { class: 'ngc-menu-separator', role: 'separator' },
 })
-export class MenuSeparator {}
+export class NgcMenuSeparator {}

@@ -9,7 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Button } from '@angular-software/ng-components/button';
+import { NgcButton } from '@angular-software/ng-components/button';
 import { DEMO_MANIFEST } from '../_manifest/manifest';
 import type { DemoManifestEntry } from '../_manifest/manifest-entry';
 import { demoPrevNext, type DemoPrevNext } from '../_manifest/manifest-helpers';
@@ -29,7 +29,7 @@ import { DemoOutlineService } from './demo-outline.service';
  */
 @Component({
   selector: 'ngc-demo-page',
-  imports: [Button, DemoOnThisPage, RouterLink],
+  imports: [NgcButton, DemoOnThisPage, RouterLink],
   templateUrl: './demo-page.html',
   styleUrl: './demo-page.scss',
   providers: [DemoOutlineService],

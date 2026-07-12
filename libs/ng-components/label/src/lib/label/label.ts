@@ -10,4 +10,4 @@ import { Directive } from '@angular/core';
   selector: '[ngc-label]',
   host: { class: 'ngc-label' },
 })
-export class Label {}
+export class NgcLabel {}

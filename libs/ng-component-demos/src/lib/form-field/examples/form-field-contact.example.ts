@@ -1,27 +1,27 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Button } from '@angular-software/ng-components/button';
-import { Checkbox } from '@angular-software/ng-components/checkbox';
-import { FormField, FormFieldError, FormFieldLabel } from '@angular-software/ng-components/form-field';
-import { Input } from '@angular-software/ng-components/input';
-import { Label } from '@angular-software/ng-components/label';
-import { Select, SelectOption } from '@angular-software/ng-components/select';
-import { Textarea } from '@angular-software/ng-components/textarea';
+import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
+import { NgcFormField, NgcFormFieldError, NgcFormFieldLabel } from '@angular-software/ng-components/form-field';
+import { NgcInput } from '@angular-software/ng-components/input';
+import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
+import { NgcTextarea } from '@angular-software/ng-components/textarea';
 
 @Component({
   selector: 'ngc-demo-form-field-contact-example',
   imports: [
-    Button,
-    Checkbox,
-    FormField,
-    FormFieldError,
-    FormFieldLabel,
-    Input,
-    Label,
+    NgcButton,
+    NgcCheckbox,
+    NgcFormField,
+    NgcFormFieldError,
+    NgcFormFieldLabel,
+    NgcInput,
+    NgcLabel,
     ReactiveFormsModule,
-    Select,
-    SelectOption,
-    Textarea,
+    NgcSelect,
+    NgcSelectOption,
+    NgcTextarea,
   ],
   template: `
     <form style="display: grid; gap: 1rem; width: 100%; max-width: 24rem" [formGroup]="contact" (ngSubmit)="onSubmit()">

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card';
+import { NgcCard, NgcCardContent, NgcCardDescription, NgcCardFooter, NgcCardHeader, NgcCardTitle } from './card';
 
 @Component({
-  imports: [Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle],
+  imports: [NgcCard, NgcCardContent, NgcCardDescription, NgcCardFooter, NgcCardHeader, NgcCardTitle],
   template: `
     <ngc-card>
       <div ngc-card-header>
@@ -17,7 +17,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 })
 class Host {}
 
-describe('Card', () => {
+describe('NgcCard', () => {
   function setup(): HTMLElement {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
