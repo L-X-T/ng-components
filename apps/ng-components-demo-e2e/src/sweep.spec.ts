@@ -1,4 +1,4 @@
-import { DEMO_MANIFEST } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
 import { expect, type Page, test } from '@playwright/test';
 
 /**
@@ -31,7 +31,11 @@ test.describe('home', () => {
   });
 });
 
-for (const demo of DEMO_MANIFEST) {
+// Sidebar order – the pager walks the same sequence the sidebar shows
+// (review 2026-07-11 E3), so the sweep must assert against it too.
+const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);
+
+for (const demo of SIDEBAR_ORDERED) {
   test.describe(`${demo.name} demo`, () => {
     test('renders title, all examples, no console errors', async ({ page }) => {
       const errors = collectErrors(page);
@@ -43,10 +47,10 @@ for (const demo of DEMO_MANIFEST) {
         await expect(page.locator(`#${exampleId}`), `example "${exampleId}" is missing`).toBeVisible();
       }
 
-      // Prev/next pager follows the manifest order (plan 003 M3.2).
-      const index = DEMO_MANIFEST.indexOf(demo);
-      const previous = DEMO_MANIFEST[index - 1];
-      const next = DEMO_MANIFEST[index + 1];
+      // Prev/next pager follows the sidebar order.
+      const index = SIDEBAR_ORDERED.indexOf(demo);
+      const previous = SIDEBAR_ORDERED[index - 1];
+      const next = SIDEBAR_ORDERED[index + 1];
       if (previous) {
         await expect(page.getByRole('link', { name: `← ${previous.name}` })).toBeVisible();
       }
