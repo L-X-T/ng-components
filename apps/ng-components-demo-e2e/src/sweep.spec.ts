@@ -1,5 +1,6 @@
 import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
 import { expect, type Page, test } from '@playwright/test';
+import { gotoHydrated } from './support/hydration';
 
 /**
  * Manifest-driven sweep (spec 004 layer 1): for every manifest entry the
@@ -40,7 +41,9 @@ for (const demo of SIDEBAR_ORDERED) {
     test('renders title, all examples, no console errors', async ({ page }) => {
       const errors = collectErrors(page);
 
-      await page.goto(demo.route);
+      // Wait for hydration before the zero-console-errors assertion – NG05xx
+      // hydration errors fire after first render (review 2026-07-11 E5).
+      await gotoHydrated(page, demo.route);
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(demo.name);
 
       for (const exampleId of demo.examples) {
