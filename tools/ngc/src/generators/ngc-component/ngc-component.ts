@@ -8,7 +8,7 @@ const NG_COMPONENTS_DIR = 'libs/ng-components';
 const DEMOS_LIB_DIR = 'libs/ng-component-demos/src';
 const MANIFEST_PATH = `${DEMOS_LIB_DIR}/lib/_manifest/manifest.ts`;
 const DEMOS_INDEX_PATH = `${DEMOS_LIB_DIR}/index.ts`;
-const DEMO_LOADERS_PATH = 'apps/ng-components-demo/src/app/demo-loaders.ts';
+const DEMO_LOADERS_PATH = `${DEMOS_LIB_DIR}/lib/_loaders/index.ts`;
 const E2E_COMPONENTS_DIR = 'apps/ng-components-demo-e2e/src/components';
 
 /**
@@ -128,7 +128,9 @@ function stampDemoStub(tree: Tree, substitutions: Substitutions, category: strin
 
   updateFile(tree, DEMOS_INDEX_PATH, (content) => `${content}export * from './lib/${fileName}/${fileName}-demo';\n`);
 
-  const loaderEntry = `  '${fileName}': () => import('@angular-software/ng-component-demos').then((m) => m.${className}Demo),`;
+  // Relative import on purpose – the barrel would merge all demo pages into
+  // one chunk (review 2026-07-11 E2).
+  const loaderEntry = `  '${fileName}': () => import('../${fileName}/${fileName}-demo').then((m) => m.${className}Demo),`;
   if (tree.exists(DEMO_LOADERS_PATH)) {
     updateFile(tree, DEMO_LOADERS_PATH, (content) =>
       content.includes('= {};')

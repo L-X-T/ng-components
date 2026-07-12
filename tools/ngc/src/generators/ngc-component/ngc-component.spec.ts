@@ -11,8 +11,8 @@ function seedDemoInfra(tree: Tree): void {
   );
   tree.write('libs/ng-component-demos/src/index.ts', `export * from './lib/_manifest';\n`);
   tree.write(
-    'apps/ng-components-demo/src/app/demo-loaders.ts',
-    `import type { DemoLoaderMap } from '@angular-software/ng-component-demos/manifest';\n\nexport const DEMO_LOADERS: DemoLoaderMap = {};\n`,
+    'libs/ng-component-demos/src/lib/_loaders/index.ts',
+    `import type { DemoLoaderMap } from '../_manifest';\n\nexport const DEMO_LOADERS: DemoLoaderMap = {};\n`,
   );
   tree.write('apps/ng-components-demo-e2e/src/components/.gitkeep', '');
 }
@@ -93,8 +93,8 @@ describe('ngc-component generator', () => {
     expect(tree.read('libs/ng-component-demos/src/index.ts', 'utf-8')).toContain(
       "export * from './lib/button/button-demo';",
     );
-    expect(tree.read('apps/ng-components-demo/src/app/demo-loaders.ts', 'utf-8')).toContain(
-      "'button': () => import('@angular-software/ng-component-demos').then((m) => m.ButtonDemo),",
+    expect(tree.read('libs/ng-component-demos/src/lib/_loaders/index.ts', 'utf-8')).toContain(
+      "'button': () => import('../button/button-demo').then((m) => m.ButtonDemo),",
     );
   });
 
@@ -106,7 +106,7 @@ describe('ngc-component generator', () => {
     expect(manifest.indexOf("id: 'button'")).toBeGreaterThan(-1);
     expect(manifest.indexOf("id: 'card'")).toBeGreaterThan(manifest.indexOf("id: 'button'"));
 
-    const loaders = tree.read('apps/ng-components-demo/src/app/demo-loaders.ts', 'utf-8') ?? '';
+    const loaders = tree.read('libs/ng-component-demos/src/lib/_loaders/index.ts', 'utf-8') ?? '';
     expect(loaders).toContain("'button':");
     expect(loaders).toContain("'card':");
   });
