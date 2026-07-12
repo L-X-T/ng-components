@@ -66,7 +66,12 @@ export class ThemeService {
           return stored;
         }
       } catch {
-        // Fall through to the default theme.
+        // Fall through to the preference-based default.
+      }
+      // First visit: follow the OS preference (review 2026-07-11 E9). Must
+      // stay in sync with the no-flash inline script of consuming apps.
+      if (this.document.defaultView?.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
       }
     }
     return 'light';

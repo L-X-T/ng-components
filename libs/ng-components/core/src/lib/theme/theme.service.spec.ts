@@ -12,9 +12,17 @@ describe('ThemeService', () => {
     return service;
   };
 
+  const stubPrefersDark = (prefersDark: boolean): void => {
+    Object.defineProperty(window, 'matchMedia', {
+      configurable: true,
+      value: (query: string) => ({ matches: prefersDark && query.includes('dark') }) as MediaQueryList,
+    });
+  };
+
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.removeAttribute('data-theme');
+    stubPrefersDark(false);
   });
 
   it('defaults to the light theme and applies it to the document root', () => {
@@ -44,6 +52,19 @@ describe('ThemeService', () => {
     localStorage.setItem(NGC_THEME_STORAGE_KEY, 'neon');
 
     expect(themeService().theme()).toBe('light');
+  });
+
+  it('follows the OS dark preference on the first visit (review E9)', () => {
+    stubPrefersDark(true);
+
+    expect(themeService().theme()).toBe('dark');
+  });
+
+  it('prefers the persisted theme over the OS preference', () => {
+    stubPrefersDark(true);
+    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'angular-light');
+
+    expect(themeService().theme()).toBe('angular-light');
   });
 
   it('prefers the provided initial theme over the persisted one', () => {

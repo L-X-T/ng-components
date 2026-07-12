@@ -6,17 +6,24 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <!-- No-flash theme restore: set data-theme before first paint. Key and
-         values must match ThemeService (NGC_THEME_STORAGE_KEY / NGC_THEMES). -->
+    <!-- No-flash theme restore: set data-theme before first paint. Key,
+         values, and the prefers-color-scheme fallback must match ThemeService
+         (NGC_THEME_STORAGE_KEY / NGC_THEMES / resolveInitialTheme) – guarded
+         by theme-init-script.spec.ts. -->
     <script>
       (function () {
+        var theme = null;
         try {
-          var theme = localStorage.getItem('ngc-theme');
-          if (['light', 'dark', 'angular-light', 'angular-dark'].indexOf(theme) !== -1) {
-            document.documentElement.setAttribute('data-theme', theme);
-          }
+          theme = localStorage.getItem('ngc-theme');
         } catch (e) {
-          /* storage unavailable – default theme applies */
+          /* storage unavailable – fall through to the preference default */
+        }
+        if (['light', 'dark', 'angular-light', 'angular-dark'].indexOf(theme) === -1) {
+          theme =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : null;
+        }
+        if (theme) {
+          document.documentElement.setAttribute('data-theme', theme);
         }
       })();
     </script>
