@@ -3,6 +3,15 @@
 // NgpToast reference styling: NgpToast drives the data attributes and the
 // --ngp-toast-* variables; --y/--lift/--scale are private vars derived here.
 @layer ngc {
+  // Layer the toast stack on the core token (toasts above overlays, 1100 >
+  // 1000) instead of NgpToastManager's inline z-index: 9999999 default –
+  // !important is required to beat an inline style and stays inside the ngc
+  // layer (review 2026-07-11 D7).
+  [data-ngp-toast-container] {
+    /* stylelint-disable-next-line declaration-no-important */
+    z-index: var(--z-toast) !important;
+  }
+
   .ngc-toast {
     position: absolute;
     z-index: var(--ngp-toast-z-index);
