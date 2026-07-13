@@ -11,7 +11,15 @@ import {
 
 @Component({
   selector: 'ngc-demo-dialog-basic-example',
-  imports: [NgcButton, NgcDialog, NgcDialogDescription, NgcDialogFooter, NgcDialogOverlay, NgcDialogTitle, NgcDialogTrigger],
+  imports: [
+    NgcButton,
+    NgcDialog,
+    NgcDialogDescription,
+    NgcDialogFooter,
+    NgcDialogOverlay,
+    NgcDialogTitle,
+    NgcDialogTrigger,
+  ],
   template: `
     <button ngc-button variant="outline" [ngc-dialog-trigger]="publishDialog">Publish article</button>
 

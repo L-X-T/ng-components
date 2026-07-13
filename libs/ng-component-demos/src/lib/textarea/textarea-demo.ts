@@ -36,9 +36,8 @@ import { snippet as basicSnippet } from './examples/textarea-basic.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Apply <code>ngc-textarea</code> to a native <code>&lt;textarea&gt;</code>; control the initial
-          height with <code>rows</code>. Validation styling via <code>aria-invalid</code>, same as
-          <code>ngc-input</code>.
+          Apply <code>ngc-textarea</code> to a native <code>&lt;textarea&gt;</code>; control the initial height with
+          <code>rows</code>. Validation styling via <code>aria-invalid</code>, same as <code>ngc-input</code>.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

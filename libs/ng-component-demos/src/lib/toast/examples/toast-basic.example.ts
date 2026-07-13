@@ -5,9 +5,7 @@ import { NgcToast } from '@angular-software/ng-components/toast';
 @Component({
   selector: 'ngc-demo-toast-basic-example',
   imports: [NgcButton],
-  template: `
-    <button ngc-button variant="outline" (click)="onShow()">Publish article</button>
-  `,
+  template: ` <button ngc-button variant="outline" (click)="onShow()">Publish article</button> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToastBasicExample {

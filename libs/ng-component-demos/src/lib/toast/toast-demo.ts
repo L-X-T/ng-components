@@ -25,11 +25,11 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
 
       <ngc-demo-section title="Service API">
         <p>
-          Toast is the one component whose primary API is a service – there is no template anatomy to
-          compose. Inject <code>Toast</code> and call <code>show(message, options)</code>; it returns a
-          handle with <code>dismiss()</code>. Up to three toasts stack per placement (newest in front,
-          hover expands the stack); each toast announces politely via <code>role="status"</code>, carries an
-          explicit dismiss button, and can be swiped away.
+          Toast is the one component whose primary API is a service – there is no template anatomy to compose. Inject
+          <code>Toast</code> and call <code>show(message, options)</code>; it returns a handle with
+          <code>dismiss()</code>. Up to three toasts stack per placement (newest in front, hover expands the stack);
+          each toast announces politely via <code>role="status"</code>, carries an explicit dismiss button, and can be
+          swiped away.
         </p>
       </ngc-demo-section>
 

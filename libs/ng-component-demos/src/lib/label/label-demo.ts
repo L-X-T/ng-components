@@ -17,9 +17,9 @@ import { snippet as basicSnippet } from './examples/label-basic.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Apply <code>ngc-label</code> to a native <code>&lt;label&gt;</code> and associate it via
-          <code>for</code> (or by wrapping the control) – clicking the label focuses the control. A label
-          wrapping a disabled control dims automatically.
+          Apply <code>ngc-label</code> to a native <code>&lt;label&gt;</code> and associate it via <code>for</code> (or
+          by wrapping the control) – clicking the label focuses the control. A label wrapping a disabled control dims
+          automatically.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

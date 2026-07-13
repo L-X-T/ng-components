@@ -102,10 +102,10 @@ import { snippet as statesSnippet } from './examples/checkbox-states.ts.snippet'
       <ngc-demo-section title="Usage">
         <p>
           Apply <code>ngc-checkbox</code> to a native <code>&lt;button&gt;</code> and pair it with
-          <code>ngc-label</code> via <code>for</code>/<code>id</code> – label clicks toggle the checkbox natively.
-          It implements <code>ControlValueAccessor</code>, so <code>[formControl]</code> /
-          <code>formControlName</code> bind a <code>FormControl&lt;boolean&gt;</code> directly; Space toggles,
-          Enter is ignored per the WAI-ARIA checkbox pattern.
+          <code>ngc-label</code> via <code>for</code>/<code>id</code> – label clicks toggle the checkbox natively. It
+          implements <code>ControlValueAccessor</code>, so <code>[formControl]</code> /
+          <code>formControlName</code> bind a <code>FormControl&lt;boolean&gt;</code> directly; Space toggles, Enter is
+          ignored per the WAI-ARIA checkbox pattern.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

@@ -25,9 +25,9 @@ import { snippet as resultSnippet } from './examples/dialog-result.ts.snippet';
 
       <ngc-demo-section title="Keyboard">
         <p>
-          Opening the dialog moves focus into it and traps it: <kbd>Tab</kbd>/<kbd>Shift+Tab</kbd> cycle
-          through the dialog's focusable elements only. <kbd>Escape</kbd> closes the dialog, as does a click
-          on the overlay backdrop. On close, focus returns to the trigger.
+          Opening the dialog moves focus into it and traps it: <kbd>Tab</kbd>/<kbd>Shift+Tab</kbd> cycle through the
+          dialog's focusable elements only. <kbd>Escape</kbd> closes the dialog, as does a click on the overlay
+          backdrop. On close, focus returns to the trigger.
         </p>
       </ngc-demo-section>
 
@@ -94,10 +94,10 @@ import { snippet as resultSnippet } from './examples/dialog-result.ts.snippet';
       <ngc-demo-section title="Usage">
         <p>
           Put the dialog anatomy (<code>ngc-dialog-overlay</code> &gt; <code>ngc-dialog</code> with
-          <code>ngc-dialog-title</code>, <code>ngc-dialog-description</code>, <code>ngc-dialog-footer</code>)
-          inside an <code>ng-template</code> and pass it to <code>[ngc-dialog-trigger]</code>. The title and
-          description wire <code>aria-labelledby</code>/<code>aria-describedby</code> automatically; the
-          template's <code>close</code> context function accepts an optional result.
+          <code>ngc-dialog-title</code>, <code>ngc-dialog-description</code>, <code>ngc-dialog-footer</code>) inside an
+          <code>ng-template</code> and pass it to <code>[ngc-dialog-trigger]</code>. The title and description wire
+          <code>aria-labelledby</code>/<code>aria-describedby</code> automatically; the template's
+          <code>close</code> context function accepts an optional result.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

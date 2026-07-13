@@ -12,10 +12,7 @@ export type DemoLoaderMap = Readonly<Record<string, DemoComponentLoader>>;
  * stays free of demo-page imports and the e2e project can consume the
  * manifest in isolation.
  */
-export function demoRoutes(
-  manifest: readonly DemoManifestEntry[],
-  loaders: DemoLoaderMap,
-): Route[] {
+export function demoRoutes(manifest: readonly DemoManifestEntry[], loaders: DemoLoaderMap): Route[] {
   return orderedDemos(manifest)
     .filter((demo) => loaders[demo.id] !== undefined)
     .map((demo) => ({

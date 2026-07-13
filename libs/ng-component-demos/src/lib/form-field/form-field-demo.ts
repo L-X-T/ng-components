@@ -79,10 +79,10 @@ import { snippet as validationSnippet } from './examples/form-field-validation.t
       <ngc-demo-section title="Usage">
         <p>
           Wrap one control (with its <code>formControl</code>) per <code>&lt;ngc-form-field&gt;</code>. Label
-          association and <code>aria-describedby</code> for hints and failing errors are wired automatically –
-          no manual <code>for</code>/<code>id</code> pairing needed. Errors render eagerly but only become
-          visible once their validator fails and the control was touched; controls show the destructive
-          border at the same moment via <code>data-invalid</code>/<code>data-touched</code>.
+          association and <code>aria-describedby</code> for hints and failing errors are wired automatically – no manual
+          <code>for</code>/<code>id</code> pairing needed. Errors render eagerly but only become visible once their
+          validator fails and the control was touched; controls show the destructive border at the same moment via
+          <code>data-invalid</code>/<code>data-touched</code>.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

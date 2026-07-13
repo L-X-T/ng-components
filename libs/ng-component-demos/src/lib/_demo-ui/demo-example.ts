@@ -1,5 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, PLATFORM_ID, signal, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  PLATFORM_ID,
+  signal,
+  ViewEncapsulation,
+} from '@angular/core';
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { DemoSnippet } from './demo-snippet';
 

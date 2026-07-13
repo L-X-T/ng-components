@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgcFormField, NgcFormFieldError, NgcFormFieldHint, NgcFormFieldLabel } from '@angular-software/ng-components/form-field';
+import {
+  NgcFormField,
+  NgcFormFieldError,
+  NgcFormFieldHint,
+  NgcFormFieldLabel,
+} from '@angular-software/ng-components/form-field';
 import { NgcInput } from '@angular-software/ng-components/input';
 
 @Component({

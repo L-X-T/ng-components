@@ -18,11 +18,10 @@ import { snippet as basicSnippet } from './examples/tabs-basic.ts.snippet';
       <ngc-demo-section title="Keyboard">
         <p>
           <kbd>Tab</kbd> moves focus into the tab list (to the selected tab) and out to the active panel;
-          <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd> (or <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> when
-          vertical) move focus between tabs (no wrapping), skipping disabled tabs, and activate the focused
-          tab immediately (automatic activation, the default); <kbd>Home</kbd>/<kbd>End</kbd> jump to the
-          first/last tab. Set <code>[activateOnFocus]="false"</code> for manual activation via
-          <kbd>Enter</kbd> or <kbd>Space</kbd>.
+          <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd> (or <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> when vertical) move
+          focus between tabs (no wrapping), skipping disabled tabs, and activate the focused tab immediately (automatic
+          activation, the default); <kbd>Home</kbd>/<kbd>End</kbd> jump to the first/last tab. Set
+          <code>[activateOnFocus]="false"</code> for manual activation via <kbd>Enter</kbd> or <kbd>Space</kbd>.
         </p>
       </ngc-demo-section>
 
@@ -73,10 +72,9 @@ import { snippet as basicSnippet } from './examples/tabs-basic.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Put <code>ngc-tab</code> buttons inside a <code>div ngc-tabs-list</code> (give it an
-          <code>aria-label</code>) and pair each with an <code>ngc-tab-panel</code> via matching
-          <code>value</code>s – roles and aria wiring are automatic. Without a <code>value</code> on
-          <code>ngc-tabs</code>, the first tab starts selected.
+          Put <code>ngc-tab</code> buttons inside a <code>div ngc-tabs-list</code> (give it an <code>aria-label</code>)
+          and pair each with an <code>ngc-tab-panel</code> via matching <code>value</code>s – roles and aria wiring are
+          automatic. Without a <code>value</code> on <code>ngc-tabs</code>, the first tab starts selected.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

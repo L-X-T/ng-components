@@ -44,8 +44,8 @@ import { snippet as statesSnippet } from './examples/input-states.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Apply <code>ngc-input</code> to a native <code>&lt;input&gt;</code> – any <code>type</code> works.
-          Set <code>aria-invalid</code> for validation styling (reactive forms integration arrives with
+          Apply <code>ngc-input</code> to a native <code>&lt;input&gt;</code> – any <code>type</code> works. Set
+          <code>aria-invalid</code> for validation styling (reactive forms integration arrives with
           <code>ngc-form-field</code> in wave 2).
         </p>
       </ngc-demo-section>

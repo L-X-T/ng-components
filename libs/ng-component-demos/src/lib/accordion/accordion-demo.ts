@@ -8,15 +8,7 @@ import { snippet as multipleSnippet } from './examples/accordion-multiple.ts.sni
 /** Docs page for ngc-accordion. */
 @Component({
   selector: 'ngc-demo-accordion',
-  imports: [
-    DemoApi,
-    DemoApiItem,
-    DemoExample,
-    DemoPage,
-    DemoSection,
-    AccordionBasicExample,
-    AccordionMultipleExample,
-  ],
+  imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, AccordionBasicExample, AccordionMultipleExample],
   template: `
     <ngc-demo-page>
       <ngc-demo-section title="Basic">
@@ -34,9 +26,9 @@ import { snippet as multipleSnippet } from './examples/accordion-multiple.ts.sni
       <ngc-demo-section title="Keyboard">
         <p>
           <kbd>Tab</kbd>/<kbd>Shift+Tab</kbd> move between the trigger buttons; <kbd>Enter</kbd> or
-          <kbd>Space</kbd> toggles the focused section. In <code>single</code> mode opening a section closes
-          the previous one; with <code>collapsible</code> the open section can be closed again. Disabled
-          items cannot be toggled.
+          <kbd>Space</kbd> toggles the focused section. In <code>single</code> mode opening a section closes the
+          previous one; with <code>collapsible</code> the open section can be closed again. Disabled items cannot be
+          toggled.
         </p>
       </ngc-demo-section>
 
@@ -86,10 +78,10 @@ import { snippet as multipleSnippet } from './examples/accordion-multiple.ts.sni
 
       <ngc-demo-section title="Usage">
         <p>
-          Each <code>ngc-accordion-item</code> pairs a <code>button ngc-accordion-trigger</code> (wrap it in
-          a heading of the right level) with an <code>ngc-accordion-content</code> region –
-          <code>aria-expanded</code>, <code>aria-controls</code>, and <code>aria-labelledby</code> are wired
-          automatically, and closed content is <code>hidden</code> from the accessibility tree.
+          Each <code>ngc-accordion-item</code> pairs a <code>button ngc-accordion-trigger</code> (wrap it in a heading
+          of the right level) with an <code>ngc-accordion-content</code> region – <code>aria-expanded</code>,
+          <code>aria-controls</code>, and <code>aria-labelledby</code> are wired automatically, and closed content is
+          <code>hidden</code> from the accessibility tree.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

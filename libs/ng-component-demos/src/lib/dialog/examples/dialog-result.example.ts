@@ -11,7 +11,15 @@ import {
 
 @Component({
   selector: 'ngc-demo-dialog-result-example',
-  imports: [NgcButton, NgcDialog, NgcDialogDescription, NgcDialogFooter, NgcDialogOverlay, NgcDialogTitle, NgcDialogTrigger],
+  imports: [
+    NgcButton,
+    NgcDialog,
+    NgcDialogDescription,
+    NgcDialogFooter,
+    NgcDialogOverlay,
+    NgcDialogTitle,
+    NgcDialogTrigger,
+  ],
   template: `
     <div style="display: grid; gap: 0.75rem; justify-items: start">
       <button ngc-button variant="outline" [ngc-dialog-trigger]="deleteDialog" (closed)="onClosed($event)">

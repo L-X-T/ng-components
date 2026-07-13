@@ -1,4 +1,12 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, Directive, ElementRef, inject, ViewEncapsulation } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ElementRef,
+  inject,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   NgpDialog,
   NgpDialogDescription,

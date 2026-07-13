@@ -23,10 +23,4 @@ export interface DemoManifestEntry {
 }
 
 /** Sidebar/section order for the categories. */
-export const DEMO_CATEGORIES: readonly DemoCategory[] = [
-  'form',
-  'layout',
-  'overlay',
-  'feedback',
-  'navigation',
-];
+export const DEMO_CATEGORIES: readonly DemoCategory[] = ['form', 'layout', 'overlay', 'feedback', 'navigation'];

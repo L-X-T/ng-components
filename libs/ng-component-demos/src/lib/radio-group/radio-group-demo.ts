@@ -42,8 +42,8 @@ import { snippet as statesSnippet } from './examples/radio-group-states.ts.snipp
 
       <ngc-demo-section title="Keyboard">
         <p>
-          <kbd>Tab</kbd> moves focus into the group;
-          <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> (vertical) or <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd>
+          <kbd>Tab</kbd> moves focus into the group; <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> (vertical) or
+          <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd>
           (horizontal) move focus and select the next/previous item, wrapping at the ends;
           <kbd>Space</kbd> selects the focused item. Disabled items are skipped.
         </p>
@@ -110,10 +110,10 @@ import { snippet as statesSnippet } from './examples/radio-group-states.ts.snipp
 
       <ngc-demo-section title="Usage">
         <p>
-          Put <code>ngc-radio-item</code> buttons inside an <code>&lt;ngc-radio-group&gt;</code> and pair each
-          with <code>ngc-label</code> via <code>for</code>/<code>id</code>. The group implements
-          <code>ControlValueAccessor</code>, so <code>[formControl]</code> / <code>formControlName</code> bind
-          directly; give the group an <code>aria-label</code> or <code>aria-labelledby</code>.
+          Put <code>ngc-radio-item</code> buttons inside an <code>&lt;ngc-radio-group&gt;</code> and pair each with
+          <code>ngc-label</code> via <code>for</code>/<code>id</code>. The group implements
+          <code>ControlValueAccessor</code>, so <code>[formControl]</code> / <code>formControlName</code> bind directly;
+          give the group an <code>aria-label</code> or <code>aria-labelledby</code>.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

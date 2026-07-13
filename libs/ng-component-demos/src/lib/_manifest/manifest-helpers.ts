@@ -18,10 +18,7 @@ export function demosByCategory(manifest: readonly DemoManifestEntry[]): readonl
   })).filter((group) => group.demos.length > 0);
 }
 
-export function findDemo(
-  manifest: readonly DemoManifestEntry[],
-  id: string,
-): DemoManifestEntry | undefined {
+export function findDemo(manifest: readonly DemoManifestEntry[], id: string): DemoManifestEntry | undefined {
   return manifest.find((demo) => demo.id === id);
 }
 

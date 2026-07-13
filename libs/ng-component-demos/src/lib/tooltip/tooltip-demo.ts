@@ -18,8 +18,8 @@ import { snippet as basicSnippet } from './examples/tooltip-basic.ts.snippet';
       <ngc-demo-section title="Keyboard">
         <p>
           The tooltip shows when the trigger receives keyboard focus (<kbd>Tab</kbd>) and hides on blur or
-          <kbd>Escape</kbd> – identical to the hover behavior, so keyboard users get the same context. While
-          the tooltip is open it is linked to the trigger via <code>aria-describedby</code>.
+          <kbd>Escape</kbd> – identical to the hover behavior, so keyboard users get the same context. While the tooltip
+          is open it is linked to the trigger via <code>aria-describedby</code>.
         </p>
       </ngc-demo-section>
 
@@ -65,8 +65,8 @@ import { snippet as basicSnippet } from './examples/tooltip-basic.ts.snippet';
       <ngc-demo-section title="Usage">
         <p>
           Pass an <code>ng-template</code> containing a <code>div ngc-tooltip</code> to
-          <code>[ngc-tooltip-trigger]</code>. Keep tooltip content short and non-interactive – it
-          supplements the trigger's label, it does not replace it.
+          <code>[ngc-tooltip-trigger]</code>. Keep tooltip content short and non-interactive – it supplements the
+          trigger's label, it does not replace it.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

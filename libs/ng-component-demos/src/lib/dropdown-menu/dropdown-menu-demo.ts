@@ -17,11 +17,13 @@ import { snippet as basicSnippet } from './examples/dropdown-menu-basic.ts.snipp
 
       <ngc-demo-section title="Keyboard">
         <p>
-          With the trigger focused, <kbd>Enter</kbd>, <kbd>Space</kbd>, or <kbd>ArrowDown</kbd> open the menu
-          and focus the first item. <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> move focus and wrap at the ends,
-          <kbd>Home</kbd>/<kbd>End</kbd> jump to the first/last item, typing performs typeahead,
-          <kbd>Enter</kbd> or <kbd>Space</kbd> activates the focused item (closing the menu), and
-          <kbd>Escape</kbd> or a click outside closes without activating. Disabled items are skipped.
+          With the trigger focused, <kbd>Enter</kbd>, <kbd>Space</kbd>, or <kbd>ArrowDown</kbd> open the menu and focus
+          the first item. <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> move focus and wrap at the ends, <kbd>Home</kbd>/<kbd
+            >End</kbd
+          >
+          jump to the first/last item, typing performs typeahead, <kbd>Enter</kbd> or <kbd>Space</kbd> activates the
+          focused item (closing the menu), and <kbd>Escape</kbd> or a click outside closes without activating. Disabled
+          items are skipped.
         </p>
       </ngc-demo-section>
 
@@ -74,9 +76,9 @@ import { snippet as basicSnippet } from './examples/dropdown-menu-basic.ts.snipp
       <ngc-demo-section title="Usage">
         <p>
           Put the menu anatomy (<code>ngc-menu</code> with <code>ngc-menu-item</code> buttons, optional
-          <code>ngc-menu-label</code> and <code>ngc-menu-separator</code>) inside an
-          <code>ng-template</code> and pass it to <code>[ngc-menu-trigger]</code>. Handle item activation with
-          a plain <code>(click)</code> – the menu closes itself afterwards.
+          <code>ngc-menu-label</code> and <code>ngc-menu-separator</code>) inside an <code>ng-template</code> and pass
+          it to <code>[ngc-menu-trigger]</code>. Handle item activation with a plain <code>(click)</code> – the menu
+          closes itself afterwards.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

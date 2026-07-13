@@ -14,7 +14,13 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgcValueAccessor } from '@angular-software/ng-components/core';
-import { injectSelectState, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSelectPortal } from 'ng-primitives/select';
+import {
+  injectSelectState,
+  NgpSelect,
+  NgpSelectDropdown,
+  NgpSelectOption,
+  NgpSelectPortal,
+} from 'ng-primitives/select';
 
 /**
  * NgcSelect on a native `<button>` trigger (combobox pattern):

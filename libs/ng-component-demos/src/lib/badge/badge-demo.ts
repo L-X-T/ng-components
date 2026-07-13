@@ -29,8 +29,8 @@ import { snippet as variantsSnippet } from './examples/badge-variants.ts.snippet
 
       <ngc-demo-section title="Usage">
         <p>
-          Apply <code>ngc-badge</code> to a <code>&lt;span&gt;</code> – or to an <code>&lt;a&gt;</code> for a
-          linked badge. Badges label status or counts; they are not interactive controls, so prefer
+          Apply <code>ngc-badge</code> to a <code>&lt;span&gt;</code> – or to an <code>&lt;a&gt;</code> for a linked
+          badge. Badges label status or counts; they are not interactive controls, so prefer
           <code>ngc-button</code> when a click has an effect.
         </p>
       </ngc-demo-section>

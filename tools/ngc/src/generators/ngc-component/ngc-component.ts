@@ -1,5 +1,13 @@
 import { libraryGenerator } from '@nx/angular/generators';
-import { formatFiles, generateFiles, type GeneratorCallback, joinPathFragments, logger, names, type Tree } from '@nx/devkit';
+import {
+  formatFiles,
+  generateFiles,
+  type GeneratorCallback,
+  joinPathFragments,
+  logger,
+  names,
+  type Tree,
+} from '@nx/devkit';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { NgcComponentGeneratorSchema } from './schema';

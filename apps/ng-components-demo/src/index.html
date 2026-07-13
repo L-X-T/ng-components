@@ -19,8 +19,7 @@
           /* storage unavailable – fall through to the preference default */
         }
         if (['light', 'dark', 'angular-light', 'angular-dark'].indexOf(theme) === -1) {
-          theme =
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : null;
+          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : null;
         }
         if (theme) {
           document.documentElement.setAttribute('data-theme', theme);

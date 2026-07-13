@@ -44,8 +44,8 @@ import { snippet as basicSnippet } from './examples/card-basic.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Compose cards from the sub-part attributes on your own semantic markup – the heading level, for
-          instance, stays yours. All parts are optional; a bare <code>ngc-card</code> with content works.
+          Compose cards from the sub-part attributes on your own semantic markup – the heading level, for instance,
+          stays yours. All parts are optional; a bare <code>ngc-card</code> with content works.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

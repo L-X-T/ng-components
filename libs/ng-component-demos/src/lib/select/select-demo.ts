@@ -42,11 +42,10 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
 
       <ngc-demo-section title="Keyboard">
         <p>
-          With the trigger focused, <kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>ArrowDown</kbd>, or
-          <kbd>ArrowUp</kbd> open the dropdown; <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> move the active
-          option, <kbd>Home</kbd>/<kbd>End</kbd> jump to the first/last option, <kbd>Enter</kbd> selects
-          the active option, and <kbd>Escape</kbd> or clicking outside closes the dropdown. Focus stays on
-          the trigger the whole time (active-descendant pattern).
+          With the trigger focused, <kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>ArrowDown</kbd>, or <kbd>ArrowUp</kbd> open
+          the dropdown; <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> move the active option, <kbd>Home</kbd>/<kbd>End</kbd>
+          jump to the first/last option, <kbd>Enter</kbd> selects the active option, and <kbd>Escape</kbd> or clicking
+          outside closes the dropdown. Focus stays on the trigger the whole time (active-descendant pattern).
         </p>
       </ngc-demo-section>
 
@@ -130,10 +129,10 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
       <ngc-demo-section title="Usage">
         <p>
           Apply <code>ngc-select</code> to a native <code>&lt;button&gt;</code> and project
-          <code>ngc-select-option</code> elements; the trigger shows the selected option's text. The
-          dropdown renders into <code>body</code>, matches the trigger width, and layers on the core
-          <code>--z-overlay</code> token. The trigger implements <code>ControlValueAccessor</code>, so
-          <code>[formControl]</code> / <code>formControlName</code> bind directly.
+          <code>ngc-select-option</code> elements; the trigger shows the selected option's text. The dropdown renders
+          into <code>body</code>, matches the trigger width, and layers on the core <code>--z-overlay</code> token. The
+          trigger implements <code>ControlValueAccessor</code>, so <code>[formControl]</code> /
+          <code>formControlName</code> bind directly.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>
