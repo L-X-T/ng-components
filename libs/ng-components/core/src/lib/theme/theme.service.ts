@@ -23,8 +23,9 @@ const DEFAULT_SCHEME: NgcThemeScheme = { light: 'light', dark: 'dark' };
 
 /**
  * The app's light/dark pair, e.g. the brand themes for a company site. Only
- * consulted while no theme is persisted – the visitor's own choice always
- * wins. Defaults to the neutral `light`/`dark` pair.
+ * consulted while no theme is persisted and no {@link NGC_INITIAL_THEME}
+ * override is provided – the visitor's own choice wins. Defaults to the
+ * neutral `light`/`dark` pair.
  */
 export const NGC_THEME_SCHEME = new InjectionToken<NgcThemeScheme>('NGC_THEME_SCHEME');
 

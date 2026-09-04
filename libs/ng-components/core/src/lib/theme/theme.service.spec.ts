@@ -100,6 +100,8 @@ describe('NgcThemeService', () => {
     });
 
     it('falls back to the light member on the server platform', () => {
+      // A dark OS preference must not leak in – the server knows none.
+      stubPrefersDark(true);
       TestBed.configureTestingModule({ providers: [{ provide: PLATFORM_ID, useValue: 'server' }] });
 
       expect(themeService().theme()).toBe('angular-light');
