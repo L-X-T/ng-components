@@ -102,7 +102,7 @@ export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
   private readonly optionLabels = signal<ReadonlyMap<HTMLElement, Signal<string | undefined>>>(new Map());
 
   /**
-   * NgcLabel of the selected option for the trigger: the option's `label` input
+   * Label of the selected option for the trigger: the option's `label` input
    * when set (reactive), otherwise its text content. The text-content
    * fallback is a snapshot – it does not update when the projected text
    * changes later (async/i18n labels); pass `label` in that case (review

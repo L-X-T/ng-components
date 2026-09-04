@@ -6,6 +6,7 @@
 // left/top) and matches the trigger width via --ngp-select-width.
 @layer ngc {
   .ngc-select {
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;

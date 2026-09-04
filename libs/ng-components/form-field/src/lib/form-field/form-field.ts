@@ -32,7 +32,7 @@ import { NgpDescription, NgpError, NgpFormField, NgpLabel } from 'ng-primitives/
 })
 export class NgcFormField {}
 
-/** NgcLabel of the field; associates with the control automatically. */
+/** Label of the field; associates with the control automatically. */
 @Directive({
   selector: 'label[ngc-field-label]',
   hostDirectives: [{ directive: NgpLabel, inputs: ['id'] }],

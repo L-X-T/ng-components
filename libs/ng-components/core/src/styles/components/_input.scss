@@ -4,6 +4,9 @@
 
 @layer ngc {
   .ngc-input {
+    // border-box: width 100% must include padding and border, or the control
+    // overflows every container narrower than 100% + 1.5rem (mobile forms).
+    box-sizing: border-box;
     display: flex;
     width: 100%;
     height: 2.25rem;

@@ -107,7 +107,7 @@ export class NgcDialog {
   }
 }
 
-/** NgcDialog heading; feeds the dialog's aria-labelledby. */
+/** Dialog heading; feeds the dialog's aria-labelledby. */
 @Directive({
   selector: '[ngc-dialog-title]',
   hostDirectives: [NgpDialogTitle],

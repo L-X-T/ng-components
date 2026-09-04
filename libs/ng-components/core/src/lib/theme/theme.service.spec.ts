@@ -1,7 +1,13 @@
 import { DOCUMENT, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
-import { isNgcTheme, NGC_INITIAL_THEME, NGC_THEME_STORAGE_KEY, NgcThemeService } from './theme.service';
+import {
+  isNgcTheme,
+  NGC_INITIAL_THEME,
+  NGC_THEME_STORAGE_KEY,
+  NgcThemeService,
+  provideNgcThemeScheme,
+} from './theme.service';
 
 describe('NgcThemeService', () => {
   const documentElement = (): HTMLElement => TestBed.inject(DOCUMENT).documentElement;
@@ -58,6 +64,46 @@ describe('NgcThemeService', () => {
     stubPrefersDark(true);
 
     expect(themeService().theme()).toBe('dark');
+  });
+
+  it('does not persist the OS-derived first-visit theme, only explicit choices', () => {
+    stubPrefersDark(true);
+
+    const service = themeService();
+
+    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBeNull();
+    service.setTheme('light');
+    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe('light');
+  });
+
+  describe('theme scheme', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [provideNgcThemeScheme({ light: 'angular-light', dark: 'angular-dark' })],
+      });
+    });
+
+    it('resolves the first visit to the scheme pair by OS preference', () => {
+      expect(themeService().theme()).toBe('angular-light');
+    });
+
+    it('picks the dark member of the scheme for dark OS preferences', () => {
+      stubPrefersDark(true);
+
+      expect(themeService().theme()).toBe('angular-dark');
+    });
+
+    it('lets a persisted choice win over the scheme', () => {
+      localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
+
+      expect(themeService().theme()).toBe('dark');
+    });
+
+    it('falls back to the light member on the server platform', () => {
+      TestBed.configureTestingModule({ providers: [{ provide: PLATFORM_ID, useValue: 'server' }] });
+
+      expect(themeService().theme()).toBe('angular-light');
+    });
   });
 
   it('prefers the persisted theme over the OS preference', () => {

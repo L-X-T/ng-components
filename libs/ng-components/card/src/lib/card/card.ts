@@ -35,7 +35,7 @@ export class NgcCard {}
 })
 export class NgcCardHeader {}
 
-/** NgcCard title; apply to a heading element of the right level. */
+/** Card title; apply to a heading element of the right level. */
 @Directive({
   selector: '[ngc-card-title]',
   host: { class: 'ngc-card-title' },
