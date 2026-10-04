@@ -54,10 +54,11 @@ import { snippet as statesSnippet } from './examples/input-states.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Apply <code>ngc-input</code> to a native <code>&lt;input&gt;</code> – any <code>type</code> works. Outside a
-          form field set <code>aria-invalid</code> yourself for validation styling; inside
-          <code>ngc-form-field</code> the directive sets it once the control is touched and invalid (see
-          <a routerLink="/components/form-field">Form Field</a>).
+          Apply <code>ngc-input</code> to a native <code>&lt;input&gt;</code> – any <code>type</code> works.
+          <code>aria-invalid</code> (and the invalid styling) follows the bound form control: it is set once the control
+          is touched and invalid, inside or outside <code>ngc-form-field</code> (see
+          <a routerLink="/components/form-field">Form Field</a>); without a form control the input never reports
+          invalid.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

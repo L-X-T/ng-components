@@ -19,9 +19,10 @@ import { snippet as basicSnippet } from './examples/tabs-basic.ts.snippet';
         <p>
           <kbd>Tab</kbd> moves focus into the tab list (to the selected tab) and out to the active panel;
           <kbd>ArrowRight</kbd>/<kbd>ArrowLeft</kbd> (or <kbd>ArrowDown</kbd>/<kbd>ArrowUp</kbd> when vertical) move
-          focus between tabs (no wrapping), skipping disabled tabs, and activate the focused tab immediately (automatic
-          activation, the default); <kbd>Home</kbd>/<kbd>End</kbd> jump to the first/last tab. Set
-          <code>[activateOnFocus]="false"</code> for manual activation via <kbd>Enter</kbd> or <kbd>Space</kbd>.
+          focus between tabs, skipping disabled tabs and wrapping at the ends, and activate the focused tab immediately
+          (automatic activation, the default); <kbd>Home</kbd>/<kbd>End</kbd> jump to the first/last tab. Set
+          <code>[wrap]="false"</code> to stop at the ends and <code>[activateOnFocus]="false"</code> for manual
+          activation via <kbd>Enter</kbd> or <kbd>Space</kbd>.
         </p>
       </ngc-demo-section>
 
@@ -47,6 +48,13 @@ import { snippet as basicSnippet } from './examples/tabs-basic.ts.snippet';
             type="boolean"
             default="true"
             description="Activate tabs automatically while arrowing; set false for Enter/Space activation."
+          />
+          <ngc-demo-api-item
+            name="wrap"
+            kind="input"
+            type="boolean"
+            default="true"
+            description="Wrap arrow-key focus from the last tab to the first and back; set false to stop at the ends."
           />
           <ngc-demo-api-item
             name="valueChange"

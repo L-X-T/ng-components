@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ngcAriaInvalid, NgcValueAccessor } from '@angular-software/ng-components/core';
+import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import {
   injectSelectState,
   NgpSelect,
@@ -43,9 +43,8 @@ import {
  * but option components exist eagerly, so the trigger label works while
  * closed. Typeahead exists only while the dropdown is open (ng-primitives
  * does not implement closed-state typeahead). Reactive forms integrate
- * through the ControlValueAccessor; inside `ngc-form-field` the trigger sets
- * `aria-invalid` once the control is touched and invalid (review 2026-10-04
- * L-13).
+ * through the ControlValueAccessor; the primitive sets `aria-invalid` on the
+ * trigger once the control is touched and invalid.
  */
 @Component({
   selector: 'button[ngc-select]',
@@ -91,13 +90,11 @@ import {
   host: {
     class: 'ngc-select',
     type: 'button',
-    '[attr.aria-invalid]': 'ariaInvalid()',
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
 export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
   private readonly state = injectSelectState<T>();
-  protected readonly ariaInvalid = ngcAriaInvalid();
 
   /** Text shown in the trigger while no option is selected. */
   readonly placeholder = input('');

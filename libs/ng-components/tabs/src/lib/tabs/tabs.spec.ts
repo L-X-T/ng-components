@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { type ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgcTab, NgcTabPanel, NgcTabs, NgcTabsList } from './tabs';
 
 @Component({
   imports: [NgcTab, NgcTabPanel, NgcTabs, NgcTabsList],
   template: `
-    <ngc-tabs [value]="value()" (valueChange)="onValueChange($event)">
+    <ngc-tabs [value]="value()" [wrap]="wrap()" (valueChange)="onValueChange($event)">
       <div ngc-tabs-list aria-label="Account settings">
         <button ngc-tab value="account">Account</button>
         <button ngc-tab value="password">Password</button>
@@ -19,6 +19,7 @@ import { NgcTab, NgcTabPanel, NgcTabs, NgcTabsList } from './tabs';
 })
 class Host {
   readonly value = signal<string | undefined>(undefined);
+  readonly wrap = signal(true);
   readonly changes: unknown[] = [];
 
   onValueChange(value: unknown): void {
@@ -73,6 +74,32 @@ describe('NgcTabs', () => {
     fixture.detectChanges();
 
     expect(tabs[1].getAttribute('aria-selected')).toBe('true');
+  });
+
+  // Selecting the tab makes it the roving tab stop; the key then moves from there.
+  function arrowRightFromSelected(fixture: ComponentFixture<Host>, tab: HTMLButtonElement): void {
+    tab.click();
+    fixture.detectChanges();
+    tab.focus();
+    tab.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+  }
+
+  it('wraps arrow-key focus past the disabled last tab by default (ng-primitives 0.131)', () => {
+    const { fixture, tabs } = setup();
+
+    arrowRightFromSelected(fixture, tabs[1]);
+
+    expect(document.activeElement?.textContent?.trim()).toBe('Account');
+  });
+
+  it('stops at the last enabled tab when wrap is off', () => {
+    const { fixture, tabs } = setup();
+
+    fixture.componentInstance.wrap.set(false);
+    fixture.detectChanges();
+    arrowRightFromSelected(fixture, tabs[1]);
+
+    expect(document.activeElement?.textContent?.trim()).toBe('Password');
   });
 
   it('ignores clicks on a disabled tab', () => {

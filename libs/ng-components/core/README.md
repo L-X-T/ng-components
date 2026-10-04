@@ -33,5 +33,4 @@ The OS-derived theme is never persisted and keeps following `prefers-color-schem
 ## For component authors
 
 - `NgcValueAccessor` – ControlValueAccessor base with touched-on-subtree-focusout semantics.
-- `ngcAriaInvalid()` – `aria-invalid` for a control hosted inside `ngc-form-field`.
 - `styles/_mixins.scss` – the focus ring (`ring`) and the forced-colors outline.

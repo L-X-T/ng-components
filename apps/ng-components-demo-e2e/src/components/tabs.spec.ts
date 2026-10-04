@@ -20,7 +20,7 @@ test.describe('tabs', () => {
     await expect(page.getByText('Change your account details')).toBeHidden();
   });
 
-  test('arrow keys move focus, activate automatically, and skip the disabled tab', async ({ page }) => {
+  test('arrow keys move focus, activate automatically, skip the disabled tab and wrap', async ({ page }) => {
     const account = page.getByRole('tab', { name: 'Account' });
     const password = page.getByRole('tab', { name: 'Password' });
 
@@ -30,13 +30,15 @@ test.describe('tabs', () => {
     // Automatic activation: arrowing selects the focused tab.
     await expect(password).toHaveAttribute('aria-selected', 'true');
 
-    // The next tab is disabled and wrapping is off – focus stays put.
+    // The next tab is disabled and focus wraps by default – past it to the first tab.
     await page.keyboard.press('ArrowRight');
-    await expect(password).toBeFocused();
-
-    await page.keyboard.press('ArrowLeft');
     await expect(account).toBeFocused();
     await expect(account).toHaveAttribute('aria-selected', 'true');
+
+    // And back: the wrap to the end skips the disabled tab too.
+    await page.keyboard.press('ArrowLeft');
+    await expect(password).toBeFocused();
+    await expect(password).toHaveAttribute('aria-selected', 'true');
   });
 
   test('Home and End jump between first and last enabled tab', async ({ page }) => {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, forwardRef, inject, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ngcAriaInvalid, NgcValueAccessor } from '@angular-software/ng-components/core';
+import { NgcValueAccessor } from '@angular-software/ng-components/core';
 import { NgpCheckbox } from 'ng-primitives/checkbox';
 
 /**
@@ -18,10 +18,9 @@ import { NgpCheckbox } from 'ng-primitives/checkbox';
  * The template only renders the check/indeterminate indicator icons.
  *
  * Reactive forms integrate through the ControlValueAccessor (`FormControl<boolean>`);
- * standalone usage works via `[(checked)]`. The wrapper adds what the primitive
- * leaves out (review 2026-10-04 L-12/L-13): `aria-required` from the
- * `required` input and `aria-invalid` for a touched invalid control inside
- * `ngc-form-field`.
+ * standalone usage works via `[(checked)]`. The wrapper adds `aria-required`
+ * from the `required` input (review 2026-10-04 L-12); `aria-invalid` for a
+ * touched invalid control comes from the primitive's form-control status.
  */
 @Component({
   selector: 'button[ngc-checkbox]',
@@ -73,13 +72,11 @@ import { NgpCheckbox } from 'ng-primitives/checkbox';
     class: 'ngc-checkbox',
     type: 'button',
     '[attr.aria-required]': 'checkbox.required() || null',
-    '[attr.aria-invalid]': 'ariaInvalid()',
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
 export class NgcCheckbox extends NgcValueAccessor<boolean> {
   protected readonly checkbox = inject(NgpCheckbox);
-  protected readonly ariaInvalid = ngcAriaInvalid();
 
   constructor() {
     super();

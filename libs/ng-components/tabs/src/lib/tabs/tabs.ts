@@ -17,9 +17,10 @@ import { NgpTabButton, NgpTabList, NgpTabPanel, NgpTabset } from 'ng-primitives/
  *
  * Behavior comes from NgpTabset and friends (internal detail, spec 001 §2):
  * roles (tablist/tab/tabpanel), aria-selected/aria-controls/aria-labelledby
- * wiring, and roving focus – arrow keys (per `orientation`) move focus with
- * wrapping, Home/End jump, Enter/Space activates. Set `activateOnFocus` for
- * automatic activation while arrowing. Only the tabset takes an `id`: the
+ * wiring, and roving focus – arrow keys (per `orientation`) move focus,
+ * skipping disabled tabs and wrapping at the ends (`wrap`, on by default),
+ * Home/End jump, Enter/Space activates. `activateOnFocus` (the default)
+ * activates while arrowing. Only the tabset takes an `id`: the
  * primitive derives tab and panel ids (and their aria-controls /
  * aria-labelledby pairing) from it, so custom ids on the parts would break
  * the pairing (review 2026-10-04 L-04).
@@ -34,6 +35,7 @@ import { NgpTabButton, NgpTabList, NgpTabPanel, NgpTabset } from 'ng-primitives/
         'ngpTabsetValue: value',
         'ngpTabsetOrientation: orientation',
         'ngpTabsetActivateOnFocus: activateOnFocus',
+        'ngpTabsetWrap: wrap',
       ],
       outputs: ['ngpTabsetValueChange: valueChange'],
     },

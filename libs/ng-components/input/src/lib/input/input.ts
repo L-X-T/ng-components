@@ -1,5 +1,4 @@
 import { Directive } from '@angular/core';
-import { ngcAriaInvalid } from '@angular-software/ng-components/core';
 import { NgpInput } from 'ng-primitives/input';
 
 /**
@@ -10,15 +9,15 @@ import { NgpInput } from 'ng-primitives/input';
  * the id and disabled state and emits `data-disabled` – its inputs are
  * forwarded. Styles live in core's global stylesheet
  * (`core/src/styles/components/_input.scss`), including `aria-invalid`
- * styling for validation states. Inside `ngc-form-field` the directive sets
- * `aria-invalid` itself once the control is touched and invalid (review
- * 2026-10-04 L-13); a static `aria-invalid` attribute wins.
+ * styling for validation states. `aria-invalid` follows the bound form
+ * control: the primitive sets it once the control is touched and invalid
+ * (inside or outside `ngc-form-field`) and removes it otherwise, so a static
+ * attribute does not survive – an input without a form control never reports
+ * invalid (review 2026-10-04 L-13, in ng-primitives since 0.128).
  */
 @Directive({
   selector: 'input[ngc-input]',
   hostDirectives: [{ directive: NgpInput, inputs: ['id', 'disabled'] }],
-  host: { class: 'ngc-input', '[attr.aria-invalid]': 'ariaInvalid()' },
+  host: { class: 'ngc-input' },
 })
-export class NgcInput {
-  protected readonly ariaInvalid = ngcAriaInvalid();
-}
+export class NgcInput {}
