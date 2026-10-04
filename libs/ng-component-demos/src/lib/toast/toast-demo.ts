@@ -26,10 +26,10 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
       <ngc-demo-section title="Service API">
         <p>
           Toast is the one component whose primary API is a service – there is no template anatomy to compose. Inject
-          <code>Toast</code> and call <code>show(message, options)</code>; it returns a handle with
-          <code>dismiss()</code>. Up to three toasts stack per placement (newest in front, hover expands the stack);
-          each toast announces politely via <code>role="status"</code>, carries an explicit dismiss button, and can be
-          swiped away.
+          <code>NgcToast</code> and call <code>show(message, options)</code>; it returns a handle with
+          <code>dismiss()</code>. Up to three toasts stack per placement (newest in front, hover or keyboard focus
+          expands the stack and pauses auto-dismiss); the stack's container is a single polite live region, so every
+          toast is announced once, carries an explicit dismiss button, and can be swiped away.
         </p>
       </ngc-demo-section>
 
@@ -43,34 +43,34 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
           />
           <ngc-demo-api-item
             name="description"
-            kind="input"
+            kind="option"
             type="string"
             description="Muted second line under the message."
           />
           <ngc-demo-api-item
             name="duration"
-            kind="input"
+            kind="option"
             type="number"
             default="3000"
             description="Milliseconds before auto-dismiss."
           />
           <ngc-demo-api-item
             name="placement"
-            kind="input"
+            kind="option"
             type="NgcToastPlacement"
             default="'top-end'"
             description="Corner or edge where the toast stack appears."
           />
           <ngc-demo-api-item
             name="persistent"
-            kind="input"
+            kind="option"
             type="boolean"
             default="false"
             description="Never auto-dismiss; requires explicit dismissal."
           />
           <ngc-demo-api-item
             name="dismissLabel"
-            kind="input"
+            kind="option"
             type="string"
             default="'Dismiss notification'"
             description="Accessible label of the dismiss button; provideNgcToastDismissLabel sets the app-wide default."

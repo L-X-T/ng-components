@@ -9,16 +9,19 @@ import {
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { DEMO_MANIFEST, DemoManifestEntry } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, DemoManifestEntry, orderedDemos } from '@angular-software/ng-component-demos/manifest';
 import { NgcInput } from '@angular-software/ng-components/input';
 
-/** Case-insensitive filter over manifest name and summary. */
+/** Sidebar order (category, then authored) – the palette must not list differently (review 2026-07-11 E3). */
+const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);
+
+/** Case-insensitive filter over manifest name and summary, in sidebar order. */
 export function filterDemoEntries(query: string): readonly DemoManifestEntry[] {
   const needle = query.trim().toLowerCase();
   if (!needle) {
-    return DEMO_MANIFEST;
+    return SIDEBAR_ORDERED;
   }
-  return DEMO_MANIFEST.filter(
+  return SIDEBAR_ORDERED.filter(
     (entry) => entry.name.toLowerCase().includes(needle) || entry.summary.toLowerCase().includes(needle),
   );
 }
@@ -63,14 +66,15 @@ export class CommandPalette {
     });
   }
 
-  protected onQueryChange(value: string): void {
-    this.query.set(value);
+  protected onQueryChange(event: Event): void {
+    this.query.set((event.target as HTMLInputElement).value);
     this.activeIndex.set(0);
   }
 
   protected onKeydown(event: KeyboardEvent): void {
     const results = this.results();
-    if (results.length === 0) {
+    // Mid-composition (IME) key events must not select or move.
+    if (results.length === 0 || event.isComposing) {
       return;
     }
     switch (event.key) {

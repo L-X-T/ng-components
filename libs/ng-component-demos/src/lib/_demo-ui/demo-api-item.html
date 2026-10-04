@@ -4,10 +4,11 @@
     <span class="ngc-demo-api__kind">{{ apiKind }}</span>
   }
 </span>
-<span class="ngc-demo-api__cell" role="cell"
-  ><code>{{ type() ?? '—' }}</code></span
+<!-- Empty cells read "none" instead of "en dash" (review 2026-10-04 D-21). -->
+<span class="ngc-demo-api__cell" role="cell" [attr.aria-label]="type() ? null : 'none'"
+  ><code>{{ type() ?? '–' }}</code></span
 >
-<span class="ngc-demo-api__cell" role="cell"
-  ><code>{{ default() ?? '—' }}</code></span
+<span class="ngc-demo-api__cell" role="cell" [attr.aria-label]="default() ? null : 'none'"
+  ><code>{{ default() ?? '–' }}</code></span
 >
 <span class="ngc-demo-api__cell" role="cell">{{ description() ?? '' }}</span>

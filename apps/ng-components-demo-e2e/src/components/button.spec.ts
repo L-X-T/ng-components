@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 /**
  * Functional/keyboard coverage for the ngc-button demo page (plan 004 M4.3
@@ -7,7 +8,7 @@ import { expect, test } from '@playwright/test';
  */
 test.describe('button', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/components/button');
+    await gotoHydrated(page, '/components/button');
   });
 
   test('renders all six variants', async ({ page }) => {
@@ -49,5 +50,10 @@ test.describe('button', () => {
     await page.getByRole('combobox', { name: 'Variant' }).click();
     await page.getByRole('option', { name: 'destructive' }).click();
     await expect(button).toHaveClass(/ngc-button--destructive/);
+
+    // Icon size: the playground names the button (review 2026-10-04 D-05).
+    await page.getByRole('combobox', { name: 'Size' }).click();
+    await page.getByRole('option', { name: 'icon' }).click();
+    await expect(playground.getByRole('button', { name: 'Add' })).toBeVisible();
   });
 });

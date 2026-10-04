@@ -11,7 +11,10 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
+    title: 'Angular component library',
     loadComponent: () => import('./home/home').then((m) => m.Home),
   },
   ...demoRoutes(DEMO_MANIFEST, DEMO_LOADERS),
+  // Unknown URLs land on home instead of an empty outlet with NG04002.
+  { path: '**', redirectTo: '' },
 ];

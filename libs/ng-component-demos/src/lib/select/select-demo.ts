@@ -82,7 +82,7 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
             name="compareWith"
             kind="input"
             type="(a: T, b: T) => boolean"
-            default="==="
+            default="Object.is"
             description="Comparator for object values."
           />
           <ngc-demo-api-item
@@ -122,6 +122,13 @@ import { snippet as statesSnippet } from './examples/select-states.ts.snippet';
             type="boolean"
             default="false"
             description="Disables a single option."
+          />
+          <ngc-demo-api-item
+            name="id (option)"
+            kind="input"
+            type="string"
+            default="generated"
+            description="Id of an option."
           />
         </ngc-demo-api>
       </ngc-demo-section>

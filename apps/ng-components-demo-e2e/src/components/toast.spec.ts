@@ -3,6 +3,9 @@ import { gotoHydrated } from '../support/hydration';
 
 test.describe('toast', () => {
   test.beforeEach(async ({ page }) => {
+    // Fake clock: the auto-dismiss tests fast-forward instead of sleeping
+    // (review 2026-10-04 D-17).
+    await page.clock.install();
     await gotoHydrated(page, '/components/toast');
   });
 
@@ -20,7 +23,8 @@ test.describe('toast', () => {
     await expect(toast).not.toHaveAttribute('aria-live');
 
     // Default duration is 3 s + exit animation.
-    await expect(toast).toBeHidden({ timeout: 6000 });
+    await page.clock.fastForward(4000);
+    await expect(toast).toBeHidden();
   });
 
   test('dismiss button closes the toast immediately', async ({ page }) => {
@@ -35,12 +39,17 @@ test.describe('toast', () => {
 
   test('persistent toast survives the auto-dismiss window and dismisses programmatically', async ({ page }) => {
     await page.getByRole('button', { name: 'Persistent toast' }).click();
-    const toast = page.locator('.ngc-toast');
+    const toast = page.locator('.ngc-toast').filter({ hasText: 'Update available' });
     await expect(toast).toBeVisible();
+    // A default toast next to it proves the auto-dismiss window really passed.
+    await page.getByRole('button', { name: 'Publish article' }).click();
+    const defaultToast = page.locator('.ngc-toast').filter({ hasText: 'Article published' });
+    await expect(defaultToast).toBeVisible();
 
-    // Well past the default 3 s duration it is still there.
-    await page.waitForTimeout(4000);
+    await page.clock.fastForward(5000);
+    await expect(defaultToast).toBeHidden();
     await expect(toast).toBeVisible();
+    await expect(toast).not.toHaveAttribute('data-exit');
 
     await page.getByRole('button', { name: 'Dismiss last' }).click();
     await expect(toast).toBeHidden();

@@ -25,8 +25,11 @@ test.describe('home', () => {
   test('renders without console errors', async ({ page }) => {
     const errors = collectErrors(page);
 
-    await page.goto('/');
+    await gotoHydrated(page, '/');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page).toHaveTitle('Angular component library – ng-components');
+    // Exactly one main landmark (review 2026-10-04 D-06).
+    await expect(page.getByRole('main')).toHaveCount(1);
 
     expect(errors).toEqual([]);
   });
@@ -45,6 +48,8 @@ for (const demo of SIDEBAR_ORDERED) {
       // hydration errors fire after first render (review 2026-07-11 E5).
       await gotoHydrated(page, demo.route);
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(demo.name);
+      await expect(page).toHaveTitle(`${demo.name} – ng-components`);
+      await expect(page.getByRole('main')).toHaveCount(1);
 
       for (const exampleId of demo.examples) {
         await expect(page.locator(`#${exampleId}`), `example "${exampleId}" is missing`).toBeVisible();

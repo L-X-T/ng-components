@@ -8,13 +8,29 @@
 
 @if (snippet(); as exampleSnippet) {
   <div class="ngc-demo-example__toolbar">
-    <button type="button" class="ngc-demo-example__button" (click)="toggleCode()">
+    <button
+      type="button"
+      class="ngc-demo-example__button"
+      [attr.aria-expanded]="showCode()"
+      [attr.aria-controls]="codeId"
+      (click)="toggleCode()"
+    >
       {{ showCode() ? 'Hide code' : 'Show code' }}
     </button>
-    <button type="button" class="ngc-demo-example__button" (click)="copy()">Copy</button>
+    <button type="button" class="ngc-demo-example__button" (click)="copy()">Copy code</button>
+    <span class="ngc-demo-example__status" role="status">
+      @switch (copyState()) {
+        @case ('copied') {
+          Copied
+        }
+        @case ('failed') {
+          Copy failed – select the code instead
+        }
+      }
+    </span>
   </div>
 
   @if (showCode()) {
-    <div class="ngc-demo-example__code" [innerHTML]="highlighted()"></div>
+    <div class="ngc-demo-example__code" [id]="codeId" [innerHTML]="highlighted()"></div>
   }
 }

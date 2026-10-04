@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ViewEncapsulation } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { DemoOutlineService } from './demo-outline.service';
 import { slugify } from './slug';
 
@@ -9,6 +10,7 @@ import { slugify } from './slug';
  */
 @Component({
   selector: 'ngc-demo-section',
+  imports: [RouterLink],
   templateUrl: './demo-section.html',
   styleUrl: './demo-section.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +30,11 @@ export class DemoSection {
   constructor() {
     const outline = inject(DemoOutlineService, { optional: true });
     if (outline) {
-      effect(() => outline.register({ id: this.resolvedId(), title: this.title() }));
+      effect((onCleanup) => {
+        const id = this.resolvedId();
+        outline.register({ id, title: this.title() });
+        onCleanup(() => outline.unregister(id));
+      });
     }
   }
 }

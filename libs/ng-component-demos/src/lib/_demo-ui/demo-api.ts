@@ -11,6 +11,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   styleUrl: './demo-api.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'ngc-demo-api', role: 'table' },
+  // tabindex: the table scrolls horizontally on phones and must stay keyboard-scrollable.
+  host: { class: 'ngc-demo-api', role: 'table', tabindex: '0', 'aria-label': 'API' },
 })
 export class DemoApi {}

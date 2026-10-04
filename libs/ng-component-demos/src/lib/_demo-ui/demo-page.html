@@ -6,7 +6,8 @@
 </header>
 
 <div class="ngc-demo-page__body">
-  <main class="ngc-demo-page__main">
+  <!-- The app shell owns the <main> landmark – a nested main is a violation (review 2026-10-04 D-06). -->
+  <div class="ngc-demo-page__main">
     <ng-content />
 
     @if (previous || next) {
@@ -21,7 +22,7 @@
         }
       </nav>
     }
-  </main>
+  </div>
   <aside class="ngc-demo-page__aside">
     <ngc-demo-on-this-page />
   </aside>

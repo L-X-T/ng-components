@@ -12,6 +12,8 @@ import {
 import { DomSanitizer, type SafeHtml } from '@angular/platform-browser';
 import type { DemoSnippet } from './demo-snippet';
 
+let nextCodeId = 0;
+
 /**
  * Renders one live example (projected) next to its real source as a
  * Shiki-highlighted, toggleable code block with a copy button. The snippet is
@@ -34,6 +36,10 @@ export class DemoExample {
   readonly snippet = input<DemoSnippet>();
 
   protected readonly showCode = signal(false);
+  /** Id of the code region the toggle controls (aria-controls). */
+  protected readonly codeId = `ngc-demo-example-code-${nextCodeId++}`;
+  /** Clipboard feedback, announced via the toolbar's live region. */
+  protected readonly copyState = signal<'idle' | 'copied' | 'failed'>('idle');
 
   // Build-time Shiki output is our own trusted content; bypassing keeps the
   // inline token colours the Angular sanitizer would otherwise strip.
@@ -48,8 +54,17 @@ export class DemoExample {
 
   protected async copy(): Promise<void> {
     const snippet = this.snippet();
-    if (snippet && this.isBrowser && navigator.clipboard) {
+    if (!snippet || !this.isBrowser) {
+      return;
+    }
+    this.copyState.set('idle');
+    try {
       await navigator.clipboard.writeText(snippet.source);
+      this.copyState.set('copied');
+    } catch {
+      // Clipboard denied or unavailable (insecure context, permissions) –
+      // say so instead of leaking an unhandled rejection (review 2026-10-04 D-15).
+      this.copyState.set('failed');
     }
   }
 }

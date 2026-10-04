@@ -1,13 +1,15 @@
 import type { Page } from '@playwright/test';
 
 /**
- * Navigate to a demo page and wait until Angular has rendered on the client.
- * The demo app prerenders its routes with event replay; interacting before
- * hydration completes races against directive initialization (e.g. a reactive
- * form's initial writeValue clearing just-typed text). DemoPage sets
- * `data-hydrated` after its first client render.
+ * Navigate and wait until Angular has rendered on the client. The demo app
+ * prerenders its routes with event replay; interacting before hydration
+ * completes races against directive initialization (e.g. a reactive form's
+ * initial writeValue clearing just-typed text). The app shell sets
+ * `data-hydrated` once the first navigation's lazy route has rendered on the
+ * client, on every route (home included – review 2026-10-04 D-17); demo pages
+ * additionally set their own.
  */
 export async function gotoHydrated(page: Page, url: string): Promise<void> {
   await page.goto(url);
-  await page.locator('ngc-demo-page[data-hydrated]').waitFor();
+  await page.locator('app-root[data-hydrated]').waitFor();
 }

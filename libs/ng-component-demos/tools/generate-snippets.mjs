@@ -3,18 +3,29 @@
 // themes as CSS variables). Snippets are gitignored build outputs consumed by
 // DemoExample, so example source is never hand-copied (spec 002).
 import { globSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
-import { dirname, relative } from 'node:path';
+import { dirname, join, posix, relative, sep } from 'node:path';
 import { codeToHtml } from 'shiki';
 
-const EXAMPLES_GLOB = 'libs/ng-component-demos/src/lib/**/examples/*.example.@(ts|html)';
-const SNIPPETS_GLOB = 'libs/ng-component-demos/src/lib/**/examples/*.snippet.ts';
-const DEMO_SNIPPET_MODULE = 'libs/ng-component-demos/src/lib/_demo-ui/demo-snippet';
+// Resolved from this file, not from process.cwd(): run from anywhere the
+// generator finds the same examples instead of silently writing nothing
+// (review 2026-10-04 D-12).
+const LIB_SRC = join(import.meta.dirname, '..', 'src', 'lib');
+// Glob patterns need forward slashes even on Windows (backslashes escape).
+const LIB_SRC_GLOB = LIB_SRC.split(sep).join('/');
+const EXAMPLES_GLOB = posix.join(LIB_SRC_GLOB, '**/examples/*.example.@(ts|html)');
+const SNIPPETS_GLOB = posix.join(LIB_SRC_GLOB, '**/examples/*.snippet.ts');
+const DEMO_SNIPPET_MODULE = join(LIB_SRC, '_demo-ui', 'demo-snippet');
 const LANG_BY_EXTENSION = { ts: 'typescript', html: 'html' };
 
 async function highlight(source, lang) {
   return codeToHtml(source, {
     lang,
-    themes: { light: 'github-light', dark: 'github-dark' },
+    // High-contrast variants: github-light's comment grey (#6a737d) measured
+    // 4.4:1 on --muted and its orange constants 3.2:1 (review 2026-10-04 D-04).
+    themes: { light: 'github-light-high-contrast', dark: 'github-dark-high-contrast' },
+    // The light theme's comment grey still measured 4.47:1 on angular-light's
+    // tinted --muted; one shade darker clears 4.5:1 in both light themes.
+    colorReplacements: { 'github-light-high-contrast': { '#66707b': '#5e6772' } },
     defaultColor: false,
   });
 }
@@ -26,6 +37,9 @@ function snippetImportPath(snippetPath) {
 
 async function run() {
   const files = globSync(EXAMPLES_GLOB).sort();
+  if (files.length === 0) {
+    throw new Error(`generate-snippets: no example files found under ${LIB_SRC}`);
+  }
   const expectedSnippets = new Set();
   for (const file of files) {
     const extension = file.endsWith('.html') ? 'html' : 'ts';

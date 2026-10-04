@@ -64,9 +64,12 @@ import { NgcTextarea } from '@angular-software/ng-components/textarea';
 
       <div style="display: flex; align-items: center; gap: 0.75rem">
         <button ngc-button type="submit">Send message</button>
-        @if (submitted()) {
-          <span>Sent!</span>
-        }
+        <!-- The live region exists before its content changes, so the message is announced (WCAG 4.1.3). -->
+        <span role="status">
+          @if (submitted()) {
+            Sent!
+          }
+        </span>
       </div>
     </form>
   `,

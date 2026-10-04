@@ -32,15 +32,41 @@ describe('DemoExample', () => {
     expect(element.querySelector('.ngc-demo-example__code')).toBeNull();
   });
 
+  it('reports a successful copy and a denied clipboard without throwing (review 2026-10-04 D-15)', async () => {
+    const fixture = setup();
+    const element = fixture.nativeElement as HTMLElement;
+    const copyButton = Array.from(element.querySelectorAll('.ngc-demo-example__button')).find((button) =>
+      button.textContent?.includes('Copy code'),
+    ) as HTMLButtonElement;
+    const status = element.querySelector('[role="status"]') as HTMLElement;
+    const writeText = vi.fn<(text: string) => Promise<void>>().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } });
+
+    copyButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(writeText).toHaveBeenCalledWith(snippet.source);
+    expect(status.textContent?.trim()).toBe('Copied');
+
+    writeText.mockRejectedValue(new Error('denied'));
+    copyButton.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(status.textContent).toContain('Copy failed');
+  });
+
   it('toggles the highlighted source on demand', () => {
     const fixture = setup();
     const element = fixture.nativeElement as HTMLElement;
     const toggle = element.querySelector('.ngc-demo-example__button') as HTMLButtonElement;
 
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
     toggle.click();
     fixture.detectChanges();
 
     const code = element.querySelector('.ngc-demo-example__code');
     expect(code?.querySelector('pre.shiki')).not.toBeNull();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(toggle.getAttribute('aria-controls')).toBe(code?.id);
   });
 });

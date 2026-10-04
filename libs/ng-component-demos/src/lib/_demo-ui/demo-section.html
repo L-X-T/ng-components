@@ -1,4 +1,6 @@
 <h2 class="ngc-demo-section__title">
-  <a class="ngc-demo-section__anchor" [href]="'#' + resolvedId()">{{ title() }}</a>
+  <!-- routerLink="." + fragment, like the outline: with <base href="/"> a bare
+       #hash href resolves to the home page (review 2026-10-04 D-01). -->
+  <a class="ngc-demo-section__anchor" routerLink="." [fragment]="resolvedId()">{{ title() }}</a>
 </h2>
 <ng-content />

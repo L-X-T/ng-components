@@ -1,4 +1,4 @@
-<ngc-demo-page title="Button" summary="Displays a button or a component that looks like a button.">
+<ngc-demo-page>
   <ngc-demo-section title="Playground">
     <ngc-demo-controls>
       <ngc-demo-knob label="Variant">
@@ -20,7 +20,14 @@
       </ngc-demo-knob>
     </ngc-demo-controls>
     <ngc-demo-example id="button-playground">
-      <button ngc-button [variant]="playgroundVariant()" [size]="playgroundSize()" [disabled]="playgroundDisabled()">
+      <!-- Icon-only buttons need a name – the page's own guidance (review 2026-10-04 D-05). -->
+      <button
+        ngc-button
+        [variant]="playgroundVariant()"
+        [size]="playgroundSize()"
+        [disabled]="playgroundDisabled()"
+        [attr.aria-label]="playgroundSize() === 'icon' ? 'Add' : null"
+      >
         @if (playgroundSize() === 'icon') {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M12 5v14M5 12h14" />

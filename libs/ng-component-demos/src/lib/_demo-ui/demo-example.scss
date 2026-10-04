@@ -45,6 +45,12 @@
     }
   }
 
+  &__status {
+    align-self: center;
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+  }
+
   &__code {
     margin: 0;
     padding: 1rem;

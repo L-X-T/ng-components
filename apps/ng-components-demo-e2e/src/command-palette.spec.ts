@@ -1,4 +1,4 @@
-import { DEMO_MANIFEST } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
 import { expect, test } from '@playwright/test';
 import { gotoHydrated } from './support/hydration';
 
@@ -8,7 +8,7 @@ test.describe('command palette', () => {
   });
 
   test('search button opens the palette with all entries and a focused input', async ({ page }) => {
-    await page.getByRole('button', { name: 'Search…' }).click();
+    await page.getByRole('button', { name: 'Search' }).click();
 
     const input = page.getByRole('combobox', { name: 'Search components' });
     await expect(input).toBeVisible();
@@ -22,7 +22,7 @@ test.describe('command palette', () => {
 
     await page.keyboard.press('Escape');
     await expect(page.getByRole('combobox', { name: 'Search components' })).toBeHidden();
-    await expect(page.getByRole('button', { name: 'Search…' })).toBeFocused();
+    await expect(page.getByRole('button', { name: 'Search' })).toBeFocused();
   });
 
   test('typing filters and Enter navigates to the match', async ({ page }) => {
@@ -40,11 +40,15 @@ test.describe('command palette', () => {
 
   test('arrow keys move the active option and Enter selects it', async ({ page }) => {
     await page.keyboard.press('ControlOrMeta+k');
+    // The ArrowDown must land in the palette input, not on the page behind the
+    // still-opening dialog – wait for focus first (flaky before 2026-10-04).
+    await expect(page.getByRole('combobox', { name: 'Search components' })).toBeFocused();
 
     await page.keyboard.press('ArrowDown');
     await expect(page.getByRole('option').nth(1)).toHaveAttribute('aria-selected', 'true');
 
     await page.keyboard.press('Enter');
-    await expect(page).toHaveURL(new RegExp(`${DEMO_MANIFEST[1].route}$`));
+    // Second entry in sidebar order – the palette lists like the sidebar does.
+    await expect(page).toHaveURL(new RegExp(`${orderedDemos(DEMO_MANIFEST)[1].route}$`));
   });
 });

@@ -63,7 +63,7 @@ test.describe('dialog', () => {
     const example = page.locator('#dialog-result');
 
     await example.getByRole('button', { name: 'Delete account' }).click();
-    await page.getByRole('dialog').getByRole('button', { name: 'Delete' }).click();
+    await page.getByRole('alertdialog').getByRole('button', { name: 'Delete' }).click();
     await expect(example).toContainText('Last result: deleted');
 
     await example.getByRole('button', { name: 'Delete account' }).click();

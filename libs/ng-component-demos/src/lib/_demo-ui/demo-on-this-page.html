@@ -1,13 +1,15 @@
 @if (outline().length > 0) {
-  <p class="ngc-demo-on-this-page__title">On this page</p>
-  <ul class="ngc-demo-on-this-page__list">
-    @for (item of outline(); track item.id) {
-      <li>
-        <!-- routerLink="." + fragment instead of a plain #hash href: with
-             <base href="/"> a bare hash link resolves against the base and
-             navigates to the home page instead of scrolling. -->
-        <a class="ngc-demo-on-this-page__link" routerLink="." [fragment]="item.id">{{ item.title }}</a>
-      </li>
-    }
-  </ul>
+  <nav class="ngc-demo-on-this-page__nav" aria-labelledby="ngc-demo-on-this-page-title">
+    <p class="ngc-demo-on-this-page__title" id="ngc-demo-on-this-page-title">On this page</p>
+    <ul class="ngc-demo-on-this-page__list">
+      @for (item of outline(); track item.id) {
+        <li>
+          <!-- routerLink="." + fragment instead of a plain #hash href: with
+               <base href="/"> a bare hash link resolves against the base and
+               navigates to the home page instead of scrolling. -->
+          <a class="ngc-demo-on-this-page__link" routerLink="." [fragment]="item.id">{{ item.title }}</a>
+        </li>
+      }
+    </ul>
+  </nav>
 }

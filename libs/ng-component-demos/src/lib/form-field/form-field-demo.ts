@@ -73,6 +73,13 @@ import { snippet as validationSnippet } from './examples/form-field-validation.t
             default="null"
             description="Validator key the error belongs to (e.g. required, email); omit to match any error."
           />
+          <ngc-demo-api-item
+            name="id (label, hint, error)"
+            kind="input"
+            type="string"
+            default="generated"
+            description="Element id; the control's aria-labelledby / aria-describedby reference it."
+          />
         </ngc-demo-api>
       </ngc-demo-section>
 

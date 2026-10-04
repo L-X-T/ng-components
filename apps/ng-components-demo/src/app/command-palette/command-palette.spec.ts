@@ -1,7 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { DEMO_MANIFEST } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
+
+// The palette lists in sidebar order (category, then authored – review E3).
+const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);
 import { CommandPalette, filterDemoEntries } from './command-palette';
 
 @Component({
@@ -14,9 +17,9 @@ class Host {
 }
 
 describe('filterDemoEntries', () => {
-  it('returns the full manifest for an empty query', () => {
-    expect(filterDemoEntries('')).toEqual(DEMO_MANIFEST);
-    expect(filterDemoEntries('   ')).toEqual(DEMO_MANIFEST);
+  it('returns the full manifest in sidebar order for an empty query', () => {
+    expect(filterDemoEntries('')).toEqual(SIDEBAR_ORDERED);
+    expect(filterDemoEntries('   ')).toEqual(SIDEBAR_ORDERED);
   });
 
   it('matches names case-insensitively', () => {
@@ -103,13 +106,15 @@ describe('CommandPalette', () => {
     const { fixture, input } = setup();
     const router = TestBed.inject(Router);
     const navigateSpy = vi.spyOn(router, 'navigateByUrl');
+    vi.mocked(Element.prototype.scrollIntoView).mockClear();
 
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
     fixture.detectChanges();
     input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
     fixture.detectChanges();
 
-    expect(navigateSpy).toHaveBeenCalledWith(DEMO_MANIFEST[1].route);
+    expect(navigateSpy).toHaveBeenCalledWith(SIDEBAR_ORDERED[1].route);
+    expect(Element.prototype.scrollIntoView).toHaveBeenCalledWith({ block: 'nearest' });
     expect(fixture.componentInstance.closed()).toBe(true);
   });
 
@@ -121,7 +126,7 @@ describe('CommandPalette', () => {
     (nativeElement.querySelectorAll('.palette-option')[2] as HTMLElement).click();
     fixture.detectChanges();
 
-    expect(navigateSpy).toHaveBeenCalledWith(DEMO_MANIFEST[2].route);
+    expect(navigateSpy).toHaveBeenCalledWith(SIDEBAR_ORDERED[2].route);
     expect(fixture.componentInstance.closed()).toBe(true);
   });
 });

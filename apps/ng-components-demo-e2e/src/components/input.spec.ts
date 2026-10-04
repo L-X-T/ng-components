@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 test.describe('input', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/components/input');
+    await gotoHydrated(page, '/components/input');
   });
 
   test('typing works', async ({ page }) => {

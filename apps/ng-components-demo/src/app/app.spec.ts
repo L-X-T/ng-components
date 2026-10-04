@@ -22,6 +22,15 @@ describe('App', () => {
     expect(compiled.querySelector('.shell__logo-text')?.textContent).toContain('ng-components');
     expect(compiled.querySelector('router-outlet')).not.toBeNull();
     expect(compiled.querySelector('.shell__sidebar')).not.toBeNull();
+    // One main landmark, focusable as the drawer's focus target (review 2026-10-04 D-02/D-06).
+    const main = compiled.querySelector('main') as HTMLElement;
+    expect(main.getAttribute('tabindex')).toBe('-1');
+    expect(compiled.querySelector('.shell__search')?.getAttribute('aria-label')).toBe('Search');
+    expect(compiled.querySelector('.shell__skip')?.getAttribute('href')).toBe('/#main');
+    const nav = compiled.querySelector('nav.shell__sidebar') as HTMLElement;
+    expect(nav.id).toBe('shell-sidebar');
+    expect(compiled.querySelector('.shell__menu-button')?.getAttribute('aria-controls')).toBe('shell-sidebar');
+    expect(nav.querySelector('h2.shell__nav-category')?.textContent?.trim()).toBe('form');
   });
 
   it('renders the theme switcher as an ngc-select showing the active theme', () => {
@@ -31,6 +40,6 @@ describe('App', () => {
     // real browser APIs to open – covered by the demo e2e suite.
     const trigger = compiled.querySelector('.shell__theme-select');
     expect(trigger?.getAttribute('role')).toBe('combobox');
-    expect(trigger?.textContent).toContain('light');
+    expect(trigger?.textContent).toContain('Light');
   });
 });

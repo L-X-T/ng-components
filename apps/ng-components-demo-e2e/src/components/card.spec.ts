@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 /**
  * ngc-card is CSS-only – the manifest sweep covers rendering + console
@@ -6,7 +7,7 @@ import { expect, test } from '@playwright/test';
  */
 test.describe('card', () => {
   test('renders the full anatomy', async ({ page }) => {
-    await page.goto('/components/card');
+    await gotoHydrated(page, '/components/card');
 
     const card = page.locator('#card-basic ngc-card');
     await expect(card.getByRole('heading', { name: 'Create project' })).toBeVisible();

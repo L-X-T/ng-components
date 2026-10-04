@@ -71,7 +71,7 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
   },
   {
     id: 'radio-group',
-    name: 'RadioGroup',
+    name: 'Radio Group',
     category: 'form',
     route: '/components/radio-group',
     status: 'stable',
@@ -89,7 +89,7 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
   },
   {
     id: 'form-field',
-    name: 'FormField',
+    name: 'Form Field',
     category: 'form',
     route: '/components/form-field',
     status: 'stable',
@@ -107,7 +107,7 @@ export const DEMO_MANIFEST: readonly DemoManifestEntry[] = [
   },
   {
     id: 'dropdown-menu',
-    name: 'DropdownMenu',
+    name: 'Dropdown Menu',
     category: 'overlay',
     route: '/components/dropdown-menu',
     status: 'stable',

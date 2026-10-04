@@ -60,18 +60,11 @@ import { snippet as resultSnippet } from './examples/dialog-result.ts.snippet';
             description="Emits the close(result) value when the dialog closes."
           />
           <ngc-demo-api-item
-            name="modal"
-            kind="input"
-            type="boolean"
-            default="true"
-            description="Sets aria-modal on the ngc-dialog panel."
-          />
-          <ngc-demo-api-item
             name="role"
             kind="input"
             type="'dialog' | 'alertdialog'"
             default="'dialog'"
-            description="ARIA role of the ngc-dialog panel; use alertdialog for interruptions."
+            description="ARIA role of the ngc-dialog panel; use alertdialog for interruptions. The dialog is always modal (focus trap, hidden page, scroll lock)."
           />
           <ngc-demo-api-item
             name="ngc-dialog-title"

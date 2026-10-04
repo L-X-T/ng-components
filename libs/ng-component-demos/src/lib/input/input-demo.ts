@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection } from '../_demo-ui';
 import { InputBasicExample } from './examples/input-basic.example';
 import { snippet as basicSnippet } from './examples/input-basic.ts.snippet';
@@ -8,7 +9,16 @@ import { snippet as statesSnippet } from './examples/input-states.ts.snippet';
 /** Docs page for ngc-input. */
 @Component({
   selector: 'ngc-demo-input',
-  imports: [DemoApi, DemoApiItem, DemoExample, DemoPage, DemoSection, InputBasicExample, InputStatesExample],
+  imports: [
+    DemoApi,
+    DemoApiItem,
+    DemoExample,
+    DemoPage,
+    DemoSection,
+    InputBasicExample,
+    InputStatesExample,
+    RouterLink,
+  ],
   template: `
     <ngc-demo-page>
       <ngc-demo-section title="Basic">
@@ -44,9 +54,10 @@ import { snippet as statesSnippet } from './examples/input-states.ts.snippet';
 
       <ngc-demo-section title="Usage">
         <p>
-          Apply <code>ngc-input</code> to a native <code>&lt;input&gt;</code> – any <code>type</code> works. Set
-          <code>aria-invalid</code> for validation styling (reactive forms integration arrives with
-          <code>ngc-form-field</code> in wave 2).
+          Apply <code>ngc-input</code> to a native <code>&lt;input&gt;</code> – any <code>type</code> works. Outside a
+          form field set <code>aria-invalid</code> yourself for validation styling; inside
+          <code>ngc-form-field</code> the directive sets it once the control is touched and invalid (see
+          <a routerLink="/components/form-field">Form Field</a>).
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

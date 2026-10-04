@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
+import { gotoHydrated } from '../support/hydration';
 
 test.describe('textarea', () => {
   test('typing multi-line text works', async ({ page }) => {
-    await page.goto('/components/textarea');
+    await gotoHydrated(page, '/components/textarea');
     const textarea = page.getByRole('textbox', { name: 'Message' });
 
     await textarea.fill('line one\nline two');

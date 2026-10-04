@@ -64,6 +64,11 @@
     color: var(--muted-foreground);
   }
 
+  // Muted text on --accent measured 4.0:1 – inherit the hover colour.
+  &__link:hover &__link-summary {
+    color: inherit;
+  }
+
   &__empty {
     margin: 2.5rem 0 0;
     padding: 1rem;

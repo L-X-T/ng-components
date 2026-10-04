@@ -10,19 +10,23 @@ export type DemoLoaderMap = Readonly<Record<string, DemoComponentLoader>>;
  * Builds the app's lazy routes from the manifest. The app supplies the
  * loaders (static `import()` calls the bundler can split) so this module
  * stays free of demo-page imports and the e2e project can consume the
- * manifest in isolation.
+ * manifest in isolation. A manifest entry without a loader is a wiring bug
+ * (the sidebar would link to a dead route), so it fails loudly instead of
+ * being skipped (review 2026-10-04 D-11).
  */
 export function demoRoutes(manifest: readonly DemoManifestEntry[], loaders: DemoLoaderMap): Route[] {
-  return orderedDemos(manifest)
-    .filter((demo) => loaders[demo.id] !== undefined)
-    .map((demo) => ({
+  return orderedDemos(manifest).map((demo) => {
+    const loadComponent = loaders[demo.id];
+    if (loadComponent === undefined) {
+      throw new Error(`demoRoutes: manifest entry "${demo.id}" has no loader in DEMO_LOADERS.`);
+    }
+    return {
       path: demo.route.replace(/^\//, ''),
-      loadComponent: loaders[demo.id],
+      loadComponent,
+      // Document title per page (plan 003); the app's TitleStrategy appends the
+      // site name (review 2026-10-04 D-10).
+      title: demo.name,
       data: { demo },
-    }));
-}
-
-/** Prerender path list for the app's static build. */
-export function demoRoutePaths(manifest: readonly DemoManifestEntry[]): string[] {
-  return orderedDemos(manifest).map((demo) => demo.route);
+    };
+  });
 }

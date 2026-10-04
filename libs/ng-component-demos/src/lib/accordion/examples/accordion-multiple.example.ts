@@ -12,7 +12,7 @@ import {
   template: `
     <ngc-accordion type="multiple" style="max-width: 24rem">
       <div ngc-accordion-item value="shipping">
-        <h3 style="margin: 0">
+        <h3>
           <button ngc-accordion-trigger>Shipping details</button>
         </h3>
         <div ngc-accordion-content>
@@ -20,7 +20,7 @@ import {
         </div>
       </div>
       <div ngc-accordion-item value="returns">
-        <h3 style="margin: 0">
+        <h3>
           <button ngc-accordion-trigger>Return policy</button>
         </h3>
         <div ngc-accordion-content>
@@ -28,7 +28,7 @@ import {
         </div>
       </div>
       <div ngc-accordion-item value="support" [disabled]="true">
-        <h3 style="margin: 0">
+        <h3>
           <button ngc-accordion-trigger>Priority support (soon)</button>
         </h3>
         <div ngc-accordion-content>

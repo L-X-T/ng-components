@@ -70,15 +70,37 @@ import { snippet as basicSnippet } from './examples/dropdown-menu-basic.ts.snipp
             default="true"
             description="Whether activating the item closes the menu."
           />
+          <ngc-demo-api-item
+            name="ngc-menu"
+            kind="directive"
+            description="The menu panel (on a div inside the ng-template)."
+          />
+          <ngc-demo-api-item
+            name="ngc-menu-item"
+            kind="directive"
+            description="One action; apply to a native button."
+          />
+          <ngc-demo-api-item
+            name="ngc-menu-group"
+            kind="directive"
+            description="Groups a label with its items (role=group named by the label)."
+          />
+          <ngc-demo-api-item
+            name="ngc-menu-label"
+            kind="directive"
+            description="Non-interactive heading of a group; takes an optional id."
+          />
+          <ngc-demo-api-item name="ngc-menu-separator" kind="directive" description="Visual divider between groups." />
         </ngc-demo-api>
       </ngc-demo-section>
 
       <ngc-demo-section title="Usage">
         <p>
           Put the menu anatomy (<code>ngc-menu</code> with <code>ngc-menu-item</code> buttons, optional
-          <code>ngc-menu-label</code> and <code>ngc-menu-separator</code>) inside an <code>ng-template</code> and pass
-          it to <code>[ngc-menu-trigger]</code>. Handle item activation with a plain <code>(click)</code> – the menu
-          closes itself afterwards.
+          <code>ngc-menu-separator</code>) inside an <code>ng-template</code> and pass it to
+          <code>[ngc-menu-trigger]</code>. Wrap a heading and its items in <code>ngc-menu-group</code> with an
+          <code>ngc-menu-label</code> – a bare label inside a menu is never announced, the group exposes it as its name.
+          Handle item activation with a plain <code>(click)</code> – the menu closes itself afterwards.
         </p>
       </ngc-demo-section>
     </ngc-demo-page>

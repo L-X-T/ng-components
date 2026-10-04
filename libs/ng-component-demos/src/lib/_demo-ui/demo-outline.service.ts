@@ -21,4 +21,9 @@ export class DemoOutlineService {
       current.some((existing) => existing.id === item.id) ? current : [...current, item],
     );
   }
+
+  /** Conditionally rendered or retitled sections must not leave stale entries behind. */
+  unregister(id: string): void {
+    this.items.update((current) => current.filter((item) => item.id !== id));
+  }
 }

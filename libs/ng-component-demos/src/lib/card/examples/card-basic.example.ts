@@ -13,7 +13,7 @@ import {
   selector: 'ngc-demo-card-basic-example',
   imports: [NgcButton, NgcCard, NgcCardContent, NgcCardDescription, NgcCardFooter, NgcCardHeader, NgcCardTitle],
   template: `
-    <ngc-card style="width: 20rem">
+    <ngc-card style="width: min(20rem, 100%)">
       <div ngc-card-header>
         <h3 ngc-card-title>Create project</h3>
         <p ngc-card-description>Deploy your new project in one click.</p>

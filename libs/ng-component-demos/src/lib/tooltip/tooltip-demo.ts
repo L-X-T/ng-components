@@ -49,15 +49,22 @@ import { snippet as basicSnippet } from './examples/tooltip-basic.ts.snippet';
             name="showDelay"
             kind="input"
             type="number"
-            default="500"
+            default="0"
             description="Milliseconds before the tooltip shows."
           />
           <ngc-demo-api-item
             name="hideDelay"
             kind="input"
             type="number"
-            default="0"
+            default="500"
             description="Milliseconds before the tooltip hides."
+          />
+          <ngc-demo-api-item
+            name="hoverableContent"
+            kind="input"
+            type="boolean"
+            default="true"
+            description="Keeps the tooltip open while the pointer moves onto it (WCAG 1.4.13)."
           />
         </ngc-demo-api>
       </ngc-demo-section>

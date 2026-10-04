@@ -105,6 +105,13 @@ import { snippet as statesSnippet } from './examples/radio-group-states.ts.snipp
             default="false"
             description="Disables a single item; it is skipped by keyboard navigation."
           />
+          <ngc-demo-api-item
+            name="id"
+            kind="input"
+            type="string"
+            default="generated"
+            description="Id of the group element."
+          />
         </ngc-demo-api>
       </ngc-demo-section>
 

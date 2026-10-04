@@ -67,6 +67,13 @@ import { snippet as basicSnippet } from './examples/tabs-basic.ts.snippet';
             default="false"
             description="Disables a tab; keyboard navigation skips it."
           />
+          <ngc-demo-api-item
+            name="id"
+            kind="input"
+            type="string"
+            default="generated"
+            description="Id of the tabset; tab and panel ids (and their aria pairing) derive from it."
+          />
         </ngc-demo-api>
       </ngc-demo-section>
 
