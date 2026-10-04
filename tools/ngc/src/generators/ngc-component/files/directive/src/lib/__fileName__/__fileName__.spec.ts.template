@@ -4,7 +4,7 @@ import { Ngc<%= className %> } from './<%= fileName %>';
 
 @Component({
   imports: [Ngc<%= className %>],
-  template: `<button <%= attr %>>label</button>`,
+  template: `<button <%= attr %> type="button">label</button>`,
 })
 class Host {}
 
@@ -16,5 +16,6 @@ describe('Ngc<%= className %>', () => {
 
     expect(element.classList).toContain('ngc-<%= fileName %>');
     expect(element.classList).toContain('ngc-<%= fileName %>--default');
+    expect(element.classList).toContain('ngc-<%= fileName %>--size-default');
   });
 });

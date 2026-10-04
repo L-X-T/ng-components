@@ -8,6 +8,14 @@
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "check-contrast": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["{projectRoot}/src/styles/_theme-*.scss", "{projectRoot}/tools/check-contrast.mjs"],
+      "options": {
+        "command": "node libs/ng-components/core/tools/check-contrast.mjs"
+      }
     }
   }
 }

@@ -5,7 +5,7 @@ import { NgcAccordion, NgcAccordionContent, NgcAccordionItem, NgcAccordionTrigge
 @Component({
   imports: [NgcAccordion, NgcAccordionContent, NgcAccordionItem, NgcAccordionTrigger],
   template: `
-    <ngc-accordion [type]="type()" [collapsible]="true">
+    <ngc-accordion [type]="type()" [collapsible]="true" [disabled]="disabled()">
       <div ngc-accordion-item value="one">
         <h3><button ngc-accordion-trigger>First</button></h3>
         <div ngc-accordion-content>First content</div>
@@ -23,6 +23,7 @@ import { NgcAccordion, NgcAccordionContent, NgcAccordionItem, NgcAccordionTrigge
 })
 class Host {
   readonly type = signal<'single' | 'multiple'>('single');
+  readonly disabled = signal(false);
 }
 
 describe('NgcAccordion', () => {
@@ -91,12 +92,30 @@ describe('NgcAccordion', () => {
     expect(contents[1].hasAttribute('data-open')).toBe(true);
   });
 
-  it('ignores clicks on a disabled item', () => {
+  it('ignores clicks on a disabled item and disables its trigger (review 2026-10-04 L-07)', () => {
     const { fixture, triggers, contents } = setup();
 
     triggers[2].click();
     fixture.detectChanges();
 
     expect(contents[2].hasAttribute('data-open')).toBe(false);
+    expect(triggers[2].disabled).toBe(true);
+    expect(triggers[0].disabled).toBe(false);
+  });
+
+  it('disables every trigger while the whole accordion is disabled', () => {
+    const { fixture, triggers, contents } = setup();
+
+    fixture.componentInstance.disabled.set(true);
+    fixture.detectChanges();
+    triggers[0].click();
+    fixture.detectChanges();
+
+    expect(triggers.every((trigger) => trigger.disabled)).toBe(true);
+    expect(contents[0].hasAttribute('data-open')).toBe(false);
+
+    fixture.componentInstance.disabled.set(false);
+    fixture.detectChanges();
+    expect(triggers[0].disabled).toBe(false);
   });
 });

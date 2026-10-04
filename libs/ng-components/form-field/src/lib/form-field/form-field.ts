@@ -1,5 +1,16 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from '@angular/core';
-import { NgpDescription, NgpError, NgpFormField, NgpLabel } from 'ng-primitives/form-field';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  Directive,
+  effect,
+  input,
+  untracked,
+  ViewEncapsulation,
+} from '@angular/core';
+import { injectFormFieldState, NgpDescription, NgpFormField, NgpLabel } from 'ng-primitives/form-field';
+
+let nextErrorId = 0;
 
 /**
  * Form field (the pattern the websites' contact form uses):
@@ -19,7 +30,8 @@ import { NgpDescription, NgpError, NgpFormField, NgpLabel } from 'ng-primitives/
  * errors feed the control's `aria-describedby`, and the field mirrors the
  * control status as `data-invalid` / `data-touched` / … attributes on every
  * part. Errors stay in the DOM and become visible via CSS once their
- * validator fails on a touched control.
+ * validator fails on a touched control – and only then join the control's
+ * `aria-describedby`, so what screen readers hear matches what is shown.
  */
 @Component({
   selector: 'ngc-form-field',
@@ -51,10 +63,51 @@ export class NgcFormFieldHint {}
 /**
  * Error message for one validator (or any error when `validator` is omitted).
  * Visible only while its validator fails on a touched control.
+ *
+ * Implemented without NgpError on purpose (review 2026-10-04 L-01): NgpError
+ * registers its id in the control's `aria-describedby` as soon as the
+ * validator fails – before the control is touched and while the message is
+ * still `display: none` – so screen readers announced invisible errors.
+ * Here the registration follows the same touched policy as the visibility.
  */
 @Directive({
   selector: '[ngc-field-error]',
-  hostDirectives: [{ directive: NgpError, inputs: ['id', 'ngpErrorValidator: validator'] }],
-  host: { class: 'ngc-field-error' },
+  host: {
+    class: 'ngc-field-error',
+    '[attr.id]': 'id()',
+    '[attr.data-validator]': 'validatorState()',
+    '[attr.data-invalid]': 'formFieldState()?.invalid() ? "" : null',
+    '[attr.data-touched]': 'touched() ? "" : null',
+  },
 })
-export class NgcFormFieldError {}
+export class NgcFormFieldError {
+  /** Null-safe signal: ng-primitives hands out an empty signal outside a form field. */
+  protected readonly formFieldState = injectFormFieldState({ optional: true });
+
+  /** Element id; generated unless provided. */
+  readonly id = input(`ngc-field-error-${nextErrorId++}`);
+  /** The validator key this message belongs to; omit to show for any error. */
+  readonly validator = input<string | null>(null);
+
+  protected readonly hasError = computed(() => {
+    const errors = this.formFieldState()?.errors() ?? [];
+    const validator = this.validator();
+    return validator ? errors.includes(validator) : errors.length > 0;
+  });
+  protected readonly validatorState = computed(() => (this.hasError() ? 'fail' : 'pass'));
+  protected readonly touched = computed(() => this.formFieldState()?.touched() === true);
+
+  constructor() {
+    effect((onCleanup) => {
+      const formField = this.formFieldState();
+      if (!formField || !this.hasError() || !this.touched()) {
+        return;
+      }
+      const id = this.id();
+      // untracked: addDescription reads the descriptions signal – tracking it
+      // would re-run (and undo) this effect on its own write.
+      untracked(() => formField.addDescription(id));
+      onCleanup(() => formField.removeDescription(id));
+    });
+  }
+}

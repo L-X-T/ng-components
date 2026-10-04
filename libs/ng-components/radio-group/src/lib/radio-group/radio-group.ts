@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgcValueAccessor } from '@angular-software/ng-components/core';
+import { ngcAriaInvalid, NgcValueAccessor } from '@angular-software/ng-components/core';
 import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitives/radio';
 
 /**
@@ -23,7 +23,10 @@ import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitive
  * `data-orientation` too, so the keyboard axis always matches the visual axis.
  *
  * Reactive forms integrate through the ControlValueAccessor on the group;
- * standalone usage works via `[(value)]`.
+ * standalone usage works via `[(value)]`. The group announces what the
+ * primitive only styles (review 2026-10-04 L-06/L-13): `aria-disabled` when
+ * the whole group is disabled and `aria-invalid` for a touched invalid
+ * control inside `ngc-form-field`.
  */
 @Component({
   selector: 'ngc-radio-group',
@@ -48,11 +51,14 @@ import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitive
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'ngc-radio-group',
+    '[attr.aria-disabled]': 'state().disabled() || null',
+    '[attr.aria-invalid]': 'ariaInvalid()',
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
 export class NgcRadioGroup<T = string> extends NgcValueAccessor<T | null> {
-  private readonly state = injectRadioGroupState<T>();
+  protected readonly state = injectRadioGroupState<T>();
+  protected readonly ariaInvalid = ngcAriaInvalid();
 
   constructor() {
     super();

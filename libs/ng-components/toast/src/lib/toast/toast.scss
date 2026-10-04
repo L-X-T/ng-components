@@ -75,6 +75,9 @@
       }
     }
 
+    // Physical sides on purpose: NgpToastManager anchors its zero-width
+    // containers with physical left/right, so logical offsets would push the
+    // toast off-screen in RTL (verification 2026-10-04 V-04).
     &[data-position-x='end'] {
       right: 0;
     }
@@ -116,14 +119,21 @@
       --y: translateY(calc(calc(var(--lift) * var(--ngp-toast-gap)) * -1));
     }
 
+    // Toasts beyond the visible stack: visibility also removes the dismiss
+    // button from the tab order and from assistive technology (review
+    // 2026-10-04 L-06).
     &[data-visible='false'] {
+      visibility: hidden;
       opacity: 0;
       pointer-events: none;
     }
 
     &[data-expanded='false'][data-front='false'] {
-      --scale: var(--ngp-toasts-before) * 0.05 + 1;
-      --y: translateY(calc(var(--lift-amount) * var(--ngp-toasts-before))) scale(calc(-1 * var(--scale)));
+      // Each toast behind the front one shrinks by 5% – positive scale; the
+      // reference's `scale(calc(-1 * …))` mirrored the content (review
+      // 2026-10-04 L-10).
+      --scale: calc(1 - var(--ngp-toasts-before) * 0.05);
+      --y: translateY(calc(var(--lift-amount) * var(--ngp-toasts-before))) scale(var(--scale));
 
       height: var(--ngp-toast-front-height);
     }
@@ -146,6 +156,13 @@
     &[data-swiping='true'] {
       transform: var(--y) translateY(var(--ngp-toast-swipe-amount-y, 0)) translateX(var(--ngp-toast-swipe-amount-x, 0));
       transition: none;
+    }
+
+    // Centered toasts keep their horizontal centering while swiping (review
+    // 2026-10-04 L-14).
+    &[data-position-x='center'][data-swiping='true'] {
+      transform: translateX(50%) var(--y) translateY(var(--ngp-toast-swipe-amount-y, 0))
+        translateX(var(--ngp-toast-swipe-amount-x, 0));
     }
 
     &[data-front='false'][data-expanded='false'] &__title,

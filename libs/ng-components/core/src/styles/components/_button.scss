@@ -9,6 +9,10 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+
+    // border-box: <a> hosts are content-box by default and rendered 2px taller
+    // than <button> hosts (review 2026-10-04 L-17).
+    box-sizing: border-box;
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     white-space: nowrap;
@@ -47,8 +51,10 @@
       background: var(--primary);
       color: var(--primary-foreground);
 
+      // Per-theme hover token: a visible step that keeps the label >= 4.5:1 in
+      // every theme (gated by core:check-contrast; review 2026-10-04 L-05).
       &:hover {
-        background: color-mix(in oklab, var(--primary) 90%, transparent);
+        background: var(--primary-hover);
       }
     }
 
@@ -66,13 +72,13 @@
       color: var(--destructive-foreground);
 
       &:hover {
-        background: color-mix(in oklab, var(--destructive) 90%, transparent);
+        background: var(--destructive-hover);
       }
 
       &:focus-visible {
         border-color: var(--destructive);
 
-        @include mixins.ring(var(--destructive), 30%);
+        @include mixins.ring(var(--destructive));
       }
     }
 

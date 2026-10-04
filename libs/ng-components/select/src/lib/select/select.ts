@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgcValueAccessor } from '@angular-software/ng-components/core';
+import { ngcAriaInvalid, NgcValueAccessor } from '@angular-software/ng-components/core';
 import {
   injectSelectState,
   NgpSelect,
@@ -43,7 +43,9 @@ import {
  * but option components exist eagerly, so the trigger label works while
  * closed. Typeahead exists only while the dropdown is open (ng-primitives
  * does not implement closed-state typeahead). Reactive forms integrate
- * through the ControlValueAccessor.
+ * through the ControlValueAccessor; inside `ngc-form-field` the trigger sets
+ * `aria-invalid` once the control is touched and invalid (review 2026-10-04
+ * L-13).
  */
 @Component({
   selector: 'button[ngc-select]',
@@ -89,11 +91,13 @@ import {
   host: {
     class: 'ngc-select',
     type: 'button',
+    '[attr.aria-invalid]': 'ariaInvalid()',
     '(focusout)': 'markTouchedOnFocusout($event)',
   },
 })
 export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
   private readonly state = injectSelectState<T>();
+  protected readonly ariaInvalid = ngcAriaInvalid();
 
   /** Text shown in the trigger while no option is selected. */
   readonly placeholder = input('');
@@ -152,6 +156,8 @@ export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
  * provides role, aria-selected, and the active/selected data attributes.
  * When the projected text can change after creation (async or translated
  * labels), set `label` so the trigger stays in sync (review 2026-07-11 D6).
+ * A disabled option is announced as such – NgpSelectOption only emits
+ * `data-disabled` (review 2026-10-04 L-08).
  */
 @Component({
   selector: 'ngc-select-option',
@@ -180,9 +186,14 @@ export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'ngc-select-option',
+    '[attr.aria-disabled]': 'ariaDisabled()',
   },
 })
 export class NgcSelectOption {
+  // NgpSelectOption provides no state token – read its input directly.
+  private readonly option = inject(NgpSelectOption);
+  protected readonly ariaDisabled = computed(() => (this.option.disabled() ? 'true' : null));
+
   /** Reactive trigger label; without it the trigger snapshots the text content. */
   readonly label = input<string>();
 

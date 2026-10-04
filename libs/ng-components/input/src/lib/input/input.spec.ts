@@ -31,6 +31,7 @@ describe('NgcInput', () => {
     fixture.componentInstance.disabled.set(true);
     fixture.detectChanges();
 
-    expect(input.hasAttribute('data-disabled') || input.disabled).toBe(true);
+    expect(input.hasAttribute('data-disabled')).toBe(true);
+    expect(input.disabled).toBe(true);
   });
 });

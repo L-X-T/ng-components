@@ -12,26 +12,34 @@
     --card-foreground: oklch(97% 0.008 300deg);
     --popover: oklch(24% 0.03 300deg);
     --popover-foreground: oklch(97% 0.008 300deg);
-    --primary: oklch(58% 0.23 305deg);
-    --primary-foreground: oklch(98.5% 0.005 300deg);
+
+    // --primary doubles as link-button text on --background (58% measured
+    // 3.98); lighter violet with the dark foreground passes both ways (review
+    // 2026-10-04 L-03).
+    --primary: oklch(64% 0.23 305deg);
+    --primary-hover: oklch(70% 0.2 305deg);
+    --primary-foreground: oklch(17% 0.02 300deg);
     --secondary: oklch(27% 0.03 300deg);
     --secondary-foreground: oklch(97% 0.008 300deg);
     --muted: oklch(27% 0.03 300deg);
     --muted-foreground: oklch(72% 0.02 300deg);
     --accent: oklch(33% 0.06 330deg);
     --accent-foreground: oklch(97% 0.008 300deg);
-    --destructive: oklch(57.5% 0.191 22.216deg);
-    --destructive-foreground: oklch(98.5% 0 0deg);
+    --destructive: oklch(66% 0.191 22.216deg);
+    --destructive-hover: oklch(72% 0.18 22.216deg);
+    --destructive-foreground: oklch(17% 0.02 300deg);
     --border: oklch(100% 0 0deg / 12%);
-    --input: oklch(100% 0 0deg / 16%);
-    --ring: oklch(58% 0.23 305deg);
+
+    // Opaque control border at >= 3:1 on --background and --card (WCAG 1.4.11).
+    --input: oklch(52% 0.02 300deg);
+    --ring: oklch(64% 0.23 305deg);
     --sidebar: oklch(21% 0.025 300deg);
     --sidebar-foreground: oklch(97% 0.008 300deg);
-    --sidebar-primary: oklch(58% 0.23 305deg);
-    --sidebar-primary-foreground: oklch(98.5% 0.005 300deg);
+    --sidebar-primary: oklch(64% 0.23 305deg);
+    --sidebar-primary-foreground: oklch(17% 0.02 300deg);
     --sidebar-accent: oklch(33% 0.06 330deg);
     --sidebar-accent-foreground: oklch(97% 0.008 300deg);
     --sidebar-border: oklch(100% 0 0deg / 12%);
-    --sidebar-ring: oklch(58% 0.23 305deg);
+    --sidebar-ring: oklch(64% 0.23 305deg);
   }
 }

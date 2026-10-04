@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcToast, ToastRef } from '@angular-software/ng-components/toast';
+import { NgcToast, NgcToastRef } from '@angular-software/ng-components/toast';
 
 @Component({
   selector: 'ngc-demo-toast-options-example',
@@ -16,7 +16,7 @@ import { NgcToast, ToastRef } from '@angular-software/ng-components/toast';
 })
 export class ToastOptionsExample {
   private readonly toast = inject(NgcToast);
-  private lastToast?: ToastRef;
+  private lastToast?: NgcToastRef;
 
   protected onShowPersistent(): void {
     this.lastToast = this.toast.show('Update available', {

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgcButton } from '@angular-software/ng-components/button';
 import {
   NgcMenu,
+  NgcMenuGroup,
   NgcMenuItem,
   NgcMenuLabel,
   NgcMenuSeparator,
@@ -10,7 +11,7 @@ import {
 
 @Component({
   selector: 'ngc-demo-dropdown-menu-basic-example',
-  imports: [NgcButton, NgcMenu, NgcMenuItem, NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger],
+  imports: [NgcButton, NgcMenu, NgcMenuGroup, NgcMenuItem, NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger],
   template: `
     <div style="display: grid; gap: 0.75rem; justify-items: start">
       <button ngc-button variant="outline" [ngc-menu-trigger]="accountMenu">Options</button>
@@ -21,10 +22,12 @@ import {
 
     <ng-template #accountMenu>
       <div ngc-menu>
-        <span ngc-menu-label>My account</span>
-        <button ngc-menu-item (click)="onAction('profile')">Profile</button>
-        <button ngc-menu-item (click)="onAction('billing')">Billing</button>
-        <button ngc-menu-item [disabled]="true">Team (soon)</button>
+        <div ngc-menu-group>
+          <span ngc-menu-label>My account</span>
+          <button ngc-menu-item (click)="onAction('profile')">Profile</button>
+          <button ngc-menu-item (click)="onAction('billing')">Billing</button>
+          <button ngc-menu-item [disabled]="true">Team (soon)</button>
+        </div>
         <div ngc-menu-separator></div>
         <button ngc-menu-item (click)="onAction('logout')">Log out</button>
       </div>

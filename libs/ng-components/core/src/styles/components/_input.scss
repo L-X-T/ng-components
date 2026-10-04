@@ -38,7 +38,7 @@
       border-color: var(--destructive);
 
       &:focus-visible {
-        @include mixins.ring(var(--destructive), 30%);
+        @include mixins.ring(var(--destructive));
       }
     }
 

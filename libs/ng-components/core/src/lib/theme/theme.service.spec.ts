@@ -137,6 +137,65 @@ describe('NgcThemeService', () => {
     expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBeNull();
   });
 
+  describe('OS preference changes (review 2026-10-04 L-09)', () => {
+    type ChangeListener = (event: { matches: boolean }) => void;
+
+    const stubMediaQuery = (prefersDark: boolean) => {
+      const listeners = new Set<ChangeListener>();
+      Object.defineProperty(window, 'matchMedia', {
+        configurable: true,
+        value: (query: string) =>
+          ({
+            matches: prefersDark && query.includes('dark'),
+            addEventListener: (_type: 'change', listener: ChangeListener) => listeners.add(listener),
+            removeEventListener: (_type: 'change', listener: ChangeListener) => listeners.delete(listener),
+          }) as unknown as MediaQueryList,
+      });
+      return { listeners, change: (matches: boolean) => listeners.forEach((listener) => listener({ matches })) };
+    };
+
+    it('follows an OS change while the visitor has not chosen a theme', () => {
+      const media = stubMediaQuery(false);
+      const service = themeService();
+
+      media.change(true);
+      TestBed.tick();
+
+      expect(service.theme()).toBe('dark');
+      expect(documentElement().getAttribute('data-theme')).toBe('dark');
+      expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBeNull();
+    });
+
+    it('stops following the OS after an explicit choice', () => {
+      const media = stubMediaQuery(false);
+      const service = themeService();
+
+      service.setTheme('angular-light');
+      media.change(true);
+      TestBed.tick();
+
+      expect(service.theme()).toBe('angular-light');
+    });
+
+    it('does not listen at all when a theme is persisted', () => {
+      localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
+      const media = stubMediaQuery(false);
+
+      expect(themeService().theme()).toBe('dark');
+      expect(media.listeners.size).toBe(0);
+    });
+
+    it('removes the listener when the injector is destroyed', () => {
+      const media = stubMediaQuery(false);
+      themeService();
+      expect(media.listeners.size).toBe(1);
+
+      TestBed.resetTestingModule();
+
+      expect(media.listeners.size).toBe(0);
+    });
+  });
+
   describe('isNgcTheme', () => {
     it('accepts all built-in themes and rejects anything else', () => {
       expect(isNgcTheme('light')).toBe(true);

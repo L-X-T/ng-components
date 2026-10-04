@@ -1,4 +1,4 @@
-import { ApplicationRef } from '@angular/core';
+import { ApplicationRef, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideNgcToastDismissLabel, NgcToast } from './toast';
 
@@ -58,6 +58,94 @@ describe('NgcToast', () => {
     const { element } = show('Article published', { description: 'Readers were notified.' });
 
     expect(element?.querySelector('.ngc-toast__description')?.textContent).toContain('Readers were notified.');
+  });
+
+  it('is a no-op on the server platform (review 2026-10-04 L-01)', async () => {
+    TestBed.configureTestingModule({ providers: [{ provide: PLATFORM_ID, useValue: 'server' }] });
+
+    const ref = TestBed.inject(NgcToast).show('Server side');
+    TestBed.inject(ApplicationRef).tick();
+
+    expect(document.body.querySelector('.ngc-toast')).toBeNull();
+    await expect(ref.dismiss()).resolves.toBeUndefined();
+  });
+
+  describe('keyboard focus pauses auto-dismiss like hover (review 2026-10-04 L-08)', () => {
+    it('keeps the toast while the dismiss button is focused and resumes once focus leaves', async () => {
+      vi.useFakeTimers();
+      try {
+        const { element } = show('Focused', { duration: 1000 });
+        const close = element?.querySelector('.ngc-toast__close') as HTMLButtonElement;
+
+        close.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+        TestBed.inject(ApplicationRef).tick();
+        await vi.advanceTimersByTimeAsync(5000);
+        expect(document.body.querySelector('.ngc-toast')).not.toBeNull();
+
+        close.dispatchEvent(new FocusEvent('focusout', { bubbles: true, relatedTarget: null }));
+        TestBed.inject(ApplicationRef).tick();
+        await vi.advanceTimersByTimeAsync(5000);
+        expect(document.body.querySelector('.ngc-toast')).toBeNull();
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('moves focus to the next toast on keyboard dismissal and keeps the rest paused only while focused (verification V-02)', async () => {
+      vi.useFakeTimers();
+      try {
+        show('First', { duration: 1000 });
+        const { element: second } = show('Second', { duration: 1000 });
+        const closeButtons = Array.from(document.body.querySelectorAll('.ngc-toast__close')) as HTMLButtonElement[];
+        expect(closeButtons).toHaveLength(2);
+        const secondClose = second?.querySelector('.ngc-toast__close') as HTMLButtonElement;
+        secondClose.focus();
+        secondClose.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+        TestBed.inject(ApplicationRef).tick();
+
+        secondClose.click();
+        await vi.advanceTimersByTimeAsync(600);
+        TestBed.inject(ApplicationRef).tick();
+
+        const remaining = document.body.querySelectorAll('.ngc-toast');
+        expect(remaining).toHaveLength(1);
+        expect(document.activeElement).toBe(remaining[0].querySelector('.ngc-toast__close'));
+
+        // Dismiss the last one from the keyboard too: nothing left to focus,
+        // the stack collapses and nothing stays paused.
+        (document.activeElement as HTMLButtonElement).click();
+        await vi.advanceTimersByTimeAsync(600);
+        TestBed.inject(ApplicationRef).tick();
+        expect(document.body.querySelector('.ngc-toast')).toBeNull();
+
+        const { element: third } = show('Third', { duration: 1000 });
+        expect(third).not.toBeNull();
+        await vi.advanceTimersByTimeAsync(5000);
+        expect(document.body.querySelector('.ngc-toast')).toBeNull();
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('stays expanded when the pointer leaves while focus is still inside (verification V-08)', async () => {
+      vi.useFakeTimers();
+      try {
+        const { element } = show('Focused', { duration: 1000 });
+        const close = element?.querySelector('.ngc-toast__close') as HTMLButtonElement;
+        close.focus();
+        close.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+        TestBed.inject(ApplicationRef).tick();
+
+        const stack = document.body.querySelector('[data-ngp-toast-container]') as HTMLElement;
+        stack.dispatchEvent(new Event('mouseleave'));
+        TestBed.inject(ApplicationRef).tick();
+        await vi.advanceTimersByTimeAsync(5000);
+
+        expect(document.body.querySelector('.ngc-toast')).not.toBeNull();
+      } finally {
+        vi.useRealTimers();
+      }
+    });
   });
 
   it('dismisses via the returned handle', async () => {

@@ -31,6 +31,7 @@ describe('NgcTextarea', () => {
     fixture.componentInstance.disabled.set(true);
     fixture.detectChanges();
 
-    expect(textarea.hasAttribute('data-disabled') || textarea.disabled).toBe(true);
+    expect(textarea.hasAttribute('data-disabled')).toBe(true);
+    expect(textarea.disabled).toBe(true);
   });
 });

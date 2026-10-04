@@ -46,7 +46,10 @@
       text-decoration: underline;
     }
 
-    &[data-focus-visible] {
+    // Native :focus-visible – NgpAccordionTrigger emits no interaction
+    // attributes, so a data-focus-visible ring never showed (review
+    // 2026-10-04 L-02).
+    &:focus-visible {
       border-radius: var(--radius-sm);
 
       @include mixins.ring;

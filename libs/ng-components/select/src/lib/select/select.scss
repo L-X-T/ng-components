@@ -42,7 +42,10 @@
       color: var(--muted-foreground);
     }
 
-    &[data-focus-visible] {
+    // Native :focus-visible – NgpSelect emits data-focus, not
+    // data-focus-visible, so the former selector never matched (review
+    // 2026-10-04 L-01).
+    &:focus-visible {
       border-color: var(--ring);
 
       @include mixins.ring;
@@ -51,6 +54,10 @@
     &[aria-invalid='true'],
     &[data-invalid][data-touched] {
       border-color: var(--destructive);
+
+      &:focus-visible {
+        @include mixins.ring(var(--destructive));
+      }
     }
 
     &[data-disabled] {
@@ -64,7 +71,9 @@
     z-index: var(--z-overlay);
     box-sizing: border-box;
     width: var(--ngp-select-width);
-    max-height: 24rem;
+
+    // Never taller than the space the overlay measured below/above the trigger.
+    max-height: min(24rem, var(--ngp-select-available-height, 24rem));
     padding: 0.25rem;
     overflow-y: auto;
     border: 1px solid var(--border);
@@ -99,6 +108,8 @@
     &[data-active] {
       background: var(--accent);
       color: var(--accent-foreground);
+
+      @include mixins.forced-colors-outline;
     }
 
     &[data-disabled] {

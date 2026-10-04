@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NgpTooltipTrigger } from 'ng-primitives/tooltip';
 import { NgcTooltipTrigger } from './tooltip';
 
 // Showing the tooltip goes through the overlay portal, which needs real
@@ -23,5 +25,15 @@ describe('NgcTooltip', () => {
 
     expect((fixture.nativeElement as HTMLElement).querySelector('button')).toBeTruthy();
     expect(document.body.querySelector('.ngc-tooltip')).toBeNull();
+  });
+
+  it('keeps hover-triggered content hoverable by default and shows without delay (review 2026-10-04 L-07)', () => {
+    const fixture = TestBed.createComponent(Host);
+    fixture.detectChanges();
+    const trigger = fixture.debugElement.query(By.directive(NgcTooltipTrigger)).injector.get(NgpTooltipTrigger);
+
+    expect(trigger.hoverableContent()).toBe(true);
+    expect(trigger.showDelay()).toBe(0);
+    expect(trigger.hideDelay()).toBe(500);
   });
 });

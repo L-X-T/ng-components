@@ -1,9 +1,0 @@
-// <%= className %> directive styles. This directive targets a native element,
-// so these styles belong in core's global stylesheet (spec 001 §3): @use or
-// paste this block into libs/ng-components/core/src/styles/index.scss during
-// implementation. Every visual value comes from a core token (var(--…)).
-@layer ngc {
-  .ngc-<%= fileName %> {
-    display: inline-flex;
-  }
-}

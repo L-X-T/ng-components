@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { NgcButton, type ButtonSize, type ButtonVariant } from '@angular-software/ng-components/button';
+import { NgcButton, type NgcButtonSize, type NgcButtonVariant } from '@angular-software/ng-components/button';
 import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
 import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
 import { DemoApi, DemoApiItem, DemoControls, DemoExample, DemoKnob, DemoPage, DemoSection } from '../_demo-ui';
@@ -37,7 +37,7 @@ export class ButtonDemo {
   protected readonly sizesSnippet = sizesSnippet;
   protected readonly statesSnippet = statesSnippet;
 
-  protected readonly variants: readonly ButtonVariant[] = [
+  protected readonly variants: readonly NgcButtonVariant[] = [
     'default',
     'secondary',
     'destructive',
@@ -45,17 +45,17 @@ export class ButtonDemo {
     'ghost',
     'link',
   ];
-  protected readonly sizes: readonly ButtonSize[] = ['default', 'sm', 'lg', 'icon'];
+  protected readonly sizes: readonly NgcButtonSize[] = ['default', 'sm', 'lg', 'icon'];
 
-  protected readonly playgroundVariant = signal<ButtonVariant>('default');
-  protected readonly playgroundSize = signal<ButtonSize>('default');
+  protected readonly playgroundVariant = signal<NgcButtonVariant>('default');
+  protected readonly playgroundSize = signal<NgcButtonSize>('default');
   protected readonly playgroundDisabled = signal(false);
 
   protected onVariantChange(value: string): void {
-    this.playgroundVariant.set(value as ButtonVariant);
+    this.playgroundVariant.set(value as NgcButtonVariant);
   }
 
   protected onSizeChange(value: string): void {
-    this.playgroundSize.set(value as ButtonSize);
+    this.playgroundSize.set(value as NgcButtonSize);
   }
 }

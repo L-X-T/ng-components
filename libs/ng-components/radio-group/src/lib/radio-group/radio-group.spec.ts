@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgcFormField } from '@angular-software/ng-components/form-field';
 import { NgcRadioGroup, NgcRadioItem } from './radio-group';
 
 @Component({
@@ -15,6 +16,20 @@ import { NgcRadioGroup, NgcRadioItem } from './radio-group';
 })
 class Host {
   readonly plan = new FormControl<string | null>(null);
+}
+
+@Component({
+  imports: [NgcFormField, NgcRadioGroup, NgcRadioItem, ReactiveFormsModule],
+  template: `
+    <ngc-form-field>
+      <ngc-radio-group aria-label="Plan" [formControl]="plan">
+        <button ngc-radio-item value="starter" aria-label="Starter"></button>
+      </ngc-radio-group>
+    </ngc-form-field>
+  `,
+})
+class FieldHost {
+  readonly plan = new FormControl<string | null>(null, Validators.required);
 }
 
 describe('NgcRadioGroup', () => {
@@ -79,8 +94,22 @@ describe('NgcRadioGroup', () => {
     fixture.detectChanges();
 
     expect(group.hasAttribute('data-disabled')).toBe(true);
+    // Assistive tech is told, not just the stylesheet (review 2026-10-04 L-06).
+    expect(group.getAttribute('aria-disabled')).toBe('true');
     expect(items[0].getAttribute('aria-checked')).toBe('false');
     expect(fixture.componentInstance.plan.value).toBeNull();
+  });
+
+  it('exposes aria-invalid for a touched invalid control inside a form field (review 2026-10-04 L-13)', () => {
+    const fixture = TestBed.createComponent(FieldHost);
+    fixture.detectChanges();
+    const group = fixture.nativeElement.querySelector('ngc-radio-group') as HTMLElement;
+    expect(group.hasAttribute('aria-invalid')).toBe(false);
+
+    fixture.componentInstance.plan.markAsTouched();
+    fixture.detectChanges();
+
+    expect(group.getAttribute('aria-invalid')).toBe('true');
   });
 
   it('marks the control touched when focus leaves the group', () => {

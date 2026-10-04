@@ -13,6 +13,7 @@
     --popover: oklch(100% 0 0deg);
     --popover-foreground: oklch(19% 0.02 305deg);
     --primary: oklch(54% 0.265 295deg);
+    --primary-hover: oklch(48% 0.25 295deg);
     --primary-foreground: oklch(98% 0.005 300deg);
     --secondary: oklch(96% 0.015 300deg);
     --secondary-foreground: oklch(30% 0.06 300deg);
@@ -21,9 +22,12 @@
     --accent: oklch(93% 0.045 330deg);
     --accent-foreground: oklch(40% 0.18 335deg);
     --destructive: oklch(57.7% 0.245 27.325deg);
+    --destructive-hover: oklch(52% 0.235 27.325deg);
     --destructive-foreground: oklch(98.5% 0 0deg);
     --border: oklch(91% 0.015 300deg);
-    --input: oklch(91% 0.015 300deg);
+
+    // Control border at >= 3:1 on --background (WCAG 1.4.11, review 2026-10-04).
+    --input: oklch(65% 0.015 300deg);
     --ring: oklch(54% 0.265 295deg);
     --sidebar: oklch(98% 0.008 300deg);
     --sidebar-foreground: oklch(19% 0.02 305deg);

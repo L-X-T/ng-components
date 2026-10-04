@@ -1,6 +1,6 @@
 import { computed, Directive, input } from '@angular/core';
 
-export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
+export type NgcBadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
 
 /**
  * Attribute directive for badges on `<span>` (or `<a>` for linked badges):
@@ -16,7 +16,7 @@ export type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline';
 })
 export class NgcBadge {
   /** Visual style of the badge. */
-  readonly variant = input<BadgeVariant>('default');
+  readonly variant = input<NgcBadgeVariant>('default');
 
   protected readonly hostClasses = computed(() => `ngc-badge ngc-badge--${this.variant()}`);
 }

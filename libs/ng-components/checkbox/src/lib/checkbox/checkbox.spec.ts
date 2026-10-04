@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgcFormField } from '@angular-software/ng-components/form-field';
 import { NgcCheckbox } from './checkbox';
 
 @Component({
@@ -10,11 +11,25 @@ import { NgcCheckbox } from './checkbox';
     aria-label="Standalone"
     [checked]="checked()"
     [indeterminate]="indeterminate()"
+    [required]="required()"
   ></button>`,
 })
 class Host {
   readonly checked = signal(false);
   readonly indeterminate = signal(false);
+  readonly required = signal(false);
+}
+
+@Component({
+  imports: [NgcCheckbox, NgcFormField, ReactiveFormsModule],
+  template: `
+    <ngc-form-field>
+      <button ngc-checkbox aria-label="Accept terms" [formControl]="control"></button>
+    </ngc-form-field>
+  `,
+})
+class FieldHost {
+  readonly control = new FormControl(false, { nonNullable: true, validators: [Validators.requiredTrue] });
 }
 
 @Component({
@@ -60,6 +75,30 @@ describe('NgcCheckbox', () => {
 
     expect(checkbox.getAttribute('aria-checked')).toBe('mixed');
     expect(checkbox.hasAttribute('data-indeterminate')).toBe(true);
+  });
+
+  it('exposes aria-required from the required input (review 2026-10-04 L-12)', () => {
+    const { fixture, checkbox } = setup(Host);
+    expect(checkbox.hasAttribute('aria-required')).toBe(false);
+
+    fixture.componentInstance.required.set(true);
+    fixture.detectChanges();
+
+    expect(checkbox.getAttribute('aria-required')).toBe('true');
+  });
+
+  it('exposes aria-invalid for a touched invalid control inside a form field (review 2026-10-04 L-13)', () => {
+    const { fixture, checkbox } = setup(FieldHost);
+    expect(checkbox.hasAttribute('aria-invalid')).toBe(false);
+
+    fixture.componentInstance.control.markAsTouched();
+    fixture.detectChanges();
+    expect(checkbox.getAttribute('aria-invalid')).toBe('true');
+    expect(checkbox.hasAttribute('data-invalid')).toBe(true);
+
+    checkbox.click();
+    fixture.detectChanges();
+    expect(checkbox.hasAttribute('aria-invalid')).toBe(false);
   });
 
   it('propagates clicks to a bound FormControl', () => {

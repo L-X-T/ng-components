@@ -45,11 +45,40 @@ describe('NgcFormField', () => {
     expect(input.getAttribute('aria-describedby')).toContain(hint.id);
   });
 
-  it('keeps errors inert until the control is touched', () => {
-    const { errors } = setup();
+  it('keeps errors inert and out of aria-describedby until the control is touched (review 2026-10-04 L-01)', () => {
+    const { input, errors } = setup();
 
     expect(errors[0].getAttribute('data-validator')).toBe('fail');
     expect(errors[0].hasAttribute('data-touched')).toBe(false);
+    // The message is display: none – announcing it would contradict the screen.
+    expect(input.getAttribute('aria-describedby') ?? '').not.toContain(errors[0].id);
+    expect(input.hasAttribute('aria-invalid')).toBe(false);
+  });
+
+  it('exposes aria-invalid on a touched invalid control and clears it once valid', () => {
+    const { fixture, input } = setup();
+
+    fixture.componentInstance.email.markAsTouched();
+    fixture.detectChanges();
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+
+    fixture.componentInstance.email.setValue('ada@example.com');
+    fixture.detectChanges();
+    expect(input.hasAttribute('aria-invalid')).toBe(false);
+  });
+
+  it('drops an error from aria-describedby once its validator passes', () => {
+    const { fixture, input, errors } = setup();
+
+    fixture.componentInstance.email.markAsTouched();
+    fixture.detectChanges();
+    expect(input.getAttribute('aria-describedby')).toContain(errors[0].id);
+
+    fixture.componentInstance.email.setValue('not-an-email');
+    fixture.detectChanges();
+
+    expect(input.getAttribute('aria-describedby') ?? '').not.toContain(errors[0].id);
+    expect(input.getAttribute('aria-describedby')).toContain(errors[1].id);
   });
 
   it('marks the failing validator error once touched', () => {

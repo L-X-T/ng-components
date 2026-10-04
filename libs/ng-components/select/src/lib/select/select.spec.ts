@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, signal, viewChildren } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgcSelect, NgcSelectOption } from './select';
@@ -16,6 +16,9 @@ import { NgcSelect, NgcSelectOption } from './select';
 class Host {
   readonly fruit = new FormControl<string | null>(null);
   readonly appleLabel = signal('Apple');
+  // The options live in the dropdown template (only attached while open), so
+  // query them through the view instead of the DOM.
+  readonly options = viewChildren(NgcSelectOption, { read: ElementRef });
 }
 
 describe('NgcSelect', () => {
@@ -69,6 +72,15 @@ describe('NgcSelect', () => {
 
   // Open/select interaction runs through the overlay portal, which needs real
   // browser APIs – covered by the demo e2e suite (spec 001 §5).
+
+  it('announces disabled options (review 2026-10-04 L-08)', () => {
+    const { fixture } = setup();
+    const options = fixture.componentInstance.options().map((option) => option.nativeElement as HTMLElement);
+
+    expect(options).toHaveLength(3);
+    expect(options[2].getAttribute('aria-disabled')).toBe('true');
+    expect(options[0].hasAttribute('aria-disabled')).toBe(false);
+  });
 
   it('disables via the FormControl', () => {
     const { fixture, trigger } = setup();

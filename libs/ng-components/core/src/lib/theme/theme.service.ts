@@ -1,5 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
-import { DOCUMENT, effect, inject, Injectable, InjectionToken, PLATFORM_ID, Provider, signal } from '@angular/core';
+import {
+  DestroyRef,
+  DOCUMENT,
+  effect,
+  inject,
+  Injectable,
+  InjectionToken,
+  PLATFORM_ID,
+  Provider,
+  signal,
+} from '@angular/core';
 
 /** All built-in themes, in display order. */
 export const NGC_THEMES = ['light', 'dark', 'angular-light', 'angular-dark'] as const;
@@ -20,6 +30,7 @@ export type NgcThemeScheme = {
 };
 
 const DEFAULT_SCHEME: NgcThemeScheme = { light: 'light', dark: 'dark' };
+const PREFERS_DARK_QUERY = '(prefers-color-scheme: dark)';
 
 /**
  * The app's light/dark pair, e.g. the brand themes for a company site. Only
@@ -55,26 +66,38 @@ export function isNgcTheme(value: unknown): value is NgcTheme {
 /**
  * Holds the active theme, mirrors it to `data-theme` on the document root
  * element, and persists explicit choices across visits (browser only). The
- * OS-derived first-visit theme is deliberately not persisted, so the app keeps
- * following the OS preference until the visitor picks a theme themselves.
+ * OS-derived theme is deliberately not persisted, and the service keeps
+ * following OS appearance changes (`prefers-color-scheme`) for as long as the
+ * visitor has not picked a theme themselves – across reloads and within a
+ * session (review 2026-10-04 L-09).
  */
 @Injectable({ providedIn: 'root' })
 export class NgcThemeService {
   private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private readonly initialTheme = inject(NGC_INITIAL_THEME, { optional: true });
   private readonly scheme = inject(NGC_THEME_SCHEME, { optional: true }) ?? DEFAULT_SCHEME;
 
+  /** True while the theme is OS-derived (no override, no persisted or explicit choice). */
+  private followsOsPreference = false;
+
+  private readonly themeState = signal<NgcTheme>(this.resolveInitialTheme());
+
   /** The active theme. Write via {@link setTheme}. */
-  readonly theme = signal<NgcTheme>(this.resolveInitialTheme());
+  readonly theme = this.themeState.asReadonly();
 
   constructor() {
-    effect((): void => this.document.documentElement.setAttribute('data-theme', this.theme()));
+    effect((): void => this.document.documentElement.setAttribute('data-theme', this.themeState()));
+    if (this.followsOsPreference) {
+      this.followOsPreference();
+    }
   }
 
   /** Activates a theme and remembers it for the next visit. */
   setTheme(theme: NgcTheme): void {
-    this.theme.set(theme);
+    this.followsOsPreference = false;
+    this.themeState.set(theme);
     if (this.isBrowser) {
       try {
         localStorage.setItem(NGC_THEME_STORAGE_KEY, theme);
@@ -99,10 +122,26 @@ export class NgcThemeService {
       }
       // First visit: follow the OS preference (review 2026-07-11 E9). Must
       // stay in sync with the no-flash inline script of consuming apps.
-      if (this.document.defaultView?.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+      this.followsOsPreference = true;
+      if (this.document.defaultView?.matchMedia?.(PREFERS_DARK_QUERY).matches) {
         return this.scheme.dark;
       }
     }
     return this.scheme.light;
+  }
+
+  /** Mirrors OS appearance changes until the visitor makes an explicit choice. */
+  private followOsPreference(): void {
+    const query = this.document.defaultView?.matchMedia?.(PREFERS_DARK_QUERY);
+    if (!query?.addEventListener) {
+      return;
+    }
+    const onChange = (event: MediaQueryListEvent): void => {
+      if (this.followsOsPreference) {
+        this.themeState.set(event.matches ? this.scheme.dark : this.scheme.light);
+      }
+    };
+    query.addEventListener('change', onChange);
+    this.destroyRef.onDestroy(() => query.removeEventListener('change', onChange));
   }
 }

@@ -15,15 +15,7 @@ import {
   NgpDialogTrigger,
 } from 'ng-primitives/dialog';
 
-/**
- * Dev-mode misuse check (spec 001 §5): true when the rendered panel carries
- * neither a populated aria-labelledby (fed by `ngc-dialog-title`) nor an
- * aria-label. @internal exported for its unit test only.
- */
-export function dialogIsUnlabelled(element: HTMLElement): boolean {
-  const labelledBy = element.getAttribute('aria-labelledby')?.trim() ?? '';
-  return labelledBy === '' && !element.getAttribute('aria-label');
-}
+import { dialogIsUnlabelled } from './dialog-unlabelled';
 
 /**
  * NgcDialog (shadcn anatomy). The content lives in an `ng-template` the trigger
@@ -48,7 +40,11 @@ export function dialogIsUnlabelled(element: HTMLElement): boolean {
  * Behavior comes from NgpDialog and friends (internal detail, spec 001 §2):
  * focus trap + focus restore, Escape and overlay-click dismissal,
  * aria-modal/aria-labelledby/aria-describedby wired to the title and
- * description. Layering uses the core `--z-overlay` token.
+ * description. Layering uses the core `--z-overlay` token. The dialog is
+ * always modal: NgpDialog traps focus, hides the page from assistive
+ * technology and blocks scrolling regardless of its `modal` flag, so that
+ * flag is not exposed – it would only have flipped `aria-modal` (review
+ * 2026-10-04 L-07). Use `role="alertdialog"` for confirmations.
  */
 @Directive({
   selector: '[ngc-dialog-trigger]',
@@ -84,10 +80,11 @@ export class NgcDialogOverlay {}
   hostDirectives: [
     {
       directive: NgpDialog,
-      inputs: ['ngpDialogRole: role', 'ngpDialogModal: modal'],
+      inputs: ['ngpDialogRole: role'],
     },
   ],
   template: `<ng-content />`,
+  styleUrl: './dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: { class: 'ngc-dialog' },

@@ -2,8 +2,22 @@
 // via a relative path – no stylePreprocessorOptions needed, so every app that
 // compiles the library styles (demo + both websites + vitest) just works.
 
-/// The focus/invalid ring: a 3px soft ring mixed from a theme color.
-/// Default is the focus ring; invalid states pass var(--destructive) and 30%.
-@mixin ring($color: var(--ring), $strength: 50%) {
-  box-shadow: 0 0 0 3px color-mix(in oklab, #{$color} #{$strength}, transparent);
+/// The focus/invalid indicator: a solid 2px outline in a theme colour (the
+/// focus ring, or var(--destructive) for invalid controls), offset so it sits
+/// just outside the border. Solid on purpose: shadcn's 50%-mixed halo
+/// composites to 1.8–2.3:1 against the page and fails WCAG 1.4.11; the ring
+/// tokens are kept at >= 3:1 by core:check-contrast (review 2026-10-04). An
+/// outline also survives forced-colors mode, where box-shadow is dropped.
+@mixin ring($color: var(--ring)) {
+  outline: 2px solid #{$color};
+  outline-offset: 2px;
+}
+
+/// Focus indication for items that mark focus by background only (menu items,
+/// listbox options): forced-colors mode drops backgrounds, so draw an outline.
+@mixin forced-colors-outline {
+  @media (forced-colors: active) {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
 }

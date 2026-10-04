@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, Component, Directive, ViewEncapsulation } from '@angular/core';
-import { NgpAccordion, NgpAccordionContent, NgpAccordionItem, NgpAccordionTrigger } from 'ng-primitives/accordion';
+import { ChangeDetectionStrategy, Component, computed, Directive, ViewEncapsulation } from '@angular/core';
+import {
+  injectAccordionItemState,
+  injectAccordionState,
+  NgpAccordion,
+  NgpAccordionContent,
+  NgpAccordionItem,
+  NgpAccordionTrigger,
+} from 'ng-primitives/accordion';
 
 /**
  * NgcAccordion (the composed-component archetype of spec 001 §2):
@@ -58,7 +65,10 @@ export class NgcAccordionItem {}
 
 /**
  * The trigger button of a section; renders a chevron that rotates while open.
- * Wrap it in a heading element of the right level.
+ * Wrap it in a heading element of the right level. A disabled item (or
+ * accordion) disables the native button – NgpAccordionTrigger only emits
+ * `data-disabled` and keeps the button a focusable, announced-as-enabled tab
+ * stop (review 2026-10-04 L-07).
  */
 @Component({
   selector: 'button[ngc-accordion-trigger]',
@@ -80,9 +90,14 @@ export class NgcAccordionItem {}
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  host: { class: 'ngc-accordion-trigger', type: 'button' },
+  host: { class: 'ngc-accordion-trigger', type: 'button', '[disabled]': 'isDisabled()' },
 })
-export class NgcAccordionTrigger {}
+export class NgcAccordionTrigger {
+  private readonly accordion = injectAccordionState();
+  private readonly item = injectAccordionItemState();
+
+  protected readonly isDisabled = computed(() => this.item().disabled() || this.accordion().disabled());
+}
 
 /** Collapsible content of a section. */
 @Directive({

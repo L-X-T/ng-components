@@ -15,6 +15,7 @@ function seedDemoInfra(tree: Tree): void {
     `import type { DemoLoaderMap } from '../_manifest';\n\nexport const DEMO_LOADERS: DemoLoaderMap = {};\n`,
   );
   tree.write('apps/ng-components-demo-e2e/src/components/.gitkeep', '');
+  tree.write('libs/ng-components/core/src/styles/index.scss', `@use 'tokens';\n@use 'components/button';\n`);
 }
 
 describe('ngc-component generator', () => {
@@ -47,7 +48,8 @@ describe('ngc-component generator', () => {
     // Shipped recipe (review F4): inline ng-content template + hostDirectives
     // skeleton – no external html file.
     expect(source).toContain('template: `<ng-content />`');
-    expect(source).toContain('hostDirectives');
+    expect(source).toContain('encapsulation: ViewEncapsulation.None');
+    expect(source).toContain("host: { class: 'ngc-card' }");
     expect(tree.exists('libs/ng-components/card/src/lib/card/card.html')).toBe(false);
     expect(tree.exists('libs/ng-components/card/src/lib/card/card.scss')).toBe(true);
     expect(tree.exists('libs/ng-components/card/src/lib/card/card.spec.ts')).toBe(true);
@@ -60,7 +62,20 @@ describe('ngc-component generator', () => {
     const source = tree.read('libs/ng-components/button/src/lib/button/button.ts', 'utf-8');
     expect(source).toContain("selector: '[ngc-button]'");
     expect(source).toContain('@Directive');
+    expect(source).toContain('export type NgcButtonVariant');
     expect(tree.exists('libs/ng-components/button/src/lib/button/button.html')).toBe(false);
+  });
+
+  it('stamps directive styles into core and registers them in the global stylesheet', async () => {
+    await ngcComponentGenerator(tree, { name: 'button', archetype: 'directive', skipFormat: true });
+
+    // Directive-only components are styled from core (spec 001 §3) – no stray
+    // SCSS file inside the lib that nothing references.
+    expect(tree.exists('libs/ng-components/button/src/lib/button/button.scss')).toBe(false);
+    const styles = tree.read('libs/ng-components/core/src/styles/components/_button.scss', 'utf-8') ?? '';
+    expect(styles).toContain('@layer ngc');
+    expect(styles).toContain('.ngc-button');
+    expect(tree.read('libs/ng-components/core/src/styles/index.scss', 'utf-8')).toContain("@use 'components/button';");
   });
 
   it('handles multi-word names in kebab-case', async () => {
@@ -86,7 +101,7 @@ describe('ngc-component generator', () => {
 
     const example = tree.read('libs/ng-component-demos/src/lib/button/examples/button-basic.example.ts', 'utf-8');
     expect(example).toContain("import { NgcButton } from '@angular-software/ng-components/button'");
-    expect(example).toContain('<button ngc-button>');
+    expect(example).toContain('<button ngc-button type="button">');
 
     const manifest = tree.read('libs/ng-component-demos/src/lib/_manifest/manifest.ts', 'utf-8');
     expect(manifest).toContain("id: 'button'");

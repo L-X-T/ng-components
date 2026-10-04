@@ -38,7 +38,7 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
           <ngc-demo-api-item
             name="show(message, options?)"
             kind="method"
-            type="(string, ToastOptions) => ToastRef"
+            type="(string, NgcToastOptions) => NgcToastRef"
             description="Shows a toast; the returned handle dismisses it programmatically."
           />
           <ngc-demo-api-item
@@ -57,7 +57,7 @@ import { snippet as optionsSnippet } from './examples/toast-options.ts.snippet';
           <ngc-demo-api-item
             name="placement"
             kind="input"
-            type="ToastPlacement"
+            type="NgcToastPlacement"
             default="'top-end'"
             description="Corner or edge where the toast stack appears."
           />

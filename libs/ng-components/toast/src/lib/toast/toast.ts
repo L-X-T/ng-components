@@ -1,9 +1,14 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
+  afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  DOCUMENT,
+  ElementRef,
   inject,
   Injectable,
   InjectionToken,
+  PLATFORM_ID,
   Provider,
   ViewEncapsulation,
 } from '@angular/core';
@@ -17,16 +22,17 @@ export function provideNgcToastDismissLabel(label: string): Provider {
 }
 
 /** Placements supported by the toast manager. */
-export type ToastPlacement = 'top-start' | 'top-end' | 'top-center' | 'bottom-start' | 'bottom-end' | 'bottom-center';
+export type NgcToastPlacement =
+  'top-start' | 'top-end' | 'top-center' | 'bottom-start' | 'bottom-end' | 'bottom-center';
 
 /** Options for {@link NgcToast.show}. */
-export type ToastOptions = {
+export type NgcToastOptions = {
   /** Muted second line under the message. */
   description?: string;
   /** Milliseconds before auto-dismiss. @default 3000 */
   duration?: number;
   /** Where the toast stack appears. @default 'top-end' */
-  placement?: ToastPlacement;
+  placement?: NgcToastPlacement;
   /** Never auto-dismiss; the user must dismiss explicitly. */
   persistent?: boolean;
   /**
@@ -37,7 +43,7 @@ export type ToastOptions = {
 };
 
 /** Handle to a shown toast. */
-export type ToastRef = { dismiss(): Promise<void> };
+export type NgcToastRef = { dismiss(): Promise<void> };
 
 type ToastContext = { message: string; description?: string; dismissLabel?: string };
 
@@ -50,17 +56,23 @@ type ToastContext = { message: string; description?: string; dismissLabel?: stri
  * this.toast.show('Article published', { description: 'Readers were notified.' });
  * ```
  *
- * Rendering, stacking (max 3, newest on top, hover to expand), swipe
- * dismissal, and timers come from NgpToastManager/NgpToast (internal detail,
- * spec 001 §2). Toasts render into a fixed body-level container per
- * placement.
+ * Rendering, stacking (max 3, newest on top, hover or keyboard focus to
+ * expand), swipe dismissal, and timers come from NgpToastManager/NgpToast
+ * (internal detail, spec 001 §2). Toasts render into a fixed body-level
+ * container per placement – browser only: on the server `show` is a no-op
+ * that returns an already-dismissed handle, because the manager appends to
+ * `document.body` (review 2026-10-04 L-01).
  */
 @Injectable({ providedIn: 'root' })
 export class NgcToast {
   private readonly manager = inject(NgpToastManager);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   /** Show a toast; returns a handle to dismiss it programmatically. */
-  show(message: string, options: ToastOptions = {}): ToastRef {
+  show(message: string, options: NgcToastOptions = {}): NgcToastRef {
+    if (!this.isBrowser) {
+      return { dismiss: () => Promise.resolve() };
+    }
     const { description, dismissLabel, ...toastOptions } = options;
     return this.manager.show(NgcToastItem, {
       ...toastOptions,
@@ -75,6 +87,14 @@ export class NgcToast {
  * the toast itself must not repeat role=status/aria-live or screen readers
  * announce every toast twice (review 2026-07-11 D1). Always carries an
  * explicit dismiss button.
+ *
+ * Keyboard focus inside a toast expands the stack and pauses the auto-dismiss
+ * timers, like pointer hover does (review 2026-10-04 L-08): the manager
+ * listens for `mouseenter`/`mouseleave` on its container and its timer API is
+ * private, so focus is translated into those two events. Hover and focus are
+ * independent – the stack stays expanded while either is active (the
+ * manager's own `mouseleave` collapses it unconditionally, so a guard on the
+ * container re-expands it while focus is still inside; verification V-08).
  */
 @Component({
   selector: 'ngc-toast',
@@ -105,16 +125,79 @@ export class NgcToast {
   encapsulation: ViewEncapsulation.None,
   host: {
     class: 'ngc-toast',
+    '(focusin)': 'onFocusIn()',
+    '(focusout)': 'onFocusOut($event)',
   },
 })
 export class NgcToastItem {
   private readonly manager = inject(NgpToastManager);
   private readonly toast = inject(NgpToast);
+  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
+  private readonly document = inject(DOCUMENT);
   protected readonly context = injectToastContext<ToastContext>();
   protected readonly dismissLabel =
     this.context.dismissLabel ?? inject(NGC_TOAST_DISMISS_LABEL, { optional: true }) ?? 'Dismiss notification';
 
+  constructor() {
+    afterNextRender(() => this.installFocusGuard());
+  }
+
   protected onDismiss(): void {
-    void this.manager.dismiss(this.toast);
+    void this.dismissFromButton();
+  }
+
+  /**
+   * A keyboard dismissal removes the focused element, which fires no focusout
+   * – without this the stack stayed expanded with every timer paused and
+   * focus fell to body (verification V-02). Focus moves on to the next toast's
+   * dismiss button; with none left the stack collapses unless hovered.
+   */
+  private async dismissFromButton(): Promise<void> {
+    const container = this.container();
+    const hadFocus = this.element.contains(this.document.activeElement);
+    await this.manager.dismiss(this.toast);
+    if (!container || !hadFocus) {
+      return;
+    }
+    const nextClose = container.querySelector<HTMLElement>('.ngc-toast__close');
+    if (nextClose) {
+      nextClose.focus();
+    } else if (!container.matches(':hover')) {
+      container.dispatchEvent(new Event('mouseleave'));
+    }
+  }
+
+  protected onFocusIn(): void {
+    const container = this.container();
+    if (container && this.element.dataset['expanded'] !== 'true') {
+      container.dispatchEvent(new Event('mouseenter'));
+    }
+  }
+
+  protected onFocusOut(event: FocusEvent): void {
+    const container = this.container();
+    const nextFocus = event.relatedTarget as Node | null;
+    if (container && !(nextFocus && container.contains(nextFocus)) && !container.matches(':hover')) {
+      container.dispatchEvent(new Event('mouseleave'));
+    }
+  }
+
+  /** Once per container: a pointer leaving while focus is inside must not collapse the stack. */
+  private installFocusGuard(): void {
+    const container = this.container();
+    if (!container || container.hasAttribute('data-ngc-focus-guard')) {
+      return;
+    }
+    container.setAttribute('data-ngc-focus-guard', '');
+    // No reference to this toast instance: the listener outlives it.
+    container.addEventListener('mouseleave', () => {
+      if (container.contains(container.ownerDocument.activeElement)) {
+        container.dispatchEvent(new Event('mouseenter'));
+      }
+    });
+  }
+
+  private container(): HTMLElement | null {
+    return this.element.closest<HTMLElement>('[data-ngp-toast-container]');
   }
 }

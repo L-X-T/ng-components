@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgcBadge, type BadgeVariant } from './badge';
+import { NgcBadge, type NgcBadgeVariant } from './badge';
 
 @Component({
   imports: [NgcBadge],
   template: `<span ngc-badge [variant]="variant()">label</span>`,
 })
 class Host {
-  readonly variant = signal<BadgeVariant>('default');
+  readonly variant = signal<NgcBadgeVariant>('default');
 }
 
 describe('NgcBadge', () => {
@@ -28,7 +28,7 @@ describe('NgcBadge', () => {
   it('maps every variant to its modifier class', () => {
     const { fixture, badge } = setup();
 
-    const variants: BadgeVariant[] = ['default', 'secondary', 'destructive', 'outline'];
+    const variants: NgcBadgeVariant[] = ['default', 'secondary', 'destructive', 'outline'];
     for (const variant of variants) {
       fixture.componentInstance.variant.set(variant);
       fixture.detectChanges();

@@ -17,6 +17,13 @@
       cursor: not-allowed;
       opacity: 0.5;
     }
+
+    // The group carries the form status (NgpRadioGroup runs ngpFormControl);
+    // a touched invalid group outlines its items (review 2026-10-04 L-13).
+    &[aria-invalid='true'] .ngc-radio-item,
+    &[data-invalid][data-touched] .ngc-radio-item {
+      border-color: var(--destructive);
+    }
   }
 
   .ngc-radio-item {

@@ -1,13 +1,17 @@
 // ngc-menu panel, items, labels, and separators. Co-located component styles
 // inside @layer ngc (spec 001 §3); every value from core tokens. The panel is
 // positioned by NgpMenuTrigger's overlay (absolute left/top).
+@use '../../../../core/src/styles/mixins';
+
 @layer ngc {
   .ngc-menu {
     position: absolute;
     z-index: var(--z-overlay);
     box-sizing: border-box;
     min-width: 10rem;
-    max-height: 24rem;
+
+    // Never taller than the space the overlay measured below/above the trigger.
+    max-height: min(24rem, var(--ngp-menu-available-height, 24rem));
     padding: 0.25rem;
     overflow-y: auto;
     border: 1px solid var(--border);
@@ -39,6 +43,10 @@
     &[data-focus-visible] {
       background: var(--accent);
       color: var(--accent-foreground);
+    }
+
+    &[data-focus-visible] {
+      @include mixins.forced-colors-outline;
     }
 
     &[data-disabled] {

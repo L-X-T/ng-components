@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger } from './dropdown-menu';
+import { NgcMenuGroup, NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger } from './dropdown-menu';
 
 // Opening the menu goes through the overlay portal, which needs real browser
 // APIs – the full interaction contract (open, arrow keys, typeahead, Escape,
 // outside click, focus restore) is covered by the demo e2e suite (spec 001 §5).
 
 @Component({
-  imports: [NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger],
+  imports: [NgcMenuGroup, NgcMenuLabel, NgcMenuSeparator, NgcMenuTrigger],
   template: `
     <button [ngc-menu-trigger]="menu" [disabled]="disabled()">Options</button>
-    <span ngc-menu-label>Group</span>
+    <div ngc-menu-group><span ngc-menu-label>Group</span></div>
     <div ngc-menu-separator></div>
     <ng-template #menu>content</ng-template>
   `,
@@ -41,5 +41,15 @@ describe('DropdownMenu', () => {
     expect(nativeElement.querySelector('[ngc-menu-label]')?.classList).toContain('ngc-menu-label');
     expect(separator.classList).toContain('ngc-menu-separator');
     expect(separator.getAttribute('role')).toBe('separator');
+  });
+
+  it('names a menu group by its label (review 2026-10-04 L-12)', () => {
+    const { nativeElement } = setup();
+    const group = nativeElement.querySelector('[ngc-menu-group]') as HTMLElement;
+    const label = nativeElement.querySelector('[ngc-menu-label]') as HTMLElement;
+
+    expect(group.getAttribute('role')).toBe('group');
+    expect(label.id).toMatch(/^ngc-menu-label-\d+$/);
+    expect(group.getAttribute('aria-labelledby')).toBe(label.id);
   });
 });

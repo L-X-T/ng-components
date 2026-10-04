@@ -4,7 +4,7 @@ import { Ngc<%= className %> } from '@angular-software/ng-components/<%= fileNam
 @Component({
   selector: 'ngc-demo-<%= fileName %>-basic-example',
   imports: [Ngc<%= className %>],
-  template: `<% if (archetype === 'directive') { %><button <%= attr %>>Click me</button><% } else { %><<%= attr %>>Content</<%= attr %>><% } %>`,
+  template: `<% if (archetype === 'directive') { %><button <%= attr %> type="button">Click me</button><% } else { %><<%= attr %>>Content</<%= attr %>><% } %>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class <%= className %>BasicExample {}

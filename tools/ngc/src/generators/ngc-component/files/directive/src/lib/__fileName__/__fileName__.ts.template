@@ -1,14 +1,16 @@
 import { computed, Directive, input } from '@angular/core';
 
-export type <%= className %>Variant = 'default';
-export type <%= className %>Size = 'default';
+export type Ngc<%= className %>Variant = 'default';
+export type Ngc<%= className %>Size = 'default';
 
 /**
  * Ngc<%= className %> – skeleton stamped by the ngc-component generator.
  * Attribute directive on a native element (`<button <%= attr %>>`). Add the
  * behavioural primitive via `hostDirectives` (e.g. NgpButton) and map
  * `variant`/`size` to modifier classes per spec 001 §2. Directive-only styles
- * live in core's global stylesheet – surface <%= fileName %>.scss from there.
+ * live in core's global stylesheet: the generator stamped
+ * `core/src/styles/components/_<%= fileName %>.scss` and registered it in
+ * `core/src/styles/index.scss`.
  */
 @Directive({
   selector: '<%= selector %>',
@@ -17,8 +19,8 @@ export type <%= className %>Size = 'default';
   },
 })
 export class Ngc<%= className %> {
-  readonly variant = input<<%= className %>Variant>('default');
-  readonly size = input<<%= className %>Size>('default');
+  readonly variant = input<Ngc<%= className %>Variant>('default');
+  readonly size = input<Ngc<%= className %>Size>('default');
 
   protected readonly hostClasses = computed(
     () => `ngc-<%= fileName %> ngc-<%= fileName %>--${this.variant()} ngc-<%= fileName %>--size-${this.size()}`,

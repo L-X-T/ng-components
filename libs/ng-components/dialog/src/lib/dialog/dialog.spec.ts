@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { NgcDialogFooter, dialogIsUnlabelled, NgcDialogTrigger } from './dialog';
+import { NgcDialogFooter, NgcDialogTrigger } from './dialog';
+import { dialogIsUnlabelled } from './dialog-unlabelled';
 
 // Opening a dialog goes through NgpDialogManager, which resolves its
 // ViewContainerRef from applicationRef.components[0] – empty under TestBed.

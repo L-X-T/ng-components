@@ -19,7 +19,10 @@ import { NgpTabButton, NgpTabList, NgpTabPanel, NgpTabset } from 'ng-primitives/
  * roles (tablist/tab/tabpanel), aria-selected/aria-controls/aria-labelledby
  * wiring, and roving focus – arrow keys (per `orientation`) move focus with
  * wrapping, Home/End jump, Enter/Space activates. Set `activateOnFocus` for
- * automatic activation while arrowing.
+ * automatic activation while arrowing. Only the tabset takes an `id`: the
+ * primitive derives tab and panel ids (and their aria-controls /
+ * aria-labelledby pairing) from it, so custom ids on the parts would break
+ * the pairing (review 2026-10-04 L-04).
  */
 @Component({
   selector: 'ngc-tabs',
@@ -61,7 +64,7 @@ export class NgcTabsList {}
   hostDirectives: [
     {
       directive: NgpTabButton,
-      inputs: ['id', 'ngpTabButtonValue: value', 'ngpTabButtonDisabled: disabled'],
+      inputs: ['ngpTabButtonValue: value', 'ngpTabButtonDisabled: disabled'],
     },
   ],
   host: { class: 'ngc-tab', type: 'button' },
@@ -74,7 +77,7 @@ export class NgcTab {}
   hostDirectives: [
     {
       directive: NgpTabPanel,
-      inputs: ['id', 'ngpTabPanelValue: value'],
+      inputs: ['ngpTabPanelValue: value'],
     },
   ],
   host: { class: 'ngc-tab-panel' },

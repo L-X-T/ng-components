@@ -72,6 +72,14 @@
   .ngc-tab-panel {
     outline: none;
 
+    // NgpTabPanel makes the active panel a tab stop (tabindex=0) – it needs a
+    // visible focus indicator like any other stop (review 2026-10-04 L-03).
+    &:focus-visible {
+      border-radius: var(--radius-sm);
+
+      @include mixins.ring;
+    }
+
     &:not([data-active]) {
       display: none;
     }

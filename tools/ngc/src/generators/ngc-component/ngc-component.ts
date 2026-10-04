@@ -13,6 +13,8 @@ import { join } from 'node:path';
 import type { NgcComponentGeneratorSchema } from './schema';
 
 const NG_COMPONENTS_DIR = 'libs/ng-components';
+const CORE_STYLES_DIR = `${NG_COMPONENTS_DIR}/core/src/styles`;
+const CORE_STYLES_INDEX_PATH = `${CORE_STYLES_DIR}/index.scss`;
 const DEMOS_LIB_DIR = 'libs/ng-component-demos/src';
 const MANIFEST_PATH = `${DEMOS_LIB_DIR}/lib/_manifest/manifest.ts`;
 const DEMOS_INDEX_PATH = `${DEMOS_LIB_DIR}/index.ts`;
@@ -23,7 +25,9 @@ const E2E_COMPONENTS_DIR = 'apps/ng-components-demo-e2e/src/components';
  * Stamps a new ng-components component in one command (spec 001/002/004):
  * - `libs/ng-components/<name>` lib (non-buildable, path alias,
  *   `type:components` tag) with the component/directive skeleton, SCSS, and a
- *   Vitest spec;
+ *   Vitest spec – directive-only components get their SCSS in core's global
+ *   stylesheet (`core/src/styles/components/_<name>.scss` + `@use` in
+ *   `index.scss`), like every shipped directive (spec 001 §3);
  * - a demo stub in ng-component-demos (page + basic example) plus its
  *   `wip` manifest entry, index export, and app loader entry;
  * - the per-component Playwright spec skeleton in ng-components-demo-e2e.
@@ -70,6 +74,9 @@ export async function ngcComponentGenerator(
     summary: options.summary ?? `The ${className} component.`,
   };
   generateFiles(tree, joinPathFragments(__dirname, 'files', archetype), projectRoot, substitutions);
+  if (archetype === 'directive') {
+    stampCoreStyles(tree, substitutions);
+  }
 
   stampDemoStub(tree, substitutions, options.category ?? 'form');
   stampE2eStub(tree, substitutions);
@@ -101,6 +108,33 @@ type Substitutions = {
   archetype: string;
   summary: string;
 };
+
+/**
+ * Directive-only components are styled from core's global stylesheet (spec
+ * 001 §3): stamp `components/_<name>.scss` and register it in `index.scss`.
+ */
+function stampCoreStyles(tree: Tree, { fileName, className }: Substitutions): void {
+  if (!tree.exists(CORE_STYLES_INDEX_PATH)) {
+    logger.warn(`ngc-component: ${CORE_STYLES_INDEX_PATH} not found – skipping the core stylesheet.`);
+    return;
+  }
+  tree.write(
+    joinPathFragments(CORE_STYLES_DIR, 'components', `_${fileName}.scss`),
+    [
+      `// ngc-${fileName} (directive on a native element – styles live here in core,`,
+      '// spec 001 §3). Every visual value comes from a core token (var(--…)).',
+      '',
+      '@layer ngc {',
+      `  .ngc-${fileName} {`,
+      '    display: inline-flex;',
+      '  }',
+      '}',
+      '',
+    ].join('\n'),
+  );
+  updateFile(tree, CORE_STYLES_INDEX_PATH, (content) => `${content}@use 'components/${fileName}';\n`);
+  logger.info(`ngc-component: ${className} styles stamped into ${CORE_STYLES_DIR}/components/_${fileName}.scss`);
+}
 
 /** Demo page + example, manifest entry (`wip`), index export, app loader entry. */
 function stampDemoStub(tree: Tree, substitutions: Substitutions, category: string): void {
