@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
+import { NgcSelect, NgcSelectOption } from '@agentic-software/ng-components/select';
 
 @Component({
   selector: 'ngc-demo-select-states-example',

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcLabel } from '@angular-software/ng-components/label';
-import { NgcRadioGroup, NgcRadioItem } from '@angular-software/ng-components/radio-group';
+import { NgcButton } from '@agentic-software/ng-components/button';
+import { NgcLabel } from '@agentic-software/ng-components/label';
+import { NgcRadioGroup, NgcRadioItem } from '@agentic-software/ng-components/radio-group';
 
 @Component({
   selector: 'ngc-demo-radio-group-form-example',

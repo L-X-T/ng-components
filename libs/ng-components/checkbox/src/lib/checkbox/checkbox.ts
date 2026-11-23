@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, forwardRef, inject, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgcValueAccessor } from '@angular-software/ng-components/core';
+import { NgcValueAccessor } from '@agentic-software/ng-components/core';
 import { NgpCheckbox } from 'ng-primitives/checkbox';
 
 /**

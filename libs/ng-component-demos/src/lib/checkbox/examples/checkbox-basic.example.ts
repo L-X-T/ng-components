@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
-import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcCheckbox } from '@agentic-software/ng-components/checkbox';
+import { NgcLabel } from '@agentic-software/ng-components/label';
 
 @Component({
   selector: 'ngc-demo-checkbox-basic-example',

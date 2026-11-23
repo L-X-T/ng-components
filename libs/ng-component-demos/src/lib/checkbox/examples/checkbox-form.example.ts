@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
-import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcButton } from '@agentic-software/ng-components/button';
+import { NgcCheckbox } from '@agentic-software/ng-components/checkbox';
+import { NgcLabel } from '@agentic-software/ng-components/label';
 
 @Component({
   selector: 'ngc-demo-checkbox-form-example',

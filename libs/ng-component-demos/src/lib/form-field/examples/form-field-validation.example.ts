@@ -5,8 +5,8 @@ import {
   NgcFormFieldError,
   NgcFormFieldHint,
   NgcFormFieldLabel,
-} from '@angular-software/ng-components/form-field';
-import { NgcInput } from '@angular-software/ng-components/input';
+} from '@agentic-software/ng-components/form-field';
+import { NgcInput } from '@agentic-software/ng-components/input';
 
 @Component({
   selector: 'ngc-demo-form-field-validation-example',

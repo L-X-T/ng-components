@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
-import { DEMO_LOADERS } from '@angular-software/ng-component-demos/loaders';
-import { DEMO_MANIFEST, demoRoutes } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_LOADERS } from '@ngc-internal/demos/loaders';
+import { DEMO_MANIFEST, demoRoutes } from '@ngc-internal/demos/manifest';
 
 /**
  * Home + one lazy route per manifest entry – no hand-maintained route table

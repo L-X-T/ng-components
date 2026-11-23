@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
+import { NgcButton } from '@agentic-software/ng-components/button';
+import { NgcSelect, NgcSelectOption } from '@agentic-software/ng-components/select';
 
 @Component({
   selector: 'ngc-demo-select-form-example',

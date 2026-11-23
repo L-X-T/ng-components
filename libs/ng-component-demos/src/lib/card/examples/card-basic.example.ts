@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcButton } from '@agentic-software/ng-components/button';
 import {
   NgcCard,
   NgcCardContent,
@@ -7,7 +7,7 @@ import {
   NgcCardFooter,
   NgcCardHeader,
   NgcCardTitle,
-} from '@angular-software/ng-components/card';
+} from '@agentic-software/ng-components/card';
 
 @Component({
   selector: 'ngc-demo-card-basic-example',

@@ -4,7 +4,7 @@ import {
   NgcAccordionContent,
   NgcAccordionItem,
   NgcAccordionTrigger,
-} from '@angular-software/ng-components/accordion';
+} from '@agentic-software/ng-components/accordion';
 
 @Component({
   selector: 'ngc-demo-accordion-basic-example',

@@ -34,7 +34,7 @@ describe('ngc-component generator', () => {
     expect(config.tags).toContain('type:components');
 
     const tsconfig = readJson(tree, 'tsconfig.base.json');
-    const alias = tsconfig.compilerOptions.paths['@angular-software/ng-components/badge'];
+    const alias = tsconfig.compilerOptions.paths['@agentic-software/ng-components/badge'];
     expect(alias).toHaveLength(1);
     expect(alias[0]).toContain('libs/ng-components/badge/src/index.ts');
   });
@@ -100,7 +100,7 @@ describe('ngc-component generator', () => {
     expect(demoPage).toContain('id="button-basic"');
 
     const example = tree.read('libs/ng-component-demos/src/lib/button/examples/button-basic.example.ts', 'utf-8');
-    expect(example).toContain("import { NgcButton } from '@angular-software/ng-components/button'");
+    expect(example).toContain("import { NgcButton } from '@agentic-software/ng-components/button'");
     expect(example).toContain('<button ngc-button type="button">');
 
     const manifest = tree.read('libs/ng-component-demos/src/lib/_manifest/manifest.ts', 'utf-8');

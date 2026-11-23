@@ -9,7 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcButton } from '@agentic-software/ng-components/button';
 import { DEMO_MANIFEST } from '../_manifest/manifest';
 import type { DemoManifestEntry } from '../_manifest/manifest-entry';
 import { demoPrevNext, type DemoPrevNext } from '../_manifest/manifest-helpers';

@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, orderedDemos } from '@ngc-internal/demos/manifest';
 
 // The palette lists in sidebar order (category, then authored – review E3).
 const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);

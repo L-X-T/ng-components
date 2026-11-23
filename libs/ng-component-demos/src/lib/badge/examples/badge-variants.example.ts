@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcBadge } from '@angular-software/ng-components/badge';
+import { NgcBadge } from '@agentic-software/ng-components/badge';
 
 @Component({
   selector: 'ngc-demo-badge-variants-example',

@@ -44,7 +44,7 @@ export async function ngcComponentGenerator(
   await libraryGenerator(tree, {
     directory: projectRoot,
     name: fileName,
-    importPath: `@angular-software/ng-components/${fileName}`,
+    importPath: `@agentic-software/ng-components/${fileName}`,
     prefix: 'ngc',
     tags: 'type:components',
     style: 'scss',

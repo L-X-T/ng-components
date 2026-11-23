@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgcInput } from '@angular-software/ng-components/input';
+import { NgcInput } from '@agentic-software/ng-components/input';
 
 @Component({
   selector: 'ngc-demo-input-states-example',

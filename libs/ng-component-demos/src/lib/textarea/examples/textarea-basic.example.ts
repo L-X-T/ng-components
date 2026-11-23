@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcLabel } from '@angular-software/ng-components/label';
-import { NgcTextarea } from '@angular-software/ng-components/textarea';
+import { NgcLabel } from '@agentic-software/ng-components/label';
+import { NgcTextarea } from '@agentic-software/ng-components/textarea';
 
 @Component({
   selector: 'ngc-demo-textarea-basic-example',

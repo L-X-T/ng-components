@@ -1,4 +1,4 @@
-# @angular-software/ng-components/core
+# @agentic-software/ng-components/core
 
 Tokens, the theme palettes, the global stylesheet for directive-only components, the theme service and the shared form plumbing every other `ng-components` package builds on (spec 001).
 

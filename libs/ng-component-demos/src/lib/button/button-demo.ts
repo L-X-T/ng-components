@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { NgcButton, type NgcButtonSize, type NgcButtonVariant } from '@angular-software/ng-components/button';
-import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
-import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
+import { NgcButton, type NgcButtonSize, type NgcButtonVariant } from '@agentic-software/ng-components/button';
+import { NgcCheckbox } from '@agentic-software/ng-components/checkbox';
+import { NgcSelect, NgcSelectOption } from '@agentic-software/ng-components/select';
 import { DemoApi, DemoApiItem, DemoControls, DemoExample, DemoKnob, DemoPage, DemoSection } from '../_demo-ui';
 import { ButtonSizesExample } from './examples/button-sizes.example';
 import { snippet as sizesSnippet } from './examples/button-sizes.ts.snippet';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcTooltip, NgcTooltipTrigger } from '@angular-software/ng-components/tooltip';
+import { NgcButton } from '@agentic-software/ng-components/button';
+import { NgcTooltip, NgcTooltipTrigger } from '@agentic-software/ng-components/tooltip';
 
 @Component({
   selector: 'ngc-demo-tooltip-basic-example',

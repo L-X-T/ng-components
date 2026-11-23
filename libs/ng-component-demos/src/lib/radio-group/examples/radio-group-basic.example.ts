@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcLabel } from '@angular-software/ng-components/label';
-import { NgcRadioGroup, NgcRadioItem } from '@angular-software/ng-components/radio-group';
+import { NgcLabel } from '@agentic-software/ng-components/label';
+import { NgcRadioGroup, NgcRadioItem } from '@agentic-software/ng-components/radio-group';
 
 @Component({
   selector: 'ngc-demo-radio-group-basic-example',

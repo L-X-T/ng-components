@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgcFormField } from '@angular-software/ng-components/form-field';
+import { NgcFormField } from '@agentic-software/ng-components/form-field';
 import { NgcRadioGroup, NgcRadioItem } from './radio-group';
 
 @Component({

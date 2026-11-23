@@ -12,18 +12,18 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { filter, map, skip, take } from 'rxjs';
-import { DEMO_MANIFEST, demosByCategory } from '@angular-software/ng-component-demos/manifest';
-import { NgcBadge } from '@angular-software/ng-components/badge';
-import { NgcButton } from '@angular-software/ng-components/button';
+import { DEMO_MANIFEST, demosByCategory } from '@ngc-internal/demos/manifest';
+import { NgcBadge } from '@agentic-software/ng-components/badge';
+import { NgcButton } from '@agentic-software/ng-components/button';
 import {
   isNgcPalette,
   isNgcThemeMode,
   NGC_PALETTES,
   NGC_THEME_MODES,
   NgcThemeService,
-} from '@angular-software/ng-components/core';
-import { NgcDialog, NgcDialogOverlay, NgcDialogTrigger } from '@angular-software/ng-components/dialog';
-import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
+} from '@agentic-software/ng-components/core';
+import { NgcDialog, NgcDialogOverlay, NgcDialogTrigger } from '@agentic-software/ng-components/dialog';
+import { NgcSelect, NgcSelectOption } from '@agentic-software/ng-components/select';
 import { CommandPalette } from './command-palette/command-palette';
 
 /** Breathing room between the sticky header and an anchor target. */

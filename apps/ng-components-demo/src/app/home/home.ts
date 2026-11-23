@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, orderedDemos } from '@ngc-internal/demos/manifest';
 
 /** Landing page: short intro + links into every component demo. */
 @Component({

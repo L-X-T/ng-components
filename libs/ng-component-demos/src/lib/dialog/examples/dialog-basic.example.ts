@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcButton } from '@agentic-software/ng-components/button';
 import {
   NgcDialog,
   NgcDialogDescription,
@@ -7,7 +7,7 @@ import {
   NgcDialogOverlay,
   NgcDialogTitle,
   NgcDialogTrigger,
-} from '@angular-software/ng-components/dialog';
+} from '@agentic-software/ng-components/dialog';
 
 @Component({
   selector: 'ngc-demo-dialog-basic-example',

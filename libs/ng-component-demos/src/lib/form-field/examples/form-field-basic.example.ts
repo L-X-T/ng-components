@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { NgcFormField, NgcFormFieldHint, NgcFormFieldLabel } from '@angular-software/ng-components/form-field';
-import { NgcInput } from '@angular-software/ng-components/input';
+import { NgcFormField, NgcFormFieldHint, NgcFormFieldLabel } from '@agentic-software/ng-components/form-field';
+import { NgcInput } from '@agentic-software/ng-components/input';
 
 @Component({
   selector: 'ngc-demo-form-field-basic-example',

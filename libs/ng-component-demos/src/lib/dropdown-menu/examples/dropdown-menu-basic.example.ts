@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcButton } from '@agentic-software/ng-components/button';
 import {
   NgcMenu,
   NgcMenuGroup,
@@ -7,7 +7,7 @@ import {
   NgcMenuLabel,
   NgcMenuSeparator,
   NgcMenuTrigger,
-} from '@angular-software/ng-components/dropdown-menu';
+} from '@agentic-software/ng-components/dropdown-menu';
 
 @Component({
   selector: 'ngc-demo-dropdown-menu-basic-example',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgcInput } from '@angular-software/ng-components/input';
+import { NgcInput } from '@agentic-software/ng-components/input';
 import { NgcFormField, NgcFormFieldError, NgcFormFieldHint, NgcFormFieldLabel } from './form-field';
 
 @Component({

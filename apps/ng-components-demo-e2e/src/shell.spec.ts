@@ -1,4 +1,4 @@
-import { DEMO_MANIFEST, demosByCategory, orderedDemos } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST, demosByCategory, orderedDemos } from '@ngc-internal/demos/manifest';
 import { expect, test } from '@playwright/test';
 import { gotoHydrated } from './support/hydration';
 

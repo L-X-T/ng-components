@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcToast } from '@angular-software/ng-components/toast';
+import { NgcButton } from '@agentic-software/ng-components/button';
+import { NgcToast } from '@agentic-software/ng-components/toast';
 
 @Component({
   selector: 'ngc-demo-toast-basic-example',

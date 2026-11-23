@@ -9,8 +9,8 @@ import {
   signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { DEMO_MANIFEST, DemoManifestEntry, orderedDemos } from '@angular-software/ng-component-demos/manifest';
-import { NgcInput } from '@angular-software/ng-components/input';
+import { DEMO_MANIFEST, DemoManifestEntry, orderedDemos } from '@ngc-internal/demos/manifest';
+import { NgcInput } from '@agentic-software/ng-components/input';
 
 /** Sidebar order (category, then authored) – the palette must not list differently (review 2026-07-11 E3). */
 const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);

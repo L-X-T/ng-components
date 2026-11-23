@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Ngc<%= className %> } from '@angular-software/ng-components/<%= fileName %>';
+import { Ngc<%= className %> } from '@agentic-software/ng-components/<%= fileName %>';
 
 @Component({
   selector: 'ngc-demo-<%= fileName %>-basic-example',

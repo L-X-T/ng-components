@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcTab, NgcTabPanel, NgcTabs, NgcTabsList } from '@angular-software/ng-components/tabs';
+import { NgcTab, NgcTabPanel, NgcTabs, NgcTabsList } from '@agentic-software/ng-components/tabs';
 
 @Component({
   selector: 'ngc-demo-tabs-basic-example',

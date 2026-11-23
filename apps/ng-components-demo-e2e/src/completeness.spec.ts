@@ -1,4 +1,4 @@
-import { DEMO_MANIFEST } from '@angular-software/ng-component-demos/manifest';
+import { DEMO_MANIFEST } from '@ngc-internal/demos/manifest';
 import { expect, test } from '@playwright/test';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';

@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgcButton } from '@angular-software/ng-components/button';
-import { NgcCheckbox } from '@angular-software/ng-components/checkbox';
-import { NgcFormField, NgcFormFieldError, NgcFormFieldLabel } from '@angular-software/ng-components/form-field';
-import { NgcInput } from '@angular-software/ng-components/input';
-import { NgcLabel } from '@angular-software/ng-components/label';
-import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
-import { NgcTextarea } from '@angular-software/ng-components/textarea';
+import { NgcButton } from '@agentic-software/ng-components/button';
+import { NgcCheckbox } from '@agentic-software/ng-components/checkbox';
+import { NgcFormField, NgcFormFieldError, NgcFormFieldLabel } from '@agentic-software/ng-components/form-field';
+import { NgcInput } from '@agentic-software/ng-components/input';
+import { NgcLabel } from '@agentic-software/ng-components/label';
+import { NgcSelect, NgcSelectOption } from '@agentic-software/ng-components/select';
+import { NgcTextarea } from '@agentic-software/ng-components/textarea';
 
 @Component({
   selector: 'ngc-demo-form-field-contact-example',

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgcValueAccessor } from '@angular-software/ng-components/core';
+import { NgcValueAccessor } from '@agentic-software/ng-components/core';
 import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitives/radio';
 
 /**

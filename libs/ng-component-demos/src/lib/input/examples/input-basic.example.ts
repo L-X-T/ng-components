@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgcInput } from '@angular-software/ng-components/input';
-import { NgcLabel } from '@angular-software/ng-components/label';
+import { NgcInput } from '@agentic-software/ng-components/input';
+import { NgcLabel } from '@agentic-software/ng-components/label';
 
 @Component({
   selector: 'ngc-demo-input-basic-example',

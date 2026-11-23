@@ -5,7 +5,7 @@ import {
   NGC_THEME_MODE_STORAGE_KEY,
   NGC_THEME_STORAGE_KEY,
   NGC_THEME_MODES,
-} from '@angular-software/ng-components/core';
+} from '@agentic-software/ng-components/core';
 
 // Guard for the no-flash inline script in index.html (review 2026-07-11 E9):
 // it duplicates the storage keys, the palette and mode lists, and the

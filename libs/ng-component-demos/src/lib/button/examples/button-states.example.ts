@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { NgcButton } from '@angular-software/ng-components/button';
+import { NgcButton } from '@agentic-software/ng-components/button';
 
 @Component({
   selector: 'ngc-demo-button-states-example',
