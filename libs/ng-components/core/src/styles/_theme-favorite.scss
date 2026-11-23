@@ -1,0 +1,59 @@
+// Favorite palette: the neutral palette with one highlight colour, the orange
+// #d97757 (oklch 67.24% 0.1308 38.76deg). --primary is exactly that orange in
+// light and dark, written as hex so it renders as rgb(217, 119, 87) without
+// any oklch rounding. Every token carries its light and dark value via
+// light-dark(); the root's color-scheme (_color-scheme.scss) picks one.
+
+// Dark label on the orange, the darker orange only for orange text on light
+// surfaces:
+// - White on #d97757 is 3.12:1 and fails AA, so --primary-foreground is the
+//   neutral near-black (oklch 14.5%) in both modes: 6.34:1. The fill is never
+//   darkened to make white text pass.
+// - --primary-hover keeps that label: light 63% (slightly darker) 5.36:1,
+//   dark 73% (lighter) 7.89:1.
+// - As text on a light page #d97757 is 3.12:1 on --background / --card and
+//   2.86:1 on --muted, so --primary-text is the same hue at 55%: 5.14:1 /
+//   5.14:1 / 4.71:1. In dark the exact orange passes as text: 6.34:1 on
+//   --background, 5.74:1 on --card, 4.84:1 on --muted.
+// - Focus ring (WCAG 1.4.11, >= 3:1): the exact orange in dark (>= 4.84:1 on
+//   every surface). In light it is 2.86:1 on --muted (tab lists) and 2.99:1
+//   on --sidebar, so the ring is the nearest passing step, 65.5%: 3.34:1 on
+//   --background / --card, 3.06:1 on --muted, 3.20:1 on --sidebar.
+// - Accent: a faint orange tint for hover / selected backgrounds; neutrals
+//   stay pure grey.
+
+@layer ngc {
+  [data-theme='favorite'] {
+    --radius: 0.625rem;
+    --background: light-dark(oklch(100% 0 0deg), oklch(14.5% 0 0deg));
+    --foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --card: light-dark(oklch(100% 0 0deg), oklch(20.5% 0 0deg));
+    --card-foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --popover: light-dark(oklch(100% 0 0deg), oklch(26.9% 0 0deg));
+    --popover-foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --primary: #d97757;
+    --primary-hover: light-dark(oklch(63% 0.1308 38.76deg), oklch(73% 0.1308 38.76deg));
+    --primary-foreground: oklch(14.5% 0 0deg);
+    --primary-text: light-dark(oklch(55% 0.1308 38.76deg), #d97757);
+    --secondary: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));
+    --secondary-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
+    --muted: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));
+    --muted-foreground: light-dark(oklch(54% 0 0deg), oklch(70.8% 0 0deg));
+    --accent: light-dark(oklch(96.5% 0.017 38.76deg), oklch(31% 0.03 38.76deg));
+    --accent-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
+    --destructive: light-dark(oklch(57.7% 0.245 27.325deg), oklch(66% 0.191 22.216deg));
+    --destructive-hover: light-dark(oklch(52% 0.235 27.325deg), oklch(72% 0.18 22.216deg));
+    --destructive-foreground: light-dark(oklch(98.5% 0 0deg), oklch(14.5% 0 0deg));
+    --border: light-dark(oklch(92.2% 0 0deg), oklch(100% 0 0deg / 10%));
+    --input: light-dark(oklch(65% 0 0deg), oklch(52% 0 0deg));
+    --ring: light-dark(oklch(65.5% 0.1308 38.76deg), #d97757);
+    --sidebar: light-dark(oklch(98.5% 0 0deg), oklch(20.5% 0 0deg));
+    --sidebar-foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --sidebar-primary: #d97757;
+    --sidebar-primary-foreground: oklch(14.5% 0 0deg);
+    --sidebar-accent: light-dark(oklch(96.5% 0.017 38.76deg), oklch(31% 0.03 38.76deg));
+    --sidebar-accent-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
+    --sidebar-border: light-dark(oklch(92.2% 0 0deg), oklch(100% 0 0deg / 10%));
+    --sidebar-ring: light-dark(oklch(65.5% 0.1308 38.76deg), #d97757);
+  }
+}

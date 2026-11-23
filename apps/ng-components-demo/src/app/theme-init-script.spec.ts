@@ -73,6 +73,12 @@ describe('no-flash theme init script', () => {
     expect(attributes).toEqual({ 'data-theme': 'angular', 'data-theme-mode': 'dark' });
   });
 
+  it('restores the persisted favorite palette', () => {
+    const { attributes } = runScript({ stored: { [NGC_THEME_STORAGE_KEY]: 'favorite' } });
+
+    expect(attributes).toEqual({ 'data-theme': 'favorite' });
+  });
+
   it('leaves auto mode (no attribute) when nothing is stored', () => {
     expect(runScript().attributes).toEqual({});
   });

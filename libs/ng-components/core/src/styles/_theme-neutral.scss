@@ -16,6 +16,11 @@
     --primary: light-dark(oklch(20.5% 0 0deg), oklch(92.2% 0 0deg));
     --primary-hover: light-dark(oklch(30% 0 0deg), oklch(84% 0 0deg));
     --primary-foreground: light-dark(oklch(98.5% 0 0deg), oklch(20.5% 0 0deg));
+
+    // --primary used as text on the page surface (links, eyebrows, the radio
+    // mark); equal to --primary here, darker in palettes whose primary only
+    // carries a dark label (favorite).
+    --primary-text: var(--primary);
     --secondary: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));
     --secondary-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
     --muted: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));

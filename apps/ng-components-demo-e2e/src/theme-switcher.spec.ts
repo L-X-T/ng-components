@@ -5,6 +5,7 @@ import { gotoHydrated } from './support/hydration';
 const PALETTES = [
   { id: 'neutral', label: 'Neutral' },
   { id: 'angular', label: 'Angular' },
+  { id: 'favorite', label: 'Favorite' },
 ];
 const MODES = [
   { id: null, label: 'Auto' },
@@ -22,7 +23,7 @@ test.describe('theme switcher', () => {
     await gotoHydrated(page, DEMO_MANIFEST[0].route);
   });
 
-  test('offers both palettes and applies each chosen one', async ({ page }) => {
+  test('offers every palette and applies each chosen one', async ({ page }) => {
     const trigger = page.getByRole('combobox', { name: 'Theme palette' });
     await expect(trigger).toContainText('Neutral');
 

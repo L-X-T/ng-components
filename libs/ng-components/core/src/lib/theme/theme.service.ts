@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT, effect, inject, Injectable, InjectionToken, PLATFORM_ID, Provider, signal } from '@angular/core';
 
 /** All built-in palettes (theme families), in display order. */
-export const NGC_PALETTES = ['neutral', 'angular'] as const;
+export const NGC_PALETTES = ['neutral', 'angular', 'favorite'] as const;
 
 export type NgcPalette = (typeof NGC_PALETTES)[number];
 

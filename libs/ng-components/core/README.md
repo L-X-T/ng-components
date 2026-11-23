@@ -10,7 +10,7 @@ Import once per application, e.g. in `styles.scss`:
 @use 'libs/ng-components/core/src/styles' as ngc-styles;
 ```
 
-Everything lives in the `ngc` cascade layer, so unlayered app styles always win. A theme is a palette plus a mode. The palette (`neutral`, `angular`) is set via `data-theme` on the document root; `neutral` doubles as the `:root` fallback. Each palette defines its tokens once with `light-dark()`, so the mode only sets `color-scheme`: no `data-theme-mode` attribute means auto (follow the OS), `data-theme-mode="light"` or `"dark"` forces one.
+Everything lives in the `ngc` cascade layer, so unlayered app styles always win. A theme is a palette plus a mode. The palette (`neutral`, `angular`, `favorite`) is set via `data-theme` on the document root; `neutral` doubles as the `:root` fallback. `favorite` is neutral with one orange highlight: `--primary` is exactly `#d97757` in light and dark and always carries a dark label (white on it is only 3.1:1). Each palette defines its tokens once with `light-dark()`, so the mode only sets `color-scheme`: no `data-theme-mode` attribute means auto (follow the OS), `data-theme-mode="light"` or `"dark"` forces one.
 
 ## Theme
 
@@ -20,7 +20,7 @@ provideNgcPalette('angular');
 
 // anywhere – read or switch
 private readonly themeService = inject(NgcThemeService);
-this.themeService.palette(); // 'neutral' | 'angular'
+this.themeService.palette(); // 'neutral' | 'angular' | 'favorite'
 this.themeService.mode(); // 'auto' | 'light' | 'dark'
 this.themeService.setPalette('angular'); // persisted in localStorage (`ngc-theme`)
 this.themeService.setMode('dark'); // persisted as `ngc-theme-mode`; `auto` removes the key
@@ -31,6 +31,8 @@ Visitors without a stored choice get auto mode, which CSS resolves from the OS �
 ## Contrast gate
 
 `nx run core:check-contrast` computes the WCAG contrast of every token pair the components render (text ≥ 4.5:1, control borders and focus rings ≥ 3:1) in light and dark of every palette file.
+
+Where the primary colour is used as text on the page (link buttons, links, eyebrows, the radio mark), use `--primary-text`, not `--primary`. It equals `--primary` in `neutral` and `angular`; in `favorite` it is a darker orange in light mode, because `#d97757` as text on a light surface is only 3.1:1.
 
 ## For component authors
 

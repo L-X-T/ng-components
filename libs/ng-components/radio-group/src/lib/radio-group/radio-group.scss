@@ -37,7 +37,7 @@
     border: 1px solid var(--input);
     border-radius: 50%;
     background: transparent;
-    color: var(--primary);
+    color: var(--primary-text);
     outline: none;
     transition:
       border-color 150ms ease,
@@ -50,7 +50,7 @@
     }
 
     &[data-checked] {
-      border-color: var(--primary);
+      border-color: var(--primary-text);
     }
 
     &[data-checked] &__indicator {

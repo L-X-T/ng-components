@@ -22,6 +22,11 @@
     --primary: light-dark(oklch(54% 0.265 295deg), oklch(64% 0.23 305deg));
     --primary-hover: light-dark(oklch(48% 0.25 295deg), oklch(70% 0.2 305deg));
     --primary-foreground: light-dark(oklch(98% 0.005 300deg), oklch(17% 0.02 300deg));
+
+    // --primary used as text on the page surface (links, eyebrows, the radio
+    // mark); equal to --primary here, darker in palettes whose primary only
+    // carries a dark label (favorite).
+    --primary-text: var(--primary);
     --secondary: light-dark(oklch(96% 0.015 300deg), oklch(27% 0.03 300deg));
     --secondary-foreground: light-dark(oklch(30% 0.06 300deg), oklch(97% 0.008 300deg));
     --muted: light-dark(oklch(96% 0.015 300deg), oklch(27% 0.03 300deg));

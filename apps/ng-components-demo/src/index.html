@@ -37,7 +37,7 @@
         } catch (e) {
           /* storage unavailable – keep the static palette in auto mode */
         }
-        if (['neutral', 'angular'].indexOf(palette) !== -1) {
+        if (['neutral', 'angular', 'favorite'].indexOf(palette) !== -1) {
           document.documentElement.setAttribute('data-theme', palette);
         }
         if (['light', 'dark'].indexOf(mode) !== -1) {

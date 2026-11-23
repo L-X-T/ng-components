@@ -66,6 +66,17 @@ describe('NgcThemeService', () => {
     expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe('angular');
   });
 
+  it('applies, persists, and restores the favorite palette', () => {
+    themeService().setPalette('favorite');
+    TestBed.tick();
+
+    expect(root().getAttribute('data-theme')).toBe('favorite');
+    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe('favorite');
+
+    TestBed.resetTestingModule();
+    expect(themeService().palette()).toBe('favorite');
+  });
+
   it('restores a persisted palette and mode', () => {
     localStorage.setItem(NGC_THEME_STORAGE_KEY, 'angular');
     localStorage.setItem(NGC_THEME_MODE_STORAGE_KEY, 'light');
@@ -153,6 +164,7 @@ describe('NgcThemeService', () => {
   describe('type guards', () => {
     it('accept the built-in palettes and modes and reject anything else', () => {
       expect(isNgcPalette('angular')).toBe(true);
+      expect(isNgcPalette('favorite')).toBe(true);
       expect(isNgcPalette('angular-dark')).toBe(false);
       expect(isNgcThemeMode('auto')).toBe(true);
       expect(isNgcThemeMode('neon')).toBe(false);
