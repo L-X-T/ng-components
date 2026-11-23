@@ -128,11 +128,16 @@ $sidebar-width: 15rem;
   }
 
   // ngc-select brings its own chrome; it defaults to width: 100%, so pin a
-  // header-friendly width that fits the longest theme name.
+  // header-friendly width that fits the longest palette / mode name.
   &__theme-select {
-    flex: 0 1 9.5rem;
-    min-width: 6rem;
-    width: 9.5rem;
+    flex: 0 1 7rem;
+    min-width: 4.5rem;
+    width: 7rem;
+
+    &--mode {
+      flex-basis: 5.75rem;
+      width: 5.75rem;
+    }
   }
 
   &__body {
@@ -265,12 +270,21 @@ $sidebar-width: 15rem;
     }
   }
 
-  // Phones: the word mark goes, the theme select may shrink – the header must
+  // Phones: the word mark goes, the theme selects may shrink – the header must
   // never force horizontal scrolling (WCAG 1.4.10, review 2026-10-04 D-02).
   @media (width <= 30rem) {
     &__header {
       gap: 0.5rem;
       padding-inline: 0.75rem;
+    }
+
+    // Tighter selects keep the full palette name readable at 375px.
+    &__header-actions {
+      gap: 0.375rem;
+    }
+
+    &__theme-select {
+      padding-inline: 0.5rem;
     }
 
     // Visually hidden, not removed: the mark is aria-hidden, the text is the

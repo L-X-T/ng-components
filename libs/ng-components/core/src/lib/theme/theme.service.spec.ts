@@ -2,15 +2,16 @@ import { DOCUMENT, PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import {
-  isNgcTheme,
-  NGC_INITIAL_THEME,
+  isNgcPalette,
+  isNgcThemeMode,
+  NGC_THEME_MODE_STORAGE_KEY,
   NGC_THEME_STORAGE_KEY,
   NgcThemeService,
-  provideNgcThemeScheme,
+  provideNgcPalette,
 } from './theme.service';
 
 describe('NgcThemeService', () => {
-  const documentElement = (): HTMLElement => TestBed.inject(DOCUMENT).documentElement;
+  const root = (): HTMLElement => TestBed.inject(DOCUMENT).documentElement;
 
   const themeService = (): NgcThemeService => {
     const service = TestBed.inject(NgcThemeService);
@@ -18,190 +19,144 @@ describe('NgcThemeService', () => {
     return service;
   };
 
-  const stubPrefersDark = (prefersDark: boolean): void => {
-    Object.defineProperty(window, 'matchMedia', {
-      configurable: true,
-      value: (query: string) => ({ matches: prefersDark && query.includes('dark') }) as MediaQueryList,
-    });
-  };
-
   beforeEach(() => {
     localStorage.clear();
     document.documentElement.removeAttribute('data-theme');
-    stubPrefersDark(false);
+    document.documentElement.removeAttribute('data-theme-mode');
   });
 
-  it('defaults to the light theme and applies it to the document root', () => {
+  it('defaults to the neutral palette in auto mode', () => {
     const service = themeService();
 
-    expect(service.theme()).toBe('light');
-    expect(documentElement().getAttribute('data-theme')).toBe('light');
+    expect(service.palette()).toBe('neutral');
+    expect(service.mode()).toBe('auto');
+    expect(root().getAttribute('data-theme')).toBe('neutral');
+    expect(root().hasAttribute('data-theme-mode')).toBe(false);
   });
 
-  it('applies and persists a theme change', () => {
+  it('applies and persists an explicit mode', () => {
     const service = themeService();
 
-    service.setTheme('angular-dark');
+    service.setMode('dark');
     TestBed.tick();
 
-    expect(documentElement().getAttribute('data-theme')).toBe('angular-dark');
-    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe('angular-dark');
+    expect(root().getAttribute('data-theme-mode')).toBe('dark');
+    expect(localStorage.getItem(NGC_THEME_MODE_STORAGE_KEY)).toBe('dark');
   });
 
-  it('restores the persisted theme', () => {
-    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
+  it('removes the mode attribute and the stored mode when going back to auto', () => {
+    const service = themeService();
+    service.setMode('light');
+    TestBed.tick();
 
-    expect(themeService().theme()).toBe('dark');
+    service.setMode('auto');
+    TestBed.tick();
+
+    expect(root().hasAttribute('data-theme-mode')).toBe(false);
+    expect(localStorage.getItem(NGC_THEME_MODE_STORAGE_KEY)).toBeNull();
   });
 
-  it('ignores an invalid persisted value', () => {
-    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'neon');
+  it('applies and persists a palette', () => {
+    const service = themeService();
 
-    expect(themeService().theme()).toBe('light');
+    service.setPalette('angular');
+    TestBed.tick();
+
+    expect(root().getAttribute('data-theme')).toBe('angular');
+    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe('angular');
   });
 
-  it('follows the OS dark preference on the first visit (review E9)', () => {
-    stubPrefersDark(true);
-
-    expect(themeService().theme()).toBe('dark');
-  });
-
-  it('does not persist the OS-derived first-visit theme, only explicit choices', () => {
-    stubPrefersDark(true);
+  it('restores a persisted palette and mode', () => {
+    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'angular');
+    localStorage.setItem(NGC_THEME_MODE_STORAGE_KEY, 'light');
 
     const service = themeService();
 
-    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBeNull();
-    service.setTheme('light');
-    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe('light');
+    expect(service.palette()).toBe('angular');
+    expect(service.mode()).toBe('light');
+    expect(root().getAttribute('data-theme-mode')).toBe('light');
   });
 
-  describe('theme scheme', () => {
+  it('ignores invalid persisted values', () => {
+    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'neon');
+    localStorage.setItem(NGC_THEME_MODE_STORAGE_KEY, 'dim');
+
+    const service = themeService();
+
+    expect(service.palette()).toBe('neutral');
+    expect(service.mode()).toBe('auto');
+  });
+
+  it.each([
+    ['light', 'neutral', 'light'],
+    ['dark', 'neutral', 'dark'],
+    ['angular-light', 'angular', 'light'],
+    ['angular-dark', 'angular', 'dark'],
+  ] as const)('migrates the old stored theme %s to %s + %s and rewrites it', (legacy, palette, mode) => {
+    localStorage.setItem(NGC_THEME_STORAGE_KEY, legacy);
+
+    const service = themeService();
+
+    expect(service.palette()).toBe(palette);
+    expect(service.mode()).toBe(mode);
+    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBe(palette);
+    expect(localStorage.getItem(NGC_THEME_MODE_STORAGE_KEY)).toBe(mode);
+  });
+
+  describe('pinned palette', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({ providers: [provideNgcPalette('angular')] });
+    });
+
+    it('runs on the pinned palette', () => {
+      expect(themeService().palette()).toBe('angular');
+      expect(root().getAttribute('data-theme')).toBe('angular');
+    });
+
+    it('ignores a persisted palette but keeps the persisted mode', () => {
+      localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
+
+      const service = themeService();
+
+      expect(service.palette()).toBe('angular');
+      expect(service.mode()).toBe('dark');
+    });
+  });
+
+  describe('server platform', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
-        providers: [provideNgcThemeScheme({ light: 'angular-light', dark: 'angular-dark' })],
+        providers: [provideNgcPalette('angular'), { provide: PLATFORM_ID, useValue: 'server' }],
       });
     });
 
-    it('resolves the first visit to the scheme pair by OS preference', () => {
-      expect(themeService().theme()).toBe('angular-light');
-    });
+    it('renders the app palette in auto mode without reading storage', () => {
+      localStorage.setItem(NGC_THEME_MODE_STORAGE_KEY, 'dark');
 
-    it('picks the dark member of the scheme for dark OS preferences', () => {
-      stubPrefersDark(true);
-
-      expect(themeService().theme()).toBe('angular-dark');
-    });
-
-    it('lets a persisted choice win over the scheme', () => {
-      localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
-
-      expect(themeService().theme()).toBe('dark');
-    });
-
-    it('falls back to the light member on the server platform', () => {
-      // A dark OS preference must not leak in – the server knows none.
-      stubPrefersDark(true);
-      TestBed.configureTestingModule({ providers: [{ provide: PLATFORM_ID, useValue: 'server' }] });
-
-      expect(themeService().theme()).toBe('angular-light');
-    });
-  });
-
-  it('prefers the persisted theme over the OS preference', () => {
-    stubPrefersDark(true);
-    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'angular-light');
-
-    expect(themeService().theme()).toBe('angular-light');
-  });
-
-  it('prefers the provided initial theme over the persisted one', () => {
-    localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
-    TestBed.configureTestingModule({
-      providers: [{ provide: NGC_INITIAL_THEME, useValue: 'angular-light' }],
-    });
-
-    expect(themeService().theme()).toBe('angular-light');
-  });
-
-  it('does not touch localStorage on the server platform', () => {
-    TestBed.configureTestingModule({
-      providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
-    });
-
-    const service = themeService();
-    service.setTheme('dark');
-    TestBed.tick();
-
-    expect(documentElement().getAttribute('data-theme')).toBe('dark');
-    expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBeNull();
-  });
-
-  describe('OS preference changes (review 2026-10-04 L-09)', () => {
-    type ChangeListener = (event: { matches: boolean }) => void;
-
-    const stubMediaQuery = (prefersDark: boolean) => {
-      const listeners = new Set<ChangeListener>();
-      Object.defineProperty(window, 'matchMedia', {
-        configurable: true,
-        value: (query: string) =>
-          ({
-            matches: prefersDark && query.includes('dark'),
-            addEventListener: (_type: 'change', listener: ChangeListener) => listeners.add(listener),
-            removeEventListener: (_type: 'change', listener: ChangeListener) => listeners.delete(listener),
-          }) as unknown as MediaQueryList,
-      });
-      return { listeners, change: (matches: boolean) => listeners.forEach((listener) => listener({ matches })) };
-    };
-
-    it('follows an OS change while the visitor has not chosen a theme', () => {
-      const media = stubMediaQuery(false);
       const service = themeService();
 
-      media.change(true);
-      TestBed.tick();
-
-      expect(service.theme()).toBe('dark');
-      expect(documentElement().getAttribute('data-theme')).toBe('dark');
-      expect(localStorage.getItem(NGC_THEME_STORAGE_KEY)).toBeNull();
+      expect(service.mode()).toBe('auto');
+      expect(root().getAttribute('data-theme')).toBe('angular');
+      expect(root().hasAttribute('data-theme-mode')).toBe(false);
     });
 
-    it('stops following the OS after an explicit choice', () => {
-      const media = stubMediaQuery(false);
+    it('does not touch localStorage', () => {
       const service = themeService();
-
-      service.setTheme('angular-light');
-      media.change(true);
+      service.setMode('dark');
       TestBed.tick();
 
-      expect(service.theme()).toBe('angular-light');
-    });
-
-    it('does not listen at all when a theme is persisted', () => {
-      localStorage.setItem(NGC_THEME_STORAGE_KEY, 'dark');
-      const media = stubMediaQuery(false);
-
-      expect(themeService().theme()).toBe('dark');
-      expect(media.listeners.size).toBe(0);
-    });
-
-    it('removes the listener when the injector is destroyed', () => {
-      const media = stubMediaQuery(false);
-      themeService();
-      expect(media.listeners.size).toBe(1);
-
-      TestBed.resetTestingModule();
-
-      expect(media.listeners.size).toBe(0);
+      expect(root().getAttribute('data-theme-mode')).toBe('dark');
+      expect(localStorage.getItem(NGC_THEME_MODE_STORAGE_KEY)).toBeNull();
     });
   });
 
-  describe('isNgcTheme', () => {
-    it('accepts all built-in themes and rejects anything else', () => {
-      expect(isNgcTheme('light')).toBe(true);
-      expect(isNgcTheme('angular-dark')).toBe(true);
-      expect(isNgcTheme('neon')).toBe(false);
-      expect(isNgcTheme(undefined)).toBe(false);
+  describe('type guards', () => {
+    it('accept the built-in palettes and modes and reject anything else', () => {
+      expect(isNgcPalette('angular')).toBe(true);
+      expect(isNgcPalette('angular-dark')).toBe(false);
+      expect(isNgcThemeMode('auto')).toBe(true);
+      expect(isNgcThemeMode('neon')).toBe(false);
+      expect(isNgcThemeMode(undefined)).toBe(false);
     });
   });
 });

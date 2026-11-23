@@ -1,5 +1,6 @@
-// WCAG 2.x contrast gate for the four ngc themes (review 2026-10-04 L-03/L-04/L-05).
-// Parses the oklch() tokens of every _theme-*.scss and checks the pairs the
+// WCAG 2.x contrast gate for the ngc palettes, light and dark (review 2026-10-04 L-03/L-04/L-05).
+// Parses the oklch() tokens of every _theme-*.scss – plain values and both
+// halves of light-dark(<light>, <dark>) – and checks the pairs the
 // components actually render: text on its surface (>= 4.5:1) and control
 // boundaries / focus rings on the page (>= 3:1, WCAG 1.4.11). Reports every
 // failing pair, then exits 1. Run: node libs/ng-components/core/tools/check-contrast.mjs
@@ -34,14 +35,28 @@ const PAIRS = [
   ['ring', 'card', 3],
 ];
 
-const TOKEN = /--([a-z-]+):\s*oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)deg(?:\s*\/\s*([\d.]+)%)?\)/g;
+const TOKEN = /--([a-z-]+):\s*([^;]+);/g;
+const OKLCH = /oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)deg(?:\s*\/\s*([\d.]+)%)?\)/g;
+const SCHEMES = ['light', 'dark'];
 
-function parseTheme(file) {
-  const tokens = new Map();
-  for (const match of readFileSync(file, 'utf8').matchAll(TOKEN)) {
-    tokens.set(match[1], { l: +match[2] / 100, c: +match[3], h: +match[4], alpha: match[5] ? +match[5] / 100 : 1 });
+/** Token maps per scheme: a light-dark() value splits, a plain oklch() value counts for both. */
+function parsePalette(file) {
+  const schemes = { light: new Map(), dark: new Map() };
+  for (const [, name, value] of readFileSync(file, 'utf8').matchAll(TOKEN)) {
+    const colors = [...value.matchAll(OKLCH)].map((match) => ({
+      l: +match[1] / 100,
+      c: +match[2],
+      h: +match[3],
+      alpha: match[4] ? +match[4] / 100 : 1,
+    }));
+    if (colors.length === 0) {
+      continue;
+    }
+    const [light, dark] = value.trimStart().startsWith('light-dark(') ? colors : [colors[0], colors[0]];
+    schemes.light.set(name, light);
+    schemes.dark.set(name, dark);
   }
-  return tokens;
+  return schemes;
 }
 
 function oklchToLinearSrgb({ l, c, h }) {
@@ -63,7 +78,7 @@ const linear = (v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4);
 const luminance = ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
 
 /**
- * Translucent foregrounds (the dark themes' borders) are composited over the
+ * Translucent foregrounds (the dark borders) are composited over the
  * background the way the browser does it – in gamma-encoded sRGB, not in
  * linear light – before the luminance is taken.
  */
@@ -80,20 +95,23 @@ let failures = 0;
 for (const file of readdirSync(stylesDir)
   .filter((name) => /^_theme-.*\.scss$/.test(name))
   .sort()) {
-  const tokens = parseTheme(join(stylesDir, file));
-  const theme = file.replace(/^_theme-|\.scss$/g, '');
-  for (const [fg, bg, min] of PAIRS) {
-    const foreground = tokens.get(fg);
-    const background = tokens.get(bg);
-    if (!foreground || !background) {
-      console.error(`${theme}: missing token --${foreground ? bg : fg}`);
-      failures++;
-      continue;
-    }
-    const ratio = contrast(foreground, background);
-    if (ratio < min) {
-      console.error(`${theme}: --${fg} on --${bg} is ${ratio.toFixed(2)}:1, needs ${min}:1`);
-      failures++;
+  const palette = file.replace(/^_theme-|\.scss$/g, '');
+  const schemes = parsePalette(join(stylesDir, file));
+  for (const scheme of SCHEMES) {
+    const tokens = schemes[scheme];
+    for (const [fg, bg, min] of PAIRS) {
+      const foreground = tokens.get(fg);
+      const background = tokens.get(bg);
+      if (!foreground || !background) {
+        console.error(`${palette} ${scheme}: missing token --${foreground ? bg : fg}`);
+        failures++;
+        continue;
+      }
+      const ratio = contrast(foreground, background);
+      if (ratio < min) {
+        console.error(`${palette} ${scheme}: --${fg} on --${bg} is ${ratio.toFixed(2)}:1, needs ${min}:1`);
+        failures++;
+      }
     }
   }
 }
@@ -101,4 +119,4 @@ for (const file of readdirSync(stylesDir)
 if (failures > 0) {
   process.exit(1);
 }
-console.log('check-contrast: all theme token pairs pass');
+console.log('check-contrast: all palette token pairs pass in light and dark');

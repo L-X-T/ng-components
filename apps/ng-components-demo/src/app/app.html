@@ -65,13 +65,25 @@
 
       <button
         ngc-select
-        class="shell__theme-select"
-        aria-label="Theme"
-        [value]="themeService.theme()"
-        (valueChange)="onThemeChange($event)"
+        class="shell__theme-select shell__theme-select--palette"
+        aria-label="Theme palette"
+        [value]="themeService.palette()"
+        (valueChange)="onPaletteChange($event)"
       >
-        @for (theme of themeOptions; track theme.id) {
-          <ngc-select-option [value]="theme.id">{{ theme.label }}</ngc-select-option>
+        @for (palette of paletteOptions; track palette.id) {
+          <ngc-select-option [value]="palette.id">{{ palette.label }}</ngc-select-option>
+        }
+      </button>
+
+      <button
+        ngc-select
+        class="shell__theme-select shell__theme-select--mode"
+        aria-label="Theme mode"
+        [value]="themeService.mode()"
+        (valueChange)="onModeChange($event)"
+      >
+        @for (mode of modeOptions; track mode.id) {
+          <ngc-select-option [value]="mode.id">{{ mode.label }}</ngc-select-option>
         }
       </button>
 

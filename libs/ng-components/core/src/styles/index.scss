@@ -5,10 +5,9 @@
 
 @use 'tokens';
 @use 'motion';
-@use 'theme-light';
-@use 'theme-dark';
-@use 'theme-angular-light';
-@use 'theme-angular-dark';
+@use 'color-scheme';
+@use 'theme-neutral';
+@use 'theme-angular';
 
 // Global styles for directive-only components (spec 001 §3) – one file per
 // component under components/, added as each wave lands:

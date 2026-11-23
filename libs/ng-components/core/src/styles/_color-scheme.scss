@@ -1,0 +1,17 @@
+// Theme mode: the palettes define every token with light-dark(), so the mode
+// only sets the root's color-scheme (which also drives native controls and
+// scrollbars). No `data-theme-mode` attribute means auto – follow the OS.
+
+@layer ngc {
+  :root {
+    color-scheme: light dark;
+  }
+
+  [data-theme-mode='light'] {
+    color-scheme: light;
+  }
+
+  [data-theme-mode='dark'] {
+    color-scheme: dark;
+  }
+}

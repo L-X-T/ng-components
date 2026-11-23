@@ -69,8 +69,8 @@ test.describe('shell', () => {
       const firstLink = page.getByRole('navigation', { name: 'Components', exact: true }).getByRole('link').first();
 
       await expect(firstLink).toBeHidden();
-      // Tab order: skip link, menu, logo, search, theme, GitHub – then into the content, never a sidebar link.
-      for (let press = 0; press < 7; press++) {
+      // Tab order: skip link, menu, logo, search, palette, mode, GitHub – then into the content, never a sidebar link.
+      for (let press = 0; press < 8; press++) {
         await page.keyboard.press('Tab');
         const inSidebar = await page.evaluate(() => document.activeElement?.closest('.shell__sidebar') !== null);
         expect(inSidebar).toBe(false);

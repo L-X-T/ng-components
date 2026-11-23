@@ -15,7 +15,13 @@ import { filter, map, skip, take } from 'rxjs';
 import { DEMO_MANIFEST, demosByCategory } from '@angular-software/ng-component-demos/manifest';
 import { NgcBadge } from '@angular-software/ng-components/badge';
 import { NgcButton } from '@angular-software/ng-components/button';
-import { NGC_THEMES, isNgcTheme, type NgcTheme, NgcThemeService } from '@angular-software/ng-components/core';
+import {
+  isNgcPalette,
+  isNgcThemeMode,
+  NGC_PALETTES,
+  NGC_THEME_MODES,
+  NgcThemeService,
+} from '@angular-software/ng-components/core';
 import { NgcDialog, NgcDialogOverlay, NgcDialogTrigger } from '@angular-software/ng-components/dialog';
 import { NgcSelect, NgcSelectOption } from '@angular-software/ng-components/select';
 import { CommandPalette } from './command-palette/command-palette';
@@ -23,14 +29,13 @@ import { CommandPalette } from './command-palette/command-palette';
 /** Breathing room between the sticky header and an anchor target. */
 const ANCHOR_SCROLL_GAP_PX = 16;
 
-/** Display label for a theme id: `angular-dark` → `Angular dark`. */
-export function themeLabel(theme: NgcTheme): string {
-  const words = theme.replace('-', ' ');
-  return words.charAt(0).toUpperCase() + words.slice(1);
+/** Display label for a palette or mode id: `angular` → `Angular`. */
+export function themeOptionLabel(id: string): string {
+  return id.charAt(0).toUpperCase() + id.slice(1);
 }
 
 /**
- * Demo app shell: header (logo, ⌘K search, theme switcher, GitHub link),
+ * Demo app shell: header (logo, ⌘K search, palette and mode switchers, GitHub link),
  * manifest-driven sidebar (ngc-badge status markers), content area. The
  * command palette opens via the search button or Cmd/Ctrl+K (plan 003 M3.3).
  * `data-hydrated` appears once the first navigation has resolved its lazy
@@ -64,7 +69,8 @@ export class App {
   private readonly injector = inject(Injector);
   private readonly router = inject(Router);
   protected readonly themeService = inject(NgcThemeService);
-  protected readonly themeOptions = NGC_THEMES.map((theme) => ({ id: theme, label: themeLabel(theme) }));
+  protected readonly paletteOptions = NGC_PALETTES.map((id) => ({ id, label: themeOptionLabel(id) }));
+  protected readonly modeOptions = NGC_THEME_MODES.map((id) => ({ id, label: themeOptionLabel(id) }));
   protected readonly hydrated = signal(false);
   /**
    * Skip-link target on the current URL: a bare `#main` resolves against
@@ -133,9 +139,15 @@ export class App {
     }
   }
 
-  protected onThemeChange(value: string): void {
-    if (isNgcTheme(value)) {
-      this.themeService.setTheme(value);
+  protected onPaletteChange(value: string): void {
+    if (isNgcPalette(value)) {
+      this.themeService.setPalette(value);
+    }
+  }
+
+  protected onModeChange(value: string): void {
+    if (isNgcThemeMode(value)) {
+      this.themeService.setMode(value);
     }
   }
 

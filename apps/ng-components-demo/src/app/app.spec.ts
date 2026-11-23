@@ -33,13 +33,16 @@ describe('App', () => {
     expect(nav.querySelector('h2.shell__nav-category')?.textContent?.trim()).toBe('form');
   });
 
-  it('renders the theme switcher as an ngc-select showing the active theme', () => {
+  it('renders palette and mode switchers as ngc-selects showing the active choice', () => {
     const compiled = render();
 
-    // The four theme options render inside the dropdown portal, which needs
-    // real browser APIs to open – covered by the demo e2e suite.
-    const trigger = compiled.querySelector('.shell__theme-select');
-    expect(trigger?.getAttribute('role')).toBe('combobox');
-    expect(trigger?.textContent).toContain('Light');
+    // The options render inside the dropdown portal, which needs real browser
+    // APIs to open – covered by the demo e2e suite.
+    const palette = compiled.querySelector('.shell__theme-select--palette');
+    const mode = compiled.querySelector('.shell__theme-select--mode');
+    expect(palette?.getAttribute('role')).toBe('combobox');
+    expect(palette?.textContent).toContain('Neutral');
+    expect(mode?.getAttribute('role')).toBe('combobox');
+    expect(mode?.textContent).toContain('Auto');
   });
 });

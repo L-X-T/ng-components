@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="neutral">
   <head>
     <meta charset="utf-8" />
     <title>ng-components – Angular component library</title>
@@ -7,26 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="ng-components – a shadcn-style Angular component library: composable, token-themed, plain SCSS, four built-in themes."
+      content="ng-components – a shadcn-style Angular component library: composable, token-themed, plain SCSS, built-in palettes in light, dark and auto mode."
     />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <!-- No-flash theme restore: set data-theme before first paint. Key,
-         values, and the prefers-color-scheme fallback must match ThemeService
-         (NGC_THEME_STORAGE_KEY / NGC_THEMES / resolveInitialTheme) – guarded
-         by theme-init-script.spec.ts. -->
+    <!-- No-flash theme restore: apply a persisted palette and explicit mode
+         before first paint (no data-theme-mode means auto – CSS follows the
+         OS). Keys, values, and the migration of the old flat theme ids must
+         match NgcThemeService (NGC_THEME_STORAGE_KEY /
+         NGC_THEME_MODE_STORAGE_KEY / NGC_PALETTES / NGC_THEME_MODES) –
+         guarded by theme-init-script.spec.ts. -->
     <script>
       (function () {
-        var theme = null;
+        var legacy = {
+          light: ['neutral', 'light'],
+          dark: ['neutral', 'dark'],
+          'angular-light': ['angular', 'light'],
+          'angular-dark': ['angular', 'dark'],
+        };
+        var palette = null;
+        var mode = null;
         try {
-          theme = localStorage.getItem('ngc-theme');
+          var stored = localStorage.getItem('ngc-theme');
+          if (stored && legacy.hasOwnProperty(stored)) {
+            localStorage.setItem('ngc-theme', legacy[stored][0]);
+            localStorage.setItem('ngc-theme-mode', legacy[stored][1]);
+          }
+          palette = localStorage.getItem('ngc-theme');
+          mode = localStorage.getItem('ngc-theme-mode');
         } catch (e) {
-          /* storage unavailable – fall through to the preference default */
+          /* storage unavailable – keep the static palette in auto mode */
         }
-        if (['light', 'dark', 'angular-light', 'angular-dark'].indexOf(theme) === -1) {
-          theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : null;
+        if (['neutral', 'angular'].indexOf(palette) !== -1) {
+          document.documentElement.setAttribute('data-theme', palette);
         }
-        if (theme) {
-          document.documentElement.setAttribute('data-theme', theme);
+        if (['light', 'dark'].indexOf(mode) !== -1) {
+          document.documentElement.setAttribute('data-theme-mode', mode);
         }
       })();
     </script>

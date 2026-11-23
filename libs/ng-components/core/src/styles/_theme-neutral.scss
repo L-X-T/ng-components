@@ -1,0 +1,48 @@
+// Neutral palette (shadcn defaults, ported from component-libs/zardui).
+// Doubles as the `:root` fallback so everything renders without a
+// `data-theme` attribute. Every token carries its light and dark value via
+// light-dark(); the root's color-scheme (_color-scheme.scss) picks one.
+
+@layer ngc {
+  :root,
+  [data-theme='neutral'] {
+    --radius: 0.625rem;
+    --background: light-dark(oklch(100% 0 0deg), oklch(14.5% 0 0deg));
+    --foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --card: light-dark(oklch(100% 0 0deg), oklch(20.5% 0 0deg));
+    --card-foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --popover: light-dark(oklch(100% 0 0deg), oklch(26.9% 0 0deg));
+    --popover-foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --primary: light-dark(oklch(20.5% 0 0deg), oklch(92.2% 0 0deg));
+    --primary-hover: light-dark(oklch(30% 0 0deg), oklch(84% 0 0deg));
+    --primary-foreground: light-dark(oklch(98.5% 0 0deg), oklch(20.5% 0 0deg));
+    --secondary: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));
+    --secondary-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
+    --muted: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));
+    --muted-foreground: light-dark(oklch(54% 0 0deg), oklch(70.8% 0 0deg));
+    --accent: light-dark(oklch(97% 0 0deg), oklch(37.1% 0 0deg));
+    --accent-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
+
+    // Dark: also used as error text on --background/--card – light fill, dark
+    // text (like --primary there) keeps every use >= 4.5:1 (review 2026-10-04 L-03).
+    --destructive: light-dark(oklch(57.7% 0.245 27.325deg), oklch(66% 0.191 22.216deg));
+    --destructive-hover: light-dark(oklch(52% 0.235 27.325deg), oklch(72% 0.18 22.216deg));
+    --destructive-foreground: light-dark(oklch(98.5% 0 0deg), oklch(14.5% 0 0deg));
+    --border: light-dark(oklch(92.2% 0 0deg), oklch(100% 0 0deg / 10%));
+
+    // Control border and focus ring at >= 3:1 on --background (WCAG 1.4.11,
+    // review 2026-10-04). Light: shadcn's 92.2% / 70.8% greys measured 1.26 /
+    // 2.59. Dark: opaque border at >= 3:1 on --background and --card – the
+    // translucent 15% white composited to 1.47.
+    --input: light-dark(oklch(65% 0 0deg), oklch(52% 0 0deg));
+    --ring: light-dark(oklch(60% 0 0deg), oklch(55.6% 0 0deg));
+    --sidebar: light-dark(oklch(98.5% 0 0deg), oklch(20.5% 0 0deg));
+    --sidebar-foreground: light-dark(oklch(14.5% 0 0deg), oklch(98.5% 0 0deg));
+    --sidebar-primary: light-dark(oklch(20.5% 0 0deg), oklch(48.8% 0.243 264.376deg));
+    --sidebar-primary-foreground: oklch(98.5% 0 0deg);
+    --sidebar-accent: light-dark(oklch(97% 0 0deg), oklch(26.9% 0 0deg));
+    --sidebar-accent-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
+    --sidebar-border: light-dark(oklch(92.2% 0 0deg), oklch(100% 0 0deg / 10%));
+    --sidebar-ring: light-dark(oklch(60% 0 0deg), oklch(43.9% 0 0deg));
+  }
+}
