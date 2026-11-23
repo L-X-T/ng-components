@@ -40,6 +40,14 @@
         "tsConfig": "libs/ng-components/tsconfig.lib.prod.json"
       }
     },
+    "nx-release-publish": {
+      "executor": "nx:run-commands",
+      "dependsOn": [],
+      "options": {
+        "forwardAllArgs": false,
+        "command": "node -e \"console.error('Publishing @agentic-software/ng-components is a manual step and never runs through Nx. See RELEASING.md.'); process.exit(1)\""
+      }
+    },
     "pack": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
