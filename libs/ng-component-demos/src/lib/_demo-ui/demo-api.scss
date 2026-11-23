@@ -37,6 +37,10 @@
     &--name {
       display: flex;
       flex-wrap: wrap;
+
+      // Keep name and badge together at the top of tall rows, level with the
+      // other cells, instead of stretching the wrapped lines apart.
+      align-content: start;
       align-items: center;
       gap: 0.25rem 0.5rem;
     }
