@@ -1,0 +1,24 @@
+{
+  "name": "ng-components-workspace",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "typecheck-specs": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "{workspaceRoot}/apps/**/*.ts",
+        "{workspaceRoot}/libs/**/*.ts",
+        "{workspaceRoot}/tools/**/*.ts",
+        "{workspaceRoot}/apps/**/tsconfig*.json",
+        "{workspaceRoot}/libs/**/tsconfig*.json",
+        "{workspaceRoot}/tools/**/tsconfig*.json",
+        "{workspaceRoot}/tsconfig.base.json",
+        "{workspaceRoot}/tools/typecheck-specs.mjs"
+      ],
+      "dependsOn": [{ "projects": ["ng-component-demos"], "target": "generate-snippets" }],
+      "options": {
+        "command": "node tools/typecheck-specs.mjs"
+      }
+    }
+  }
+}

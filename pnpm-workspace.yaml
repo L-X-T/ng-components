@@ -1,0 +1,14 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  esbuild: true
+  less: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  unrs-resolver: true
+
+overrides:
+  # Nx 24.0.6 loads `@angular-devkit/architect/node/index.js`, which the 0.2203 exports map rejects
+  # (nrwl/nx#37955, fixed in nrwl/nx#37951). Drop this together with the Angular 22.3 bump.
+  '@angular-devkit/architect': 0.2202.8

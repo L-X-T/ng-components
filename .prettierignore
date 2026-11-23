@@ -1,0 +1,14 @@
+/.angular
+/coverage
+/dist
+/labs
+/node_modules
+/component-libs
+
+# pnpm owns this file's format; prettier would fight the lockfile generator
+/pnpm-lock.yaml
+
+.angular
+
+# Generated demo snippet artifacts
+**/*.snippet.ts
