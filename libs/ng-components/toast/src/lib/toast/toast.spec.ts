@@ -25,8 +25,10 @@ describe('NgcToast', () => {
     const { element } = show('Article published');
 
     // The container is the live region; the toast itself must not repeat
-    // role/aria-live or screen readers announce twice.
-    expect(document.body.querySelectorAll('[aria-live]:not([aria-live="off"])')).toHaveLength(1);
+    // role/aria-live or screen readers announce twice. ng-primitives creates an
+    // (empty) container per placement up front, so count only the ones around the toast.
+    const liveRegions = Array.from(document.body.querySelectorAll('[aria-live]:not([aria-live="off"])'));
+    expect(liveRegions.filter((region) => element && region.contains(element))).toHaveLength(1);
     expect(element?.closest('[aria-live="polite"]')).toBeTruthy();
     expect(element?.getAttribute('role')).toBeNull();
     expect(element?.getAttribute('aria-live')).toBeNull();

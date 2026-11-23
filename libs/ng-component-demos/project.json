@@ -7,7 +7,17 @@
   "tags": ["type:demos"],
   "targets": {
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/eslint.config.mjs",
+        "{workspaceRoot}/tools/eslint-rules/**/*",
+        {
+          "externalDependencies": ["eslint"]
+        }
+      ]
     },
     "test": {
       "dependsOn": ["generate-snippets"]
@@ -22,7 +32,9 @@
         "{projectRoot}/src/lib/**/examples/*.example.ts",
         "{projectRoot}/src/lib/**/examples/*.example.html",
         "{projectRoot}/tools/generate-snippets.mjs",
-        { "externalDependencies": ["shiki"] }
+        {
+          "externalDependencies": ["shiki"]
+        }
       ],
       "outputs": ["{projectRoot}/src/lib/**/*.snippet.ts"],
       "options": {

@@ -6,6 +6,15 @@
   "sourceRoot": "apps/ng-components-demo/src",
   "tags": ["type:app"],
   "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["production", "^production", { "externalDependencies": ["typescript"] }],
+      "options": {
+        "command": "tsc --noEmit -p tsconfig.app.json",
+        "cwd": "apps/ng-components-demo"
+      }
+    },
     "build": {
       "executor": "@angular/build:application",
       "outputs": ["{options.outputPath}"],
@@ -53,10 +62,10 @@
       "continuous": true,
       "executor": "@angular/build:dev-server",
       "dependsOn": ["ng-component-demos:generate-snippets"],
+      "defaultConfiguration": "development",
       "options": {
         "port": 6800
       },
-      "defaultConfiguration": "development",
       "configurations": {
         "production": {
           "buildTarget": "ng-components-demo:build:production"
@@ -64,14 +73,31 @@
         "development": {
           "buildTarget": "ng-components-demo:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/eslint.config.mjs",
+        "{workspaceRoot}/tools/eslint-rules/**/*",
+        {
+          "externalDependencies": ["eslint"]
+        }
+      ]
     },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
+      "readyWhen": {
+        "signal": true
+      },
+      "dependsOn": ["build"],
       "options": {
         "buildTarget": "ng-components-demo:build",
         "port": 6800,
