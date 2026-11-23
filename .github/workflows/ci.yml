@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    # Weekly full (non-affected) run – catches rot the affected graph skips.
+    - cron: '43 5 * * 1'
+
+permissions:
+  actions: read
+  contents: read
+
+# One run per ref; only PRs cancel superseded runs.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: tree:0
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Derives base/head SHAs for `nx affected`
+      - uses: nrwl/nx-set-shas@v4
+
+      # Persist the Nx computation cache between runs. The sha keeps every run
+      # saving a fresh entry; restore-keys picks the nearest previous one.
+      - uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: |
+            nx-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      - run: pnpm nx format:check
+
+      - run: pnpm stylelint
+
+      # WCAG contrast of every rendered token pair in every palette.
+      - run: pnpm nx run core:check-contrast
+
+      # Playwright browsers: cache by version instead of downloading each run;
+      # on a cache hit only the system deps are installed.
+      - id: playwright-version
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ steps.playwright-version.outputs.version }}
+      - if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium --with-deps
+      - if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      # Pushes and PRs test what changed; the weekly schedule runs everything.
+      # `build` includes the npm package (project ng-components).
+      - if: github.event_name != 'schedule'
+        run: pnpm nx affected -t lint,test,build,e2e,typecheck
+      - if: github.event_name == 'schedule'
+        run: pnpm nx run-many -t lint,test,build,e2e,typecheck --all
+
+      # Spec/tools files are excluded from the per-project typecheck target;
+      # this one covers every tsconfig.spec.json (see tools/typecheck-specs.mjs).
+      - run: pnpm nx run ng-components-workspace:typecheck-specs
+
+      # The package must always pack cleanly, whatever the affected set.
+      - run: pnpm nx run ng-components:pack
+
+      # Generated artifacts must never be tracked, and no task may mutate a
+      # tracked file.
+      - run: |
+          tracked=$(git ls-files '**/*.snippet.ts')
+          if [ -n "$tracked" ]; then
+            echo "tracked generated artifact(s):"; echo "$tracked"; exit 1
+          fi
+          git diff --exit-code
+
+      # Playwright HTML report of the demo e2e suite
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && hashFiles('dist/.playwright/**') != '' }}
+        with:
+          name: playwright-reports
+          path: dist/.playwright/apps/*/report
+          retention-days: 14

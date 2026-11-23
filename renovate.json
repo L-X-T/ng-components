@@ -1,0 +1,29 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard", ":timezone(Europe/Vienna)"],
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "groupName": "Angular",
+      "matchPackageNames": ["/^@angular\\//", "/^@angular-devkit\\//", "/^@schematics\\//"]
+    },
+    {
+      "groupName": "Nx",
+      "matchPackageNames": ["nx", "/^@nx\\//"]
+    },
+    {
+      "groupName": "Playwright",
+      "matchPackageNames": ["/^@playwright\\//", "/^playwright/"]
+    },
+    {
+      "description": "ng-primitives is pre-1.0: every 0.x release may break the wrapped primitives. Upgrade deliberately via the dependency dashboard (see style-guide/style-guide.npm.md).",
+      "matchPackageNames": ["ng-primitives"],
+      "dependencyDashboardApproval": true
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on the first day of the month"]
+  }
+}
