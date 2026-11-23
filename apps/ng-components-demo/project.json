@@ -58,6 +58,13 @@
         }
       }
     },
+    "assemble-webroot": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "node apps/ng-components-demo/deploy/assemble-webroot.mjs"
+      }
+    },
     "serve": {
       "continuous": true,
       "executor": "@angular/build:dev-server",
