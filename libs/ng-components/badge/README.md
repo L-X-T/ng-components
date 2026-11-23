@@ -1,7 +1,5 @@
-# badge
+# @agentic-software/ng-components/badge
 
-This library was generated with [Nx](https://nx.dev).
+Displays a badge or a component that looks like a badge.
 
-## Running unit tests
-
-Run `nx test badge` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/badge](https://designsystem.angular.st/components/badge).

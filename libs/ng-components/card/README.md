@@ -1,7 +1,5 @@
-# card
+# @agentic-software/ng-components/card
 
-This library was generated with [Nx](https://nx.dev).
+Container with header, content, and footer.
 
-## Running unit tests
-
-Run `nx test card` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/card](https://designsystem.angular.st/components/card).

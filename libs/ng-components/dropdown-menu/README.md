@@ -1,7 +1,5 @@
-# dropdown-menu
+# @agentic-software/ng-components/dropdown-menu
 
-This library was generated with [Nx](https://nx.dev).
+Menu of actions opened from a trigger.
 
-## Running unit tests
-
-Run `nx test dropdown-menu` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/dropdown-menu](https://designsystem.angular.st/components/dropdown-menu).

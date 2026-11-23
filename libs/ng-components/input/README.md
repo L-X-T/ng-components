@@ -1,7 +1,5 @@
-# input
+# @agentic-software/ng-components/input
 
-This library was generated with [Nx](https://nx.dev).
+Text input field.
 
-## Running unit tests
-
-Run `nx test input` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/input](https://designsystem.angular.st/components/input).

@@ -1,7 +1,5 @@
-# tabs
+# @agentic-software/ng-components/tabs
 
-This library was generated with [Nx](https://nx.dev).
+Layered sections of content shown one at a time.
 
-## Running unit tests
-
-Run `nx test tabs` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/tabs](https://designsystem.angular.st/components/tabs).

@@ -1,7 +1,5 @@
-# checkbox
+# @agentic-software/ng-components/checkbox
 
-This library was generated with [Nx](https://nx.dev).
+Control for checking or unchecking an option.
 
-## Running unit tests
-
-Run `nx test checkbox` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/checkbox](https://designsystem.angular.st/components/checkbox).

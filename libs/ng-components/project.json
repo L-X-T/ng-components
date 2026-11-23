@@ -1,0 +1,52 @@
+{
+  "name": "ng-components",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/ng-components/src",
+  "prefix": "ngc",
+  "projectType": "library",
+  "tags": ["type:components"],
+  "targets": {
+    "lint": {
+      "options": {
+        "command": "eslint src tools *.json"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "dependsOn": ["build-ng-packagr"],
+      "inputs": [
+        "{projectRoot}/*.json",
+        "{projectRoot}/*.md",
+        "{projectRoot}/LICENSE",
+        "{projectRoot}/tools/rewrite-source-maps.mjs",
+        "{workspaceRoot}/libs/ng-components/**/src/**/*",
+        "{workspaceRoot}/libs/ng-components/**/ng-package.json",
+        "{workspaceRoot}/libs/ng-components/**/README.md",
+        "!{workspaceRoot}/libs/ng-components/**/*.spec.ts",
+        "!{workspaceRoot}/libs/ng-components/**/test-setup.ts",
+        { "externalDependencies": ["ng-packagr", "@angular/compiler-cli", "typescript"] }
+      ],
+      "outputs": ["{workspaceRoot}/dist/libs/ng-components"],
+      "options": {
+        "command": "node libs/ng-components/tools/rewrite-source-maps.mjs"
+      }
+    },
+    "build-ng-packagr": {
+      "executor": "@nx/angular:package",
+      "cache": false,
+      "options": {
+        "project": "libs/ng-components/ng-package.json",
+        "tsConfig": "libs/ng-components/tsconfig.lib.prod.json"
+      }
+    },
+    "pack": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "npm pack --pack-destination ../..",
+        "cwd": "dist/libs/ng-components"
+      }
+    }
+  }
+}

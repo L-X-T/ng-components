@@ -25,7 +25,8 @@ const E2E_COMPONENTS_DIR = 'apps/ng-components-demo-e2e/src/components';
  * Stamps a new ng-components component in one command (spec 001/002/004):
  * - `libs/ng-components/<name>` lib (non-buildable, path alias,
  *   `type:components` tag) with the component/directive skeleton, SCSS, and a
- *   Vitest spec – directive-only components get their SCSS in core's global
+ *   Vitest spec, registered as a secondary entry point of the published
+ *   package (`ng-package.json`, package README) – directive-only components get their SCSS in core's global
  *   stylesheet (`core/src/styles/components/_<name>.scss` + `@use` in
  *   `index.scss`), like every shipped directive (spec 001 §3);
  * - a demo stub in ng-component-demos (page + basic example) plus its
@@ -74,6 +75,7 @@ export async function ngcComponentGenerator(
     summary: options.summary ?? `The ${className} component.`,
   };
   generateFiles(tree, joinPathFragments(__dirname, 'files', archetype), projectRoot, substitutions);
+  stampPackageEntryPoint(tree, projectRoot, substitutions);
   if (archetype === 'directive') {
     stampCoreStyles(tree, substitutions);
   }
@@ -108,6 +110,37 @@ type Substitutions = {
   archetype: string;
   summary: string;
 };
+
+/**
+ * Every component lib is a secondary entry point of the one published package
+ * (`@agentic-software/ng-components/<name>`): ng-packagr discovers it through
+ * its `ng-package.json`, and the README replaces the Nx boilerplate because
+ * it ships inside the package.
+ */
+function stampPackageEntryPoint(tree: Tree, projectRoot: string, { fileName, summary }: Substitutions): void {
+  tree.write(
+    joinPathFragments(projectRoot, 'ng-package.json'),
+    `${JSON.stringify(
+      {
+        $schema: '../../../node_modules/ng-packagr/ng-package.schema.json',
+        lib: { entryFile: 'src/index.ts' },
+      },
+      null,
+      2,
+    )}\n`,
+  );
+  tree.write(
+    joinPathFragments(projectRoot, 'README.md'),
+    [
+      `# @agentic-software/ng-components/${fileName}`,
+      '',
+      summary,
+      '',
+      `Examples and the API table: [designsystem.angular.st/components/${fileName}](https://designsystem.angular.st/components/${fileName}).`,
+      '',
+    ].join('\n'),
+  );
+}
 
 /**
  * Directive-only components are styled from core's global stylesheet (spec

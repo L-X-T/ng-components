@@ -1,7 +1,5 @@
-# label
+# @agentic-software/ng-components/label
 
-This library was generated with [Nx](https://nx.dev).
+Accessible label for a form control.
 
-## Running unit tests
-
-Run `nx test label` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/label](https://designsystem.angular.st/components/label).

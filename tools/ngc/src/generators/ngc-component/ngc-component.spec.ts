@@ -39,6 +39,17 @@ describe('ngc-component generator', () => {
     expect(alias[0]).toContain('libs/ng-components/badge/src/index.ts');
   });
 
+  it('registers the lib as a secondary entry point of the package', async () => {
+    await ngcComponentGenerator(tree, { name: 'badge', summary: 'A badge.', skipFormat: true });
+
+    const ngPackage = readJson(tree, 'libs/ng-components/badge/ng-package.json');
+    expect(ngPackage.lib.entryFile).toBe('src/index.ts');
+    const readme = tree.read('libs/ng-components/badge/README.md', 'utf-8') ?? '';
+    expect(readme).toContain('# @agentic-software/ng-components/badge');
+    expect(readme).toContain('A badge.');
+    expect(readme).not.toContain('generated with [Nx]');
+  });
+
   it('generates the component archetype by default', async () => {
     await ngcComponentGenerator(tree, { name: 'card', skipFormat: true });
 

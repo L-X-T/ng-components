@@ -1,7 +1,5 @@
-# dialog
+# @agentic-software/ng-components/dialog
 
-This library was generated with [Nx](https://nx.dev).
+Modal window over the page content.
 
-## Running unit tests
-
-Run `nx test dialog` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/dialog](https://designsystem.angular.st/components/dialog).

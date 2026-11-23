@@ -1,7 +1,5 @@
-# textarea
+# @agentic-software/ng-components/textarea
 
-This library was generated with [Nx](https://nx.dev).
+Multi-line text input field.
 
-## Running unit tests
-
-Run `nx test textarea` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/textarea](https://designsystem.angular.st/components/textarea).

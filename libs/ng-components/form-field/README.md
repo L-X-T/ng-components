@@ -1,7 +1,5 @@
-# form-field
+# @agentic-software/ng-components/form-field
 
-This library was generated with [Nx](https://nx.dev).
+Groups a label, control, hint, and validation errors.
 
-## Running unit tests
-
-Run `nx test form-field` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/form-field](https://designsystem.angular.st/components/form-field).

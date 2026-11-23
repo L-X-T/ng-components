@@ -1,7 +1,5 @@
-# toast
+# @agentic-software/ng-components/toast
 
-This library was generated with [Nx](https://nx.dev).
+Brief notification shown over the page.
 
-## Running unit tests
-
-Run `nx test toast` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/toast](https://designsystem.angular.st/components/toast).

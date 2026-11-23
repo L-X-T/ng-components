@@ -1,7 +1,5 @@
-# tooltip
+# @agentic-software/ng-components/tooltip
 
-This library was generated with [Nx](https://nx.dev).
+Contextual hint shown on hover or focus.
 
-## Running unit tests
-
-Run `nx test tooltip` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/tooltip](https://designsystem.angular.st/components/tooltip).

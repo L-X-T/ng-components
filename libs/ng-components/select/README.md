@@ -1,7 +1,5 @@
-# select
+# @agentic-software/ng-components/select
 
-This library was generated with [Nx](https://nx.dev).
+Dropdown for picking one option from a list.
 
-## Running unit tests
-
-Run `nx test select` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/select](https://designsystem.angular.st/components/select).

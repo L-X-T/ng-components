@@ -1,7 +1,5 @@
-# button
+# @agentic-software/ng-components/button
 
-This library was generated with [Nx](https://nx.dev).
+Displays a button or a component that looks like a button.
 
-## Running unit tests
-
-Run `nx test button` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/button](https://designsystem.angular.st/components/button).

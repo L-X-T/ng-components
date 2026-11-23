@@ -1,7 +1,5 @@
-# radio-group
+# @agentic-software/ng-components/radio-group
 
-This library was generated with [Nx](https://nx.dev).
+Set of mutually exclusive options.
 
-## Running unit tests
-
-Run `nx test radio-group` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/radio-group](https://designsystem.angular.st/components/radio-group).

@@ -1,5 +1,5 @@
 // ng-components global stylesheet. Applications import this once, e.g. in
-// styles.scss: @use 'libs/ng-components/core/src/styles' as ngc-styles;
+// styles.scss: @use '@agentic-software/ng-components/styles' as ngc-styles;
 // All library CSS lives in the `ngc` cascade layer, so unlayered consumer
 // styles always win regardless of specificity or injection order (spec 001 §3).
 

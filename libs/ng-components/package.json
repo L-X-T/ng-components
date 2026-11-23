@@ -1,0 +1,44 @@
+{
+  "name": "@agentic-software/ng-components",
+  "version": "0.1.0",
+  "description": "shadcn-style Angular components without Tailwind, built on ng-primitives, themed with CSS custom properties.",
+  "keywords": [
+    "angular",
+    "components",
+    "ui",
+    "design-system",
+    "shadcn",
+    "ng-primitives",
+    "accessibility",
+    "signals"
+  ],
+  "license": "MIT",
+  "author": "Alexander Thalhammer",
+  "homepage": "https://designsystem.angular.st",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L-X-T/ng-components.git",
+    "directory": "libs/ng-components"
+  },
+  "bugs": {
+    "url": "https://github.com/L-X-T/ng-components/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "ng-primitives": "~0.132.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "exports": {
+    "./styles": {
+      "sass": "./styles/index.scss"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

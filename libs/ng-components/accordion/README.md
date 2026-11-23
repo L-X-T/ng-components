@@ -1,7 +1,5 @@
-# accordion
+# @agentic-software/ng-components/accordion
 
-This library was generated with [Nx](https://nx.dev).
+Vertically stacked set of expandable sections.
 
-## Running unit tests
-
-Run `nx test accordion` to execute the unit tests.
+Examples and the API table: [designsystem.angular.st/components/accordion](https://designsystem.angular.st/components/accordion).
