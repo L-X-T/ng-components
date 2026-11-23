@@ -44,7 +44,9 @@
     flex-direction: column;
     gap: 0.25rem;
 
-    // Fill the stretched grid cell so every card in a row is equally tall.
+    // Fill the stretched grid cell so every card in a row is equally tall;
+    // border-box keeps the padding inside the cell instead of into the next row.
+    box-sizing: border-box;
     height: 100%;
     padding: 1rem;
     border: 1px solid var(--border);

@@ -105,5 +105,12 @@ test.describe('home', () => {
     for (const heights of rows.values()) {
       expect(Math.max(...heights) - Math.min(...heights)).toBeLessThanOrEqual(1);
     }
+
+    // Equal heights must not come from cards spilling into the next row.
+    const rowTops = [...rows.keys()].sort((a, b) => a - b);
+    for (const box of cardBoxes) {
+      const nextTop = rowTops.find((top) => top > Math.round(box.top));
+      expect(box.bottom).toBeLessThanOrEqual((nextTop ?? Infinity) + 0.5);
+    }
   });
 });
