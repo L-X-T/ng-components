@@ -1,4 +1,4 @@
-// Spec/tools typecheck (review 2026-07-11 F1): the inferred per-project
+// Spec/tools typecheck: the inferred per-project
 // `typecheck` target compiles tsconfig.app/lib.json only – spec files are
 // excluded there, and Vitest strips types without checking them. This script
 // runs tsc --noEmit over every tsconfig.spec.json so tests and test harness

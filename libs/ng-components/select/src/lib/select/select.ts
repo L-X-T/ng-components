@@ -106,8 +106,7 @@ export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
    * Label of the selected option for the trigger: the option's `label` input
    * when set (reactive), otherwise its text content. The text-content
    * fallback is a snapshot – it does not update when the projected text
-   * changes later (async/i18n labels); pass `label` in that case (review
-   * 2026-07-11 D6).
+   * changes later (async/i18n labels); pass `label` in that case.
    */
   protected readonly selectedLabel = computed(() => {
     const state = this.state();
@@ -152,9 +151,9 @@ export class NgcSelect<T = string> extends NgcValueAccessor<T | undefined> {
  * (visible while selected) next to the projected label; NgpSelectOption
  * provides role, aria-selected, and the active/selected data attributes.
  * When the projected text can change after creation (async or translated
- * labels), set `label` so the trigger stays in sync (review 2026-07-11 D6).
+ * labels), set `label` so the trigger stays in sync.
  * A disabled option is announced as such – NgpSelectOption only emits
- * `data-disabled` (review 2026-10-04 L-08).
+ * `data-disabled`.
  */
 @Component({
   selector: 'ngc-select-option',

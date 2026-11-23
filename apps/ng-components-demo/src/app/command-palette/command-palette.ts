@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 import { DEMO_MANIFEST, DemoManifestEntry, orderedDemos } from '@ngc-internal/demos/manifest';
 import { NgcInput } from '@agentic-software/ng-components/input';
 
-/** Sidebar order (category, then authored) – the palette must not list differently (review 2026-07-11 E3). */
+/** Sidebar order (category, then authored) – the palette must not list differently. */
 const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);
 
 /** Case-insensitive filter over manifest name and summary, in sidebar order. */
@@ -27,7 +27,7 @@ export function filterDemoEntries(query: string): readonly DemoManifestEntry[] {
 }
 
 /**
- * Command palette content (plan 003 M3.3), rendered inside an ngc-dialog:
+ * Command palette content (spec 003), rendered inside an ngc-dialog:
  * a search input over the manifest with combobox/listbox semantics.
  * ArrowUp/ArrowDown move the active option (wrapping), Enter or click
  * navigates and closes; Escape is handled by the dialog itself.
@@ -57,7 +57,7 @@ export class CommandPalette {
 
   constructor() {
     // Focus stays in the input (activedescendant pattern), so the browser
-    // never scrolls the active option into view on its own (review E6).
+    // never scrolls the active option into view on its own.
     afterRenderEffect(() => {
       const id = this.activeOptionId();
       if (id) {

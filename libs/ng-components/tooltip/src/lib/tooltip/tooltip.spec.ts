@@ -27,7 +27,7 @@ describe('NgcTooltip', () => {
     expect(document.body.querySelector('.ngc-tooltip')).toBeNull();
   });
 
-  it('keeps hover-triggered content hoverable by default and shows without delay (review 2026-10-04 L-07)', () => {
+  it('keeps hover-triggered content hoverable by default and shows without delay', () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
     const trigger = fixture.debugElement.query(By.directive(NgcTooltipTrigger)).injector.get(NgpTooltipTrigger);

@@ -10,7 +10,7 @@ const componentsDir = join(__dirname, 'components');
  * per-component spec file, and every spec file must belong to a manifest
  * entry. The ngc-component generator stamps the skeleton, so this normally
  * never fires – it catches manually added, renamed, emptied, or skipped
- * entries (review 2026-07-11 E10).
+ * entries.
  */
 test('every manifest entry has a non-trivial components/<id>.spec.ts', () => {
   const missing = DEMO_MANIFEST.filter((demo) => !existsSync(join(componentsDir, `${demo.id}.spec.ts`))).map(

@@ -21,7 +21,7 @@ describe('DemoSection', () => {
     const section = fixture.nativeElement.querySelector('ngc-demo-section') as HTMLElement;
     expect(section.id).toBe('form-field');
     expect(outline.outline()).toEqual([{ id: 'form-field', title: 'Form field' }]);
-    // Permalink stays on the route – a bare #hash would resolve against <base href> (review 2026-10-04 D-01).
+    // Permalink stays on the route – a bare #hash would resolve against <base href>.
     const anchor = section.querySelector('.ngc-demo-section__anchor') as HTMLAnchorElement;
     expect(anchor.getAttribute('href')).toBe('/#form-field');
   });

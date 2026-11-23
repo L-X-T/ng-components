@@ -24,7 +24,7 @@ import { injectRadioGroupState, NgpRadioGroup, NgpRadioItem } from 'ng-primitive
  *
  * Reactive forms integrate through the ControlValueAccessor on the group;
  * standalone usage works via `[(value)]`. The group announces what the
- * primitive only styles (review 2026-10-04 L-06): `aria-disabled` when the
+ * primitive only styles: `aria-disabled` when the
  * whole group is disabled; `aria-invalid` for a touched invalid control comes
  * from the primitive's form-control status.
  */

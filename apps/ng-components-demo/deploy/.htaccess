@@ -1,6 +1,6 @@
 # designsystem.angular.st – Apache config for the prerendered static demo app
-# (spec 003). Deployed to the All-Inkl webroot of the subdomain next to the
-# static output.
+# (spec 003). Deployed to the webroot of the subdomain next to the static
+# output.
 
 # MultiViews content negotiation fights clean URLs; directory listings stay off.
 Options -MultiViews -Indexes
@@ -45,16 +45,16 @@ ErrorDocument 404 /index.html
 		Header set Cache-Control "public, max-age=86400"
 	</FilesMatch>
 
-	# Security headers, same set as the company sites. The demo never needs
-	# framing, powerful browser APIs, or MIME sniffing.
+	# Security headers. The demo never needs framing, powerful browser APIs,
+	# or MIME sniffing.
 	Header always set X-Content-Type-Options "nosniff"
 	Header always set Referrer-Policy "strict-origin-when-cross-origin"
 	Header always set Content-Security-Policy "frame-ancestors 'none'"
 	Header always set X-Frame-Options "DENY"
 	Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
-	# HSTS: one day, no subdomains, no preload – same starting point as
-	# angular.st. <If> rather than env=HTTPS: mod_ssl sets HTTPS after
+	# HSTS: one day, no subdomains, no preload. <If> rather than env=HTTPS:
+	# mod_ssl sets HTTPS after
 	# mod_rewrite's redirects run.
 	<If "%{HTTPS} == 'on'">
 		Header always set Strict-Transport-Security "max-age=86400"

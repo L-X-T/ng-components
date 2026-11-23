@@ -1,4 +1,4 @@
-// Reduced-motion layer (review 2026-07-11 D4): when the user asks for reduced
+// Reduced-motion layer: when the user asks for reduced
 // motion, every ngc animation and transition collapses to a near-zero
 // duration. Near-zero instead of `none` on purpose – ng-primitives waits for
 // animationend/transitionend to unmount toasts and accordion panels, and

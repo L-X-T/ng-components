@@ -82,12 +82,12 @@ describe('NgcButton', () => {
     fixture.detectChanges();
 
     // Both: the stylesheet keys off data-disabled, the browser off the native
-    // attribute – an OR would hide losing either one (review 2026-10-04 L-18).
+    // attribute – an OR would hide losing either one.
     expect(button.hasAttribute('data-disabled')).toBe(true);
     expect(button.disabled).toBe(true);
   });
 
-  describe('anchor hosts (review 2026-10-04 L-02)', () => {
+  describe('anchor hosts', () => {
     const click = (element: HTMLElement) =>
       element.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 
@@ -127,13 +127,13 @@ describe('NgcButton', () => {
       expect(fixture.componentInstance.clicks).toBe(1);
     });
 
-    it('restores a consumer tabindex and never touches native buttons (verification V-06)', () => {
+    it('restores a consumer tabindex and never touches native buttons', () => {
       const fixture = TestBed.createComponent(TabindexHost);
       fixture.detectChanges();
       const [anchor, roving] = Array.from(fixture.nativeElement.querySelectorAll('a')) as HTMLAnchorElement[];
       const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
       expect(anchor.getAttribute('tabindex')).toBe('0');
-      // An enabled anchor's own tabindex=-1 is the consumer's business (V-07).
+      // An enabled anchor's own tabindex=-1 is the consumer's business.
       expect(roving.getAttribute('tabindex')).toBe('-1');
       expect(button.getAttribute('tabindex')).toBe('-1');
 

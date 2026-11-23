@@ -28,7 +28,7 @@ let nextLabelId = 0;
  * dismissal, and focus restore. Layering uses the core `--z-overlay` token.
  * Inside `role="menu"` assistive technology only visits the items, so a bare
  * label is never announced – wrap label and items in `ngc-menu-group`, which
- * exposes the label as the group's name (review 2026-10-04 L-12).
+ * exposes the label as the group's name.
  */
 @Directive({
   selector: '[ngc-menu-trigger]',

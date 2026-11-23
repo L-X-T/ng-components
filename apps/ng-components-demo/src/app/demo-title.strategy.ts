@@ -7,7 +7,7 @@ export const SITE_NAME = 'ng-components';
 /**
  * `<route title> – ng-components`: component pages get their manifest name
  * (demoRoutes sets `title`), so browser tabs, history and the prerendered
- * HTML identify the page (review 2026-10-04 D-10).
+ * HTML identify the page.
  */
 @Injectable({ providedIn: 'root' })
 export class DemoTitleStrategy extends TitleStrategy {

@@ -28,15 +28,15 @@ test.describe('home', () => {
     await gotoHydrated(page, '/');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page).toHaveTitle('Angular component library – ng-components');
-    // Exactly one main landmark (review 2026-10-04 D-06).
+    // Exactly one main landmark.
     await expect(page.getByRole('main')).toHaveCount(1);
 
     expect(errors).toEqual([]);
   });
 });
 
-// Sidebar order – the pager walks the same sequence the sidebar shows
-// (review 2026-07-11 E3), so the sweep must assert against it too.
+// Sidebar order – the pager walks the same sequence the sidebar shows, so
+// the sweep must assert against it too.
 const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);
 
 for (const demo of SIDEBAR_ORDERED) {
@@ -45,7 +45,7 @@ for (const demo of SIDEBAR_ORDERED) {
       const errors = collectErrors(page);
 
       // Wait for hydration before the zero-console-errors assertion – NG05xx
-      // hydration errors fire after first render (review 2026-07-11 E5).
+      // hydration errors fire after first render.
       await gotoHydrated(page, demo.route);
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(demo.name);
       await expect(page).toHaveTitle(`${demo.name} – ng-components`);

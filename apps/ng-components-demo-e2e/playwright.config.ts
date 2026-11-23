@@ -7,7 +7,7 @@ const baseURL = `http://localhost:${port}`;
 /**
  * Tests run against the built prerendered output served statically – what
  * ships, not the dev server (spec 004). Chromium only by decision; no retries
- * because a flaky test is a bug (plan 004 watchpoints).
+ * because a flaky test is a bug.
  */
 export default defineConfig({
   testDir: './src',
@@ -27,7 +27,7 @@ export default defineConfig({
     command: `pnpm exec nx build ng-components-demo && pnpm exec serve --no-clipboard -l ${port} dist/apps/ng-components-demo/browser`,
     url: baseURL,
     // Never reuse a server on the fixed port: a stale local serve would let
-    // the suite validate an outdated build (review 2026-07-11 E10). The nx
+    // the suite validate an outdated build. The nx
     // build cache keeps the fresh-build cost near zero when nothing changed.
     reuseExistingServer: false,
     timeout: 300_000,

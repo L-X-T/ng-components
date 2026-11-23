@@ -29,15 +29,14 @@
     --accent-foreground: light-dark(oklch(20.5% 0 0deg), oklch(98.5% 0 0deg));
 
     // Dark: also used as error text on --background/--card – light fill, dark
-    // text (like --primary there) keeps every use >= 4.5:1 (review 2026-10-04 L-03).
+    // text (like --primary there) keeps every use >= 4.5:1.
     --destructive: light-dark(oklch(57.7% 0.245 27.325deg), oklch(66% 0.191 22.216deg));
     --destructive-hover: light-dark(oklch(52% 0.235 27.325deg), oklch(72% 0.18 22.216deg));
     --destructive-foreground: light-dark(oklch(98.5% 0 0deg), oklch(14.5% 0 0deg));
     --border: light-dark(oklch(92.2% 0 0deg), oklch(100% 0 0deg / 10%));
 
-    // Control border and focus ring at >= 3:1 on --background (WCAG 1.4.11,
-    // review 2026-10-04). Light: shadcn's 92.2% / 70.8% greys measured 1.26 /
-    // 2.59. Dark: opaque border at >= 3:1 on --background and --card – the
+    // Control border and focus ring at >= 3:1 on --background (WCAG 1.4.11).
+    // Light: shadcn's 92.2% / 70.8% greys measured 1.26 / 2.59. Dark: opaque border at >= 3:1 on --background and --card – the
     // translucent 15% white composited to 1.47.
     --input: light-dark(oklch(65% 0 0deg), oklch(52% 0 0deg));
     --ring: light-dark(oklch(60% 0 0deg), oklch(55.6% 0 0deg));

@@ -4,7 +4,7 @@ import { DEMO_MANIFEST, demoRoutes } from '@ngc-internal/demos/manifest';
 
 /**
  * Home + one lazy route per manifest entry – no hand-maintained route table
- * (plan 003). With `outputMode: static` every parameterless route here is
+ * (spec 003). With `outputMode: static` every parameterless route here is
  * prerendered, so the prerender list derives from the manifest too.
  */
 export const appRoutes: Route[] = [

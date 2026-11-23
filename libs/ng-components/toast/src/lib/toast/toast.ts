@@ -61,7 +61,7 @@ type ToastContext = { message: string; description?: string; dismissLabel?: stri
  * (internal detail, spec 001 §2). Toasts render into a fixed body-level
  * container per placement – browser only: on the server `show` is a no-op
  * that returns an already-dismissed handle, because the manager appends to
- * `document.body` (review 2026-10-04 L-01).
+ * `document.body`.
  */
 @Injectable({ providedIn: 'root' })
 export class NgcToast {
@@ -85,16 +85,16 @@ export class NgcToast {
  * The rendered toast (internal – created by {@link NgcToast.show}). Announcement
  * happens through NgpToastManager's live container – the single live region;
  * the toast itself must not repeat role=status/aria-live or screen readers
- * announce every toast twice (review 2026-07-11 D1). Always carries an
+ * announce every toast twice. Always carries an
  * explicit dismiss button.
  *
  * Keyboard focus inside a toast expands the stack and pauses the auto-dismiss
- * timers, like pointer hover does (review 2026-10-04 L-08): the manager
+ * timers, like pointer hover does: the manager
  * listens for `mouseenter`/`mouseleave` on its container and its timer API is
  * private, so focus is translated into those two events. Hover and focus are
  * independent – the stack stays expanded while either is active (the
  * manager's own `mouseleave` collapses it unconditionally, so a guard on the
- * container re-expands it while focus is still inside; verification V-08).
+ * container re-expands it while focus is still inside).
  */
 @Component({
   selector: 'ngc-toast',
@@ -149,7 +149,7 @@ export class NgcToastItem {
   /**
    * A keyboard dismissal removes the focused element, which fires no focusout
    * – without this the stack stayed expanded with every timer paused and
-   * focus fell to body (verification V-02). Focus moves on to the next toast's
+   * focus fell to body. Focus moves on to the next toast's
    * dismiss button; with none left the stack collapses unless hovered.
    */
   private async dismissFromButton(): Promise<void> {

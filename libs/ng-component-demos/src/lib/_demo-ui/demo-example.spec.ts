@@ -32,7 +32,7 @@ describe('DemoExample', () => {
     expect(element.querySelector('.ngc-demo-example__code')).toBeNull();
   });
 
-  it('reports a successful copy and a denied clipboard without throwing (review 2026-10-04 D-15)', async () => {
+  it('reports a successful copy and a denied clipboard without throwing', async () => {
     const fixture = setup();
     const element = fixture.nativeElement as HTMLElement;
     const copyButton = Array.from(element.querySelectorAll('.ngc-demo-example__button')).find((button) =>

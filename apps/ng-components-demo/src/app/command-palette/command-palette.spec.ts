@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { DEMO_MANIFEST, orderedDemos } from '@ngc-internal/demos/manifest';
 
-// The palette lists in sidebar order (category, then authored – review E3).
+// The palette lists in sidebar order (category, then authored).
 const SIDEBAR_ORDERED = orderedDemos(DEMO_MANIFEST);
 import { CommandPalette, filterDemoEntries } from './command-palette';
 
@@ -65,7 +65,7 @@ describe('CommandPalette', () => {
     expect(optionNames(nativeElement).length).toBe(DEMO_MANIFEST.length);
   });
 
-  it('renders options as non-focusable direct listbox children (review E6)', () => {
+  it('renders options as non-focusable direct listbox children', () => {
     const { nativeElement } = setup();
 
     const listbox = nativeElement.querySelector('[role="listbox"]') as HTMLElement;

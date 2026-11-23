@@ -192,7 +192,7 @@ function stampDemoStub(tree: Tree, substitutions: Substitutions, category: strin
     `    route: '/components/${fileName}',`,
     `    status: 'wip',`,
     // JSON.stringify escapes quotes/backslashes – a summary like "User's
-    // profile" must not break the stamped TS literal (review 2026-07-11 F4).
+    // profile" must not break the stamped TS literal.
     `    summary: ${JSON.stringify(summary)},`,
     `    examples: ['${fileName}-basic'],`,
     '  },',
@@ -206,7 +206,7 @@ function stampDemoStub(tree: Tree, substitutions: Substitutions, category: strin
   updateFile(tree, DEMOS_INDEX_PATH, (content) => `${content}export * from './lib/${fileName}/${fileName}-demo';\n`);
 
   // Relative import on purpose – the barrel would merge all demo pages into
-  // one chunk (review 2026-07-11 E2).
+  // one chunk.
   const loaderEntry = `  '${fileName}': () => import('../${fileName}/${fileName}-demo').then((m) => m.${className}Demo),`;
   if (tree.exists(DEMO_LOADERS_PATH)) {
     updateFile(tree, DEMO_LOADERS_PATH, (content) =>

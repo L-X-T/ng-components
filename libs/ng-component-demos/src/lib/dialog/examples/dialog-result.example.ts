@@ -32,7 +32,7 @@ import {
 
     <ng-template #deleteDialog let-close="close">
       <div ngc-dialog-overlay>
-        <!-- A destructive confirmation interrupts the user: alertdialog (review 2026-10-04 D-15). -->
+        <!-- A destructive confirmation interrupts the user: alertdialog. -->
         <div ngc-dialog role="alertdialog">
           <h2 ngc-dialog-title>Delete your account?</h2>
           <p ngc-dialog-description>All data is removed permanently. Escape or a click outside cancels.</p>

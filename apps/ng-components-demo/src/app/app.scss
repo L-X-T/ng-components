@@ -1,4 +1,4 @@
-// Shell chrome per plan 003 M3.1: calm density, token-driven, survives
+// Shell chrome per spec 003: calm density, token-driven, survives
 // re-skinning with ngc-* components. Header 3.5rem, sidebar 15rem.
 $header-height: 3.5rem;
 $sidebar-width: 15rem;
@@ -241,7 +241,7 @@ $sidebar-width: 15rem;
 
     // Closed drawer: visibility hidden takes its links out of the tab order and
     // the accessibility tree – translate alone only moved them off-screen
-    // (review 2026-10-04 D-02). The transition delays hiding until the slide ends.
+    // The transition delays hiding until the slide ends.
     &__sidebar {
       position: fixed;
       top: $header-height;
@@ -271,7 +271,7 @@ $sidebar-width: 15rem;
   }
 
   // Phones: the word mark goes, the theme selects may shrink – the header must
-  // never force horizontal scrolling (WCAG 1.4.10, review 2026-10-04 D-02).
+  // never force horizontal scrolling (WCAG 1.4.10).
   @media (width <= 30rem) {
     &__header {
       gap: 0.5rem;
@@ -288,7 +288,7 @@ $sidebar-width: 15rem;
     }
 
     // Visually hidden, not removed: the mark is aria-hidden, the text is the
-    // link's accessible name (verification 2026-10-04 V-02).
+    // link's accessible name.
     &__logo-text {
       position: absolute;
       width: 1px;

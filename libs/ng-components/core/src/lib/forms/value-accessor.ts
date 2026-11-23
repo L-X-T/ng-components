@@ -2,8 +2,8 @@ import { ElementRef, inject } from '@angular/core';
 import type { ControlValueAccessor } from '@angular/forms';
 
 /**
- * Shared ControlValueAccessor plumbing for the form components (review
- * 2026-07-11 D8): onChange/onTouched registration plus the touched semantics
+ * Shared ControlValueAccessor plumbing for the form components:
+ * onChange/onTouched registration plus the touched semantics
  * radio-group established – a control only becomes touched when focus leaves
  * its whole subtree, so moving between inner parts (radio items, a dropdown
  * trigger) does not touch it prematurely. Bind the host `(focusout)` to

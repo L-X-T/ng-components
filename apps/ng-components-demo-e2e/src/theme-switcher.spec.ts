@@ -31,7 +31,7 @@ test.describe('theme switcher', () => {
     await expect(page.getByRole('listbox').getByRole('option')).toHaveText(PALETTES.map((palette) => palette.label));
     await page.keyboard.press('Escape');
 
-    // Spec 004: every choice applies, not just one (review 2026-10-04 D-16).
+    // Spec 004: every choice applies, not just one.
     for (const palette of [...PALETTES].reverse()) {
       await choose(page, 'Theme palette', palette.label);
       await expect(trigger).toContainText(palette.label);

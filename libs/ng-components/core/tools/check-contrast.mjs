@@ -1,4 +1,4 @@
-// WCAG 2.x contrast gate for the ngc palettes, light and dark (review 2026-10-04 L-03/L-04/L-05).
+// WCAG 2.x contrast gate for the ngc palettes, light and dark.
 // Parses the oklch() and #rrggbb tokens of every _theme-*.scss – plain values,
 // both halves of light-dark(<light>, <dark>), and var(--token) aliases of
 // another token of the same palette – and checks the pairs the

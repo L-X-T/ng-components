@@ -25,7 +25,7 @@ export type NgcButtonSize = 'default' | 'sm' | 'lg' | 'icon';
  *
  * On `<a>` hosts NgpButton only sets `aria-disabled`; the wrapper makes a
  * hard-disabled link behave disabled too – it leaves the tab order and
- * swallows activation (review 2026-10-04 L-02).
+ * swallows activation.
  */
 @Directive({
   selector: '[ngc-button]',
@@ -60,9 +60,8 @@ export class NgcButton {
    * capture-phase listener swallows activation before Angular's own click
    * listeners run – `stopImmediatePropagation` from a bubbling listener
    * would not stop consumer `(click)` handlers on the same element
-   * (verification 2026-10-04 V-01). Only a tabindex the wrapper applied is
-   * undone; the consumer's own value is restored when the anchor is enabled
-   * again (V-06/V-07).
+   * Only a tabindex the wrapper applied is undone; the consumer's own value
+   * is restored when the anchor is enabled again.
    */
   private disableAnchorWhenHardDisabled(): void {
     const hardDisabled = computed(() => this.button.disabled() === true);

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 import { gotoHydrated } from './support/hydration';
 
 /**
- * Shell coverage (spec 004 layer 4, added in review 2026-10-04): the sidebar
+ * Shell coverage (spec 004 layer 4): the sidebar
  * mirrors the manifest, marks the current page, the skip link works, the
  * pager navigates, and the mobile drawer is keyboard-safe and never forces
  * horizontal scrolling.
@@ -33,7 +33,7 @@ test.describe('shell', () => {
 
     await page.keyboard.press('Enter');
     await expect(page.getByRole('main')).toBeFocused();
-    // No navigation: a #hash href would have resolved against <base href="/"> (verification V-01).
+    // No navigation: a #hash href would have resolved against <base href="/">.
     await expect(page).toHaveURL(new RegExp(`${DEMO_MANIFEST[0].route}(#main)?$`));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(DEMO_MANIFEST[0].name);
   });
@@ -46,7 +46,7 @@ test.describe('shell', () => {
 
     await expect(page).toHaveURL(new RegExp(`${second.route}$`));
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(second.name);
-    // Focus moves to the content instead of falling to body (verification V-11).
+    // Focus moves to the content instead of falling to body.
     await expect(page.getByRole('main')).toBeFocused();
   });
 
@@ -59,7 +59,7 @@ test.describe('shell', () => {
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
       expect(overflow).toBeLessThanOrEqual(0);
       await expect(page.getByRole('button', { name: 'Search' })).toBeVisible();
-      // The word mark is visually hidden here, not removed – the home link keeps its name (V-02).
+      // The word mark is visually hidden here, not removed – the home link keeps its name.
       await expect(page.getByRole('link', { name: 'ng-components' })).toBeVisible();
     });
 

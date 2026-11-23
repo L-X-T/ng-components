@@ -57,7 +57,7 @@ describe('NgcSelect', () => {
     expect(emissions).toBe(1);
   });
 
-  it('keeps the trigger in sync with a changing option label (review D6)', () => {
+  it('keeps the trigger in sync with a changing option label', () => {
     const { fixture, trigger } = setup();
     fixture.componentInstance.fruit.setValue('apple');
     fixture.detectChanges();
@@ -73,7 +73,7 @@ describe('NgcSelect', () => {
   // Open/select interaction runs through the overlay portal, which needs real
   // browser APIs – covered by the demo e2e suite (spec 001 §5).
 
-  it('announces disabled options (review 2026-10-04 L-08)', () => {
+  it('announces disabled options', () => {
     const { fixture } = setup();
     const options = fixture.componentInstance.options().map((option) => option.nativeElement as HTMLElement);
 

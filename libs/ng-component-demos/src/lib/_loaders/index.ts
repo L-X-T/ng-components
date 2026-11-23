@@ -4,7 +4,7 @@ import type { DemoLoaderMap } from '../_manifest';
  * Lazy demo-page loaders, keyed by manifest id. Lives inside the lib (entry
  * point `@ngc-internal/demos/loaders`) so the dynamic
  * imports can be relative – dynamically importing the public barrel from the
- * app put all demo pages into one shared chunk (review 2026-07-11 E2), while
+ * app put all demo pages into one shared chunk, while
  * relative imports give the bundler one split chunk per demo page. The
  * ngc-component generator stamps one entry per component.
  */

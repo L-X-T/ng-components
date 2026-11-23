@@ -18,7 +18,7 @@ import { NgpTooltip, NgpTooltipTrigger, provideTooltipConfig } from 'ng-primitiv
  * `aria-describedby` wiring while open, and flip/shift overlay positioning on
  * the core `--z-overlay` layer. Hover-triggered content must stay hoverable
  * (WCAG 1.4.13), so `hoverableContent` is on by default: moving the pointer
- * from the trigger onto the bubble keeps it open (review 2026-10-04 L-07).
+ * from the trigger onto the bubble keeps it open.
  * That default is provided on the trigger itself, which means an app-level
  * `provideTooltipConfig` from ng-primitives does not reach `ngc-tooltip-trigger`
  * – configure delays and placement through the inputs instead.

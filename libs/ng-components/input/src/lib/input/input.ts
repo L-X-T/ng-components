@@ -13,7 +13,7 @@ import { NgpInput } from 'ng-primitives/input';
  * control: the primitive sets it once the control is touched and invalid
  * (inside or outside `ngc-form-field`) and removes it otherwise, so a static
  * attribute does not survive – an input without a form control never reports
- * invalid (review 2026-10-04 L-13, in ng-primitives since 0.128).
+ * invalid (in ng-primitives since 0.128).
  */
 @Directive({
   selector: 'input[ngc-input]',

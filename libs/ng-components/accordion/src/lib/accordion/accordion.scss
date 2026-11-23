@@ -14,7 +14,7 @@
 
     // The anatomy wraps each trigger in a heading; strip its default margin
     // here (zero specificity via :where) so consumers don't need inline
-    // styles (review 2026-07-11 D10).
+    // styles.
     > :where(h1, h2, h3, h4, h5, h6) {
       margin: 0;
     }
@@ -47,8 +47,7 @@
     }
 
     // Native :focus-visible – NgpAccordionTrigger emits no interaction
-    // attributes, so a data-focus-visible ring never showed (review
-    // 2026-10-04 L-02).
+    // attributes, so a data-focus-visible ring never showed.
     &:focus-visible {
       border-radius: var(--radius-sm);
 

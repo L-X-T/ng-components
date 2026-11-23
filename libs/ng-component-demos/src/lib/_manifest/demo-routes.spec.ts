@@ -25,7 +25,7 @@ describe('demoRoutes', () => {
     expect(routes[0].data).toEqual({ demo: manifest[1] });
   });
 
-  it('fails loudly for an entry without a loader (review 2026-10-04 D-11)', () => {
+  it('fails loudly for an entry without a loader', () => {
     expect(() => demoRoutes(manifest, { button: loader })).toThrow(/"dialog" has no loader/);
   });
 });

@@ -10,7 +10,7 @@ import { snippet as statesSnippet } from './examples/button-states.ts.snippet';
 import { ButtonVariantsExample } from './examples/button-variants.example';
 import { snippet as variantsSnippet } from './examples/button-variants.ts.snippet';
 
-/** Docs page for ngc-button – the wave-1 template-setter (plan 002 M2.2). */
+/** Docs page for ngc-button – the wave-1 template-setter (spec 002). */
 @Component({
   selector: 'ngc-demo-button',
   imports: [

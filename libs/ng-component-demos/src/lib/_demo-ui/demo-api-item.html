@@ -4,7 +4,7 @@
     <span class="ngc-demo-api__kind">{{ apiKind }}</span>
   }
 </span>
-<!-- Empty cells read "none" instead of "en dash" (review 2026-10-04 D-21). -->
+<!-- Empty cells read "none" instead of "en dash". -->
 <span class="ngc-demo-api__cell" role="cell" [attr.aria-label]="type() ? null : 'none'"
   ><code>{{ type() ?? '–' }}</code></span
 >

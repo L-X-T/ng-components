@@ -94,13 +94,13 @@ describe('NgcRadioGroup', () => {
     fixture.detectChanges();
 
     expect(group.hasAttribute('data-disabled')).toBe(true);
-    // Assistive tech is told, not just the stylesheet (review 2026-10-04 L-06).
+    // Assistive tech is told, not just the stylesheet.
     expect(group.getAttribute('aria-disabled')).toBe('true');
     expect(items[0].getAttribute('aria-checked')).toBe('false');
     expect(fixture.componentInstance.plan.value).toBeNull();
   });
 
-  it('exposes aria-invalid for a touched invalid control inside a form field (review 2026-10-04 L-13)', () => {
+  it('exposes aria-invalid for a touched invalid control inside a form field', () => {
     const fixture = TestBed.createComponent(FieldHost);
     fixture.detectChanges();
     const group = fixture.nativeElement.querySelector('ngc-radio-group') as HTMLElement;

@@ -7,7 +7,7 @@ import {
   NGC_THEME_MODES,
 } from '@agentic-software/ng-components/core';
 
-// Guard for the no-flash inline script in index.html (review 2026-07-11 E9):
+// Guard for the no-flash inline script in index.html:
 // it duplicates the storage keys, the palette and mode lists, and the
 // migration of the old flat theme ids of NgcThemeService, and nothing else
 // would catch drift.

@@ -45,7 +45,7 @@ describe('NgcFormField', () => {
     expect(input.getAttribute('aria-describedby')).toContain(hint.id);
   });
 
-  it('keeps errors inert and out of aria-describedby until the control is touched (review 2026-10-04 L-01)', () => {
+  it('keeps errors inert and out of aria-describedby until the control is touched', () => {
     const { input, errors } = setup();
 
     expect(errors[0].getAttribute('data-validator')).toBe('fail');

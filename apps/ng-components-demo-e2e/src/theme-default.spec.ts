@@ -3,8 +3,7 @@ import { expect, type Page, test } from '@playwright/test';
 // First-visit default: auto mode – no data-theme-mode attribute, CSS follows
 // the OS colour scheme through light-dark(). The no-flash inline script is
 // unit-tested in theme-init-script.spec.ts; here everything is checked after
-// hydration so a hydration-time override cannot slip through (review
-// 2026-10-04 D-16).
+// hydration so a hydration-time override cannot slip through.
 const bodyBackground = (page: Page): Promise<string> =>
   page.evaluate(() => getComputedStyle(document.body).backgroundColor);
 

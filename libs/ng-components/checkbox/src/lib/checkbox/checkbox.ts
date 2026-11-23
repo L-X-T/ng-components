@@ -19,7 +19,7 @@ import { NgpCheckbox } from 'ng-primitives/checkbox';
  *
  * Reactive forms integrate through the ControlValueAccessor (`FormControl<boolean>`);
  * standalone usage works via `[(checked)]`. The wrapper adds `aria-required`
- * from the `required` input (review 2026-10-04 L-12); `aria-invalid` for a
+ * from the `required` input; `aria-invalid` for a
  * touched invalid control comes from the primitive's form-control status.
  */
 @Component({

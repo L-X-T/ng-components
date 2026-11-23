@@ -92,7 +92,7 @@ describe('NgcAccordion', () => {
     expect(contents[1].hasAttribute('data-open')).toBe(true);
   });
 
-  it('ignores clicks on a disabled item and disables its trigger (review 2026-10-04 L-07)', () => {
+  it('ignores clicks on a disabled item and disables its trigger', () => {
     const { fixture, triggers, contents } = setup();
 
     triggers[2].click();

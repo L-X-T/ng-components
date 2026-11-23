@@ -3,13 +3,13 @@
 
   // The name track never goes below its min-content (the longest unbreakable
   // name) – a fixed 8rem let `closeOnOutsideClick` and its badge spill into the
-  // Type column (sweep 2026-11-23). The badge wraps under the name instead.
+  // Type column. The badge wraps under the name instead.
   grid-template-columns: minmax(min-content, 1fr) minmax(6rem, 1.5fr) minmax(5rem, 1fr) minmax(10rem, 2fr);
   border: 1px solid var(--border);
   border-radius: var(--radius);
 
   // The four tracks need 29rem – narrower viewports scroll the table instead of
-  // clipping the default and description columns (review 2026-10-04 D-03).
+  // clipping the default and description columns.
   overflow-x: auto;
   font-size: 0.875rem;
 

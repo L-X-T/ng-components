@@ -1,7 +1,7 @@
 // Assembles the webroot of the demo app (spec 003): the prerendered static
 // output plus .htaccess, in dist/webroot/designsystem.angular.st/. The upload
-// itself is manual and never runs from here – the All-Inkl webspace offers
-// FTPS only: upload the folder in one session and verify every file's size.
+// itself is manual and never runs from here – the webspace offers FTPS
+// only: upload the folder in one session and verify every file's size.
 //
 // Usage: nx run ng-components-demo:assemble-webroot (builds first).
 import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';

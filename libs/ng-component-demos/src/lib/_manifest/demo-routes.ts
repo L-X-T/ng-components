@@ -12,7 +12,7 @@ export type DemoLoaderMap = Readonly<Record<string, DemoComponentLoader>>;
  * stays free of demo-page imports and the e2e project can consume the
  * manifest in isolation. A manifest entry without a loader is a wiring bug
  * (the sidebar would link to a dead route), so it fails loudly instead of
- * being skipped (review 2026-10-04 D-11).
+ * being skipped.
  */
 export function demoRoutes(manifest: readonly DemoManifestEntry[], loaders: DemoLoaderMap): Route[] {
   return orderedDemos(manifest).map((demo) => {
@@ -23,8 +23,8 @@ export function demoRoutes(manifest: readonly DemoManifestEntry[], loaders: Demo
     return {
       path: demo.route.replace(/^\//, ''),
       loadComponent,
-      // Document title per page (plan 003); the app's TitleStrategy appends the
-      // site name (review 2026-10-04 D-10).
+      // Document title per page (spec 003); the app's TitleStrategy appends the
+      // site name.
       title: demo.name,
       data: { demo },
     };

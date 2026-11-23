@@ -13,7 +13,7 @@ import { injectFormFieldState, NgpDescription, NgpFormField, NgpLabel } from 'ng
 let nextErrorId = 0;
 
 /**
- * Form field (the pattern the websites' contact form uses):
+ * Form field (the pattern a typical contact form uses):
  *
  * ```html
  * <ngc-form-field>
@@ -64,7 +64,7 @@ export class NgcFormFieldHint {}
  * Error message for one validator (or any error when `validator` is omitted).
  * Visible only while its validator fails on a touched control.
  *
- * Implemented without NgpError on purpose (review 2026-10-04 L-01): NgpError
+ * Implemented without NgpError on purpose: NgpError
  * registers its id in the control's `aria-describedby` as soon as the
  * validator fails – before the control is touched and while the message is
  * still `display: none` – so screen readers announced invisible errors.

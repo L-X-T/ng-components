@@ -146,7 +146,7 @@ element, `accordion` = composed structural component):
   `ngc-theme-mode` for the mode; auto removes the mode key). An old flat value
   in `ngc-theme` (`light`, `dark`, `angular-light`, `angular-dark`) is
   migrated once to palette plus mode. `provideNgcPalette` pins an app's
-  palette (the company sites); without it the palette defaults to `neutral`
+  palette (a consuming app without a palette picker); without it the palette defaults to `neutral`
   and a stored choice is restored (the demo app). SSR-safe: on the server
   the app's palette renders in auto mode and storage is never touched.
   No-flash restore of a stored mode (and, in the demo app, palette) is the

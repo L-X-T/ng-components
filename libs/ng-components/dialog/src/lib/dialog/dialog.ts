@@ -43,8 +43,7 @@ import { dialogIsUnlabelled } from './dialog-unlabelled';
  * description. Layering uses the core `--z-overlay` token. The dialog is
  * always modal: NgpDialog traps focus, hides the page from assistive
  * technology and blocks scrolling regardless of its `modal` flag, so that
- * flag is not exposed – it would only have flipped `aria-modal` (review
- * 2026-10-04 L-07). Use `role="alertdialog"` for confirmations.
+ * flag is not exposed – it would only have flipped `aria-modal`. Use `role="alertdialog"` for confirmations.
  */
 @Directive({
   selector: '[ngc-dialog-trigger]',

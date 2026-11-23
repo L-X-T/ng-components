@@ -2,8 +2,8 @@ import { expect, test } from '@playwright/test';
 import { gotoHydrated } from '../support/hydration';
 
 /**
- * Functional/keyboard coverage for the ngc-button demo page (plan 004 M4.3
- * wave 1: variants render, click fires, disabled is inert and announced).
+ * Functional/keyboard coverage for the ngc-button demo page (variants render,
+ * click fires, disabled is inert and announced).
  * The manifest sweep already covers rendering + console errors.
  */
 test.describe('button', () => {
@@ -51,7 +51,7 @@ test.describe('button', () => {
     await page.getByRole('option', { name: 'destructive' }).click();
     await expect(button).toHaveClass(/ngc-button--destructive/);
 
-    // Icon size: the playground names the button (review 2026-10-04 D-05).
+    // Icon size: the playground names the button.
     await page.getByRole('combobox', { name: 'Size' }).click();
     await page.getByRole('option', { name: 'icon' }).click();
     await expect(playground.getByRole('button', { name: 'Add' })).toBeVisible();

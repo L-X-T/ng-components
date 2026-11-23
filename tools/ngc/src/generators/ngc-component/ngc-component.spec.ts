@@ -56,7 +56,7 @@ describe('ngc-component generator', () => {
     const source = tree.read('libs/ng-components/card/src/lib/card/card.ts', 'utf-8');
     expect(source).toContain("selector: 'ngc-card'");
     expect(source).toContain('@Component');
-    // Shipped recipe (review F4): inline ng-content template + hostDirectives
+    // Shipped recipe: inline ng-content template + hostDirectives
     // skeleton – no external html file.
     expect(source).toContain('template: `<ng-content />`');
     expect(source).toContain('encapsulation: ViewEncapsulation.None');
@@ -128,7 +128,7 @@ describe('ngc-component generator', () => {
     );
   });
 
-  it('escapes quotes in the stamped summary (review F4)', async () => {
+  it('escapes quotes in the stamped summary', async () => {
     await ngcComponentGenerator(tree, {
       name: 'tooltip',
       summary: `Shows the user's hint with "context"`,
@@ -157,8 +157,7 @@ describe('ngc-component generator', () => {
 
     const spec = tree.read('apps/ng-components-demo-e2e/src/components/button.spec.ts', 'utf-8');
     expect(spec).toContain("test.describe('button'");
-    // gotoHydrated, not raw page.goto – the stub must not race hydration
-    // (review F4).
+    // gotoHydrated, not raw page.goto – the stub must not race hydration.
     expect(spec).toContain("gotoHydrated(page, '/components/button')");
     expect(spec).toContain("import { gotoHydrated } from '../support/hydration'");
   });

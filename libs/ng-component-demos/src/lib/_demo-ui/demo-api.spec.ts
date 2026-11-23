@@ -28,7 +28,7 @@ describe('DemoApi', () => {
     expect(element.textContent).toContain('Visual style');
   });
 
-  it('exposes a complete ARIA table structure (review E7)', () => {
+  it('exposes a complete ARIA table structure', () => {
     const fixture = TestBed.createComponent(Host);
     fixture.detectChanges();
     const element = fixture.nativeElement as HTMLElement;

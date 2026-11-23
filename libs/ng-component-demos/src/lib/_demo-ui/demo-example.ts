@@ -63,7 +63,7 @@ export class DemoExample {
       this.copyState.set('copied');
     } catch {
       // Clipboard denied or unavailable (insecure context, permissions) –
-      // say so instead of leaking an unhandled rejection (review 2026-10-04 D-15).
+      // say so instead of leaking an unhandled rejection.
       this.copyState.set('failed');
     }
   }

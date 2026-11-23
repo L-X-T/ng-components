@@ -77,7 +77,7 @@ describe('NgcCheckbox', () => {
     expect(checkbox.hasAttribute('data-indeterminate')).toBe(true);
   });
 
-  it('exposes aria-required from the required input (review 2026-10-04 L-12)', () => {
+  it('exposes aria-required from the required input', () => {
     const { fixture, checkbox } = setup(Host);
     expect(checkbox.hasAttribute('aria-required')).toBe(false);
 
@@ -87,7 +87,7 @@ describe('NgcCheckbox', () => {
     expect(checkbox.getAttribute('aria-required')).toBe('true');
   });
 
-  it('exposes aria-invalid for a touched invalid control inside a form field (review 2026-10-04 L-13)', () => {
+  it('exposes aria-invalid for a touched invalid control inside a form field', () => {
     const { fixture, checkbox } = setup(FieldHost);
     expect(checkbox.hasAttribute('aria-invalid')).toBe(false);
 

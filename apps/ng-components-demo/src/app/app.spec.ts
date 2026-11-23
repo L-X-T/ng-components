@@ -22,7 +22,7 @@ describe('App', () => {
     expect(compiled.querySelector('.shell__logo-text')?.textContent).toContain('ng-components');
     expect(compiled.querySelector('router-outlet')).not.toBeNull();
     expect(compiled.querySelector('.shell__sidebar')).not.toBeNull();
-    // One main landmark, focusable as the drawer's focus target (review 2026-10-04 D-02/D-06).
+    // One main landmark, focusable as the drawer's focus target.
     const main = compiled.querySelector('main') as HTMLElement;
     expect(main.getAttribute('tabindex')).toBe('-1');
     expect(compiled.querySelector('.shell__search')?.getAttribute('aria-label')).toBe('Search');

@@ -24,7 +24,7 @@
     // The projected example host is the only flex item here; its own children
     // (rows of buttons, badges…) would sit flush as inline boxes. Laying the
     // host out as a wrapping row gives every example the same gap, also on a
-    // phone (layout sweep 2026-11-23).
+    // phone.
     > * {
       display: flex;
       flex-wrap: wrap;

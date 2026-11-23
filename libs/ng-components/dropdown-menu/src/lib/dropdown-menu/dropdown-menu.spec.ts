@@ -43,7 +43,7 @@ describe('DropdownMenu', () => {
     expect(separator.getAttribute('role')).toBe('separator');
   });
 
-  it('names a menu group by its label (review 2026-10-04 L-12)', () => {
+  it('names a menu group by its label', () => {
     const { nativeElement } = setup();
     const group = nativeElement.querySelector('[ngc-menu-group]') as HTMLElement;
     const label = nativeElement.querySelector('[ngc-menu-label]') as HTMLElement;

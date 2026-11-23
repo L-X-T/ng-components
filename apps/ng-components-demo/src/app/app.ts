@@ -37,7 +37,7 @@ export function themeOptionLabel(id: string): string {
 /**
  * Demo app shell: header (logo, ⌘K search, palette and mode switchers, GitHub link),
  * manifest-driven sidebar (ngc-badge status markers), content area. The
- * command palette opens via the search button or Cmd/Ctrl+K (plan 003 M3.3).
+ * command palette opens via the search button or Cmd/Ctrl+K (spec 003).
  * `data-hydrated` appears once the first navigation has resolved its lazy
  * route and rendered on the client, so the e2e suite can wait for client-side
  * initialisation on every route, home included.
@@ -74,8 +74,8 @@ export class App {
   protected readonly hydrated = signal(false);
   /**
    * Skip-link target on the current URL: a bare `#main` resolves against
-   * `<base href="/">` and sends keyboard users home before hydration
-   * (verification 2026-10-04 V-01); the click handler covers the hydrated case.
+   * `<base href="/">` and sends keyboard users home before hydration;
+   * the click handler covers the hydrated case.
    */
   protected readonly skipLinkHref = toSignal(
     this.router.events.pipe(
@@ -99,7 +99,7 @@ export class App {
   constructor() {
     // Anchor scrolling (outline + section permalinks) must land below the
     // sticky header; scroll-margin does not apply to ViewportScroller's
-    // window.scrollTo (review 2026-10-04 D-09). Measured, not assumed – the
+    // window.scrollTo. Measured, not assumed – the
     // header is 3.5rem and follows the root font size.
     inject(ViewportScroller).setOffset(() => [
       0,
@@ -151,7 +151,7 @@ export class App {
     }
   }
 
-  /** Opening the drawer moves focus into it; closing it returns focus to the toggle (review 2026-10-04 D-02). */
+  /** Opening the drawer moves focus into it; closing it returns focus to the toggle. */
   protected toggleSidebar(): void {
     const open = !this.sidebarOpen();
     this.sidebarOpen.set(open);
@@ -175,7 +175,7 @@ export class App {
     this.content().nativeElement.focus();
   }
 
-  /** A sidebar link closes the drawer – focus must not stay on the now-hidden link (review 2026-10-04 D-02). */
+  /** A sidebar link closes the drawer – focus must not stay on the now-hidden link. */
   protected onSidebarNavigate(): void {
     if (this.sidebarOpen()) {
       this.sidebarOpen.set(false);

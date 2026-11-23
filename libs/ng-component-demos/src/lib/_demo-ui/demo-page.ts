@@ -45,8 +45,7 @@ export class DemoPage {
 
   /**
    * Optional overrides – the header defaults to the current manifest entry's
-   * name/summary, so demo pages need not duplicate them (review 2026-07-11
-   * E8).
+   * name/summary, so demo pages need not duplicate them.
    */
   readonly title = input<string>();
   readonly summary = input<string>();
@@ -58,7 +57,7 @@ export class DemoPage {
   private readonly currentEntry = this.resolveCurrentEntry();
 
   // demoPrevNext walks sidebar order (category, then authored order) – the
-  // pager must match the sequence the sidebar shows (review 2026-07-11 E3).
+  // pager must match the sequence the sidebar shows.
   private readonly pager: DemoPrevNext = this.currentEntry ? demoPrevNext(DEMO_MANIFEST, this.currentEntry.id) : {};
   protected readonly previous = this.pager.prev;
   protected readonly next = this.pager.next;

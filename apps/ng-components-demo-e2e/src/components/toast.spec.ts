@@ -3,8 +3,7 @@ import { gotoHydrated } from '../support/hydration';
 
 test.describe('toast', () => {
   test.beforeEach(async ({ page }) => {
-    // Fake clock: the auto-dismiss tests fast-forward instead of sleeping
-    // (review 2026-10-04 D-17).
+    // Fake clock: the auto-dismiss tests fast-forward instead of sleeping.
     await page.clock.install();
     await gotoHydrated(page, '/components/toast');
   });
@@ -16,7 +15,7 @@ test.describe('toast', () => {
     await expect(toast).toBeVisible();
     await expect(toast).toContainText('Article published');
     await expect(toast).toContainText('Readers were notified.');
-    // Single live region (review D1): the manager container announces; the
+    // Single live region: the manager container announces; the
     // toast itself must not repeat role/aria-live.
     await expect(page.locator('[aria-live="polite"]').locator('.ngc-toast')).toBeVisible();
     await expect(toast).not.toHaveAttribute('role');

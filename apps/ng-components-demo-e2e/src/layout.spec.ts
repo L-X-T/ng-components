@@ -3,7 +3,7 @@ import { expect, type Locator, type Page, test } from '@playwright/test';
 import { gotoHydrated } from './support/hydration';
 
 /**
- * Layout regressions from the 2026-11-23 sweep, measured in the DOM: sibling
+ * Layout regressions, measured in the DOM: sibling
  * buttons that touched, API badges spilling into the Type column, and the home
  * page listing only some components in cards of uneven height.
  */

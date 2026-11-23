@@ -68,7 +68,7 @@ export class NgcAccordionItem {}
  * Wrap it in a heading element of the right level. A disabled item (or
  * accordion) disables the native button – NgpAccordionTrigger only emits
  * `data-disabled` and keeps the button a focusable, announced-as-enabled tab
- * stop (review 2026-10-04 L-07).
+ * stop.
  */
 @Component({
   selector: 'button[ngc-accordion-trigger]',

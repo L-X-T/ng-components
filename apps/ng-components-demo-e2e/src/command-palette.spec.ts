@@ -41,7 +41,7 @@ test.describe('command palette', () => {
   test('arrow keys move the active option and Enter selects it', async ({ page }) => {
     await page.keyboard.press('ControlOrMeta+k');
     // The ArrowDown must land in the palette input, not on the page behind the
-    // still-opening dialog – wait for focus first (flaky before 2026-10-04).
+    // still-opening dialog – wait for focus first.
     await expect(page.getByRole('combobox', { name: 'Search components' })).toBeFocused();
 
     await page.keyboard.press('ArrowDown');

@@ -23,7 +23,7 @@ import { NgpTabButton, NgpTabList, NgpTabPanel, NgpTabset } from 'ng-primitives/
  * activates while arrowing. Only the tabset takes an `id`: the
  * primitive derives tab and panel ids (and their aria-controls /
  * aria-labelledby pairing) from it, so custom ids on the parts would break
- * the pairing (review 2026-10-04 L-04).
+ * the pairing.
  */
 @Component({
   selector: 'ngc-tabs',

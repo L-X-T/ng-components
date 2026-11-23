@@ -6,7 +6,7 @@
   // Layer the toast stack on the core token (toasts above overlays, 1100 >
   // 1000) instead of NgpToastManager's inline z-index: 9999999 default –
   // !important is required to beat an inline style and stays inside the ngc
-  // layer (review 2026-07-11 D7).
+  // layer.
   [data-ngp-toast-container] {
     /* stylelint-disable-next-line declaration-no-important */
     z-index: var(--z-toast) !important;
@@ -77,7 +77,7 @@
 
     // Physical sides on purpose: NgpToastManager anchors its zero-width
     // containers with physical left/right, so logical offsets would push the
-    // toast off-screen in RTL (verification 2026-10-04 V-04).
+    // toast off-screen in RTL.
     &[data-position-x='end'] {
       right: 0;
     }
@@ -120,8 +120,7 @@
     }
 
     // Toasts beyond the visible stack: visibility also removes the dismiss
-    // button from the tab order and from assistive technology (review
-    // 2026-10-04 L-06).
+    // button from the tab order and from assistive technology.
     &[data-visible='false'] {
       visibility: hidden;
       opacity: 0;
@@ -130,8 +129,7 @@
 
     &[data-expanded='false'][data-front='false'] {
       // Each toast behind the front one shrinks by 5% – positive scale; the
-      // reference's `scale(calc(-1 * …))` mirrored the content (review
-      // 2026-10-04 L-10).
+      // reference's `scale(calc(-1 * …))` mirrored the content.
       --scale: calc(1 - var(--ngp-toasts-before) * 0.05);
       --y: translateY(calc(var(--lift-amount) * var(--ngp-toasts-before))) scale(var(--scale));
 
@@ -158,8 +156,7 @@
       transition: none;
     }
 
-    // Centered toasts keep their horizontal centering while swiping (review
-    // 2026-10-04 L-14).
+    // Centered toasts keep their horizontal centering while swiping.
     &[data-position-x='center'][data-swiping='true'] {
       transform: translateX(50%) var(--y) translateY(var(--ngp-toast-swipe-amount-y, 0))
         translateX(var(--ngp-toast-swipe-amount-x, 0));

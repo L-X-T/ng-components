@@ -43,8 +43,7 @@
     }
 
     // Native :focus-visible – NgpSelect emits data-focus, not
-    // data-focus-visible, so the former selector never matched (review
-    // 2026-10-04 L-01).
+    // data-focus-visible, so the former selector never matched.
     &:focus-visible {
       border-color: var(--ring);
 

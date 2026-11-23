@@ -1,12 +1,12 @@
-// Shared SCSS mixins (review 2026-07-11 D8). Component styles @use this file
-// via a relative path – no stylePreprocessorOptions needed, so every app that
-// compiles the library styles (demo + both websites + vitest) just works.
+// Shared SCSS mixins. Component styles @use this file via a relative path –
+// no stylePreprocessorOptions needed, so every build that compiles the
+// library styles (the demo app, consuming apps, Vitest) just works.
 
 /// The focus/invalid indicator: a solid 2px outline in a theme colour (the
 /// focus ring, or var(--destructive) for invalid controls), offset so it sits
 /// just outside the border. Solid on purpose: shadcn's 50%-mixed halo
 /// composites to 1.8–2.3:1 against the page and fails WCAG 1.4.11; the ring
-/// tokens are kept at >= 3:1 by core:check-contrast (review 2026-10-04). An
+/// tokens are kept at >= 3:1 by core:check-contrast. An
 /// outline also survives forced-colors mode, where box-shadow is dropped.
 @mixin ring($color: var(--ring)) {
   outline: 2px solid #{$color};

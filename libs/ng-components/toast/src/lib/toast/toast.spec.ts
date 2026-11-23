@@ -21,7 +21,7 @@ describe('NgcToast', () => {
     expect(element?.textContent).toContain('Article published');
   });
 
-  it('announces through a single live region – the manager container (review D1)', () => {
+  it('announces through a single live region – the manager container', () => {
     const { element } = show('Article published');
 
     // The container is the live region; the toast itself must not repeat
@@ -62,7 +62,7 @@ describe('NgcToast', () => {
     expect(element?.querySelector('.ngc-toast__description')?.textContent).toContain('Readers were notified.');
   });
 
-  it('is a no-op on the server platform (review 2026-10-04 L-01)', async () => {
+  it('is a no-op on the server platform', async () => {
     TestBed.configureTestingModule({ providers: [{ provide: PLATFORM_ID, useValue: 'server' }] });
 
     const ref = TestBed.inject(NgcToast).show('Server side');
@@ -72,7 +72,7 @@ describe('NgcToast', () => {
     await expect(ref.dismiss()).resolves.toBeUndefined();
   });
 
-  describe('keyboard focus pauses auto-dismiss like hover (review 2026-10-04 L-08)', () => {
+  describe('keyboard focus pauses auto-dismiss like hover', () => {
     it('keeps the toast while the dismiss button is focused and resumes once focus leaves', async () => {
       vi.useFakeTimers();
       try {
@@ -93,7 +93,7 @@ describe('NgcToast', () => {
       }
     });
 
-    it('moves focus to the next toast on keyboard dismissal and keeps the rest paused only while focused (verification V-02)', async () => {
+    it('moves focus to the next toast on keyboard dismissal and keeps the rest paused only while focused', async () => {
       vi.useFakeTimers();
       try {
         show('First', { duration: 1000 });
@@ -129,7 +129,7 @@ describe('NgcToast', () => {
       }
     });
 
-    it('stays expanded when the pointer leaves while focus is still inside (verification V-08)', async () => {
+    it('stays expanded when the pointer leaves while focus is still inside', async () => {
       vi.useFakeTimers();
       try {
         const { element } = show('Focused', { duration: 1000 });
@@ -165,7 +165,7 @@ describe('NgcToast', () => {
 
       (element?.querySelector('.ngc-toast__close') as HTMLButtonElement).click();
       // The exit animation completes on a timer – advance it instead of
-      // sleeping real 600 ms (review 2026-07-11 D8).
+      // sleeping real 600 ms.
       await vi.advanceTimersByTimeAsync(600);
 
       expect(document.body.querySelector('.ngc-toast')).toBeNull();

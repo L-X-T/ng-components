@@ -7,8 +7,7 @@ import { dirname, join, posix, relative, sep } from 'node:path';
 import { codeToHtml } from 'shiki';
 
 // Resolved from this file, not from process.cwd(): run from anywhere the
-// generator finds the same examples instead of silently writing nothing
-// (review 2026-10-04 D-12).
+// generator finds the same examples instead of silently writing nothing.
 const LIB_SRC = join(import.meta.dirname, '..', 'src', 'lib');
 // Glob patterns need forward slashes even on Windows (backslashes escape).
 const LIB_SRC_GLOB = LIB_SRC.split(sep).join('/');
@@ -21,7 +20,7 @@ async function highlight(source, lang) {
   return codeToHtml(source, {
     lang,
     // High-contrast variants: github-light's comment grey (#6a737d) measured
-    // 4.4:1 on --muted and its orange constants 3.2:1 (review 2026-10-04 D-04).
+    // 4.4:1 on --muted and its orange constants 3.2:1.
     themes: { light: 'github-light-high-contrast', dark: 'github-dark-high-contrast' },
     // The light theme's comment grey still measured 4.47:1 on angular-light's
     // tinted --muted; one shade darker clears 4.5:1 in both light themes.
@@ -56,7 +55,7 @@ async function run() {
     writeFileSync(snippetPath, contents);
   }
 
-  // Orphan cleanup (review 2026-07-11 E4): a renamed or deleted example must
+  // Orphan cleanup: a renamed or deleted example must
   // not leave its stale snippet behind.
   const orphans = globSync(SNIPPETS_GLOB).filter((snippet) => !expectedSnippets.has(snippet));
   for (const orphan of orphans) {

@@ -2,7 +2,7 @@ import { DEMO_MANIFEST } from '@ngc-internal/demos/manifest';
 import { expect, test } from '@playwright/test';
 import { gotoHydrated } from './support/hydration';
 
-// Regression for review 2026-07-11 E1: with <base href="/"> a plain #hash
+// Regression: with <base href="/"> a plain #hash
 // link navigates to the home page instead of scrolling to the section.
 test.describe('on this page outline', () => {
   test('clicking an outline link scrolls to the section on the same route', async ({ page }) => {
@@ -21,7 +21,7 @@ test.describe('on this page outline', () => {
     await expect(page).toHaveURL(`${demo.route}#${fragment}`);
     const target = page.locator(`#${fragment}`);
     await expect(target).toBeInViewport();
-    // …and below the sticky header, not behind it (review 2026-10-04 D-09).
+    // …and below the sticky header, not behind it.
     const headerBottom = await page
       .locator('.shell__header')
       .evaluate((header) => header.getBoundingClientRect().bottom);
@@ -30,7 +30,7 @@ test.describe('on this page outline', () => {
     expect(targetTop).toBeLessThanOrEqual(headerBottom + 32);
   });
 
-  test('section heading permalinks stay on the route (review 2026-10-04 D-01)', async ({ page }) => {
+  test('section heading permalinks stay on the route', async ({ page }) => {
     const demo = DEMO_MANIFEST[0];
     await gotoHydrated(page, demo.route);
 
