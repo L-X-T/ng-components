@@ -43,6 +43,9 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+
+    // Fill the stretched grid cell so every card in a row is equally tall.
+    height: 100%;
     padding: 1rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demos/manifest';
 
-/** Landing page: short intro + quick links into the component demos. */
+/** Landing page: short intro + links into every component demo. */
 @Component({
   selector: 'app-home',
   imports: [RouterLink],
@@ -11,5 +11,5 @@ import { DEMO_MANIFEST, orderedDemos } from '@angular-software/ng-component-demo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Home {
-  protected readonly quickLinks = orderedDemos(DEMO_MANIFEST).slice(0, 6);
+  protected readonly quickLinks = orderedDemos(DEMO_MANIFEST);
 }
